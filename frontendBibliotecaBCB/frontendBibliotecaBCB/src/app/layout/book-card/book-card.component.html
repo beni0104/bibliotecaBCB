@@ -1,0 +1,9 @@
+<div class="card border-dark mb-3" style="max-width: 18rem;">
+    <img class="card-img-top" src="assets/images/bibliotecaBCBLogo.jpg" height="160" width="90" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{book.title}}</h5>
+      <ngb-rating [rate]="3" [disabled]="true" [max]="5"/>
+      <p class="card-text"><small class="text-muted">Categorie: {{book.category}}</small></p>
+      <button type="button" class="btn btn-primary">Detalii</button>
+    </div>
+</div>
