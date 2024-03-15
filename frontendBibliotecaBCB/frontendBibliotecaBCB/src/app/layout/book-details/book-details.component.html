@@ -1,0 +1,45 @@
+<div class="container mt-4">
+    <div class="row">
+      <div class="col-md-6">
+        <!-- Book Cover -->
+        <img src="assets\images\bibliotecaBCBLogo.jpg" alt="{{ book.title }}" class="img-fluid">
+      </div>
+      <div class="col-md-6">
+        <h2>{{ book.title }}</h2>
+        <p>{{ book.author }}</p>
+        <p>{{ book.category }}</p>
+        <!-- etc. for other metadata -->
+  
+        <!-- Availability -->
+        <p>Status: <span [ngClass]="{'text-success': isAvailable, 'text-danger': !isAvailable}">
+          {{ isAvailable ? 'Available' : 'Not Available' }}
+        </span></p>
+  
+        <!-- Rating System -->
+        <ngb-rating [(rate)]="userRating" [readonly]="false"></ngb-rating>
+        <br>
+  
+        <!-- Rent Button -->
+        <button class="btn btn-primary" (click)="rentBook()" [disabled]="!isAvailable">Rent this Book</button>
+  
+        <!-- User Reviews -->
+        <div *ngFor="let review of userReviews">
+          <p>{{ review.username }} says: {{ review.comment }}</p>
+          <ngb-rating [rate]="review.rating" [readonly]="true"></ngb-rating>
+        </div>
+  
+        <!-- Submit Review Form -->
+        <!-- Form for submitting a review -->
+      </div>
+    </div>
+  
+    <hr>
+  
+    <!-- Related Books -->
+    <div class="row">
+      <div class="col" *ngFor="let relatedBook of relatedBooks">
+        <app-book-card [book]="relatedBook"></app-book-card>
+      </div>
+    </div>
+  </div>
+  

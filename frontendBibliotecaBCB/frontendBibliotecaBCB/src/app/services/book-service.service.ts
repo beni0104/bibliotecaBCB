@@ -31,4 +31,22 @@ export class BookServiceService {
     }
   }
 
+  async getAllBooks() {
+    try {
+      const response = await fetch(`http://localhost:8080/api/book/all`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const data: Book = await response.json();
+      return data;
+    }
+    catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+
 }

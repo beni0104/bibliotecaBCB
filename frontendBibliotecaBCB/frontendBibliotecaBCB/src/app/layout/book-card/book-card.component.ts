@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Book } from '../../interfaces/book';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-book-card',
@@ -8,5 +9,9 @@ import { Book } from '../../interfaces/book';
 })
 export class BookCardComponent {
   @Input() book!: Book;
-  constructor() { }
+  constructor(private router: Router) { }
+
+  goToDetails(book: Book) {
+    this.router.navigate(['/bookdetails'], { state: { book } });
+  }
 }
