@@ -3,6 +3,8 @@ import { isPlatformBrowser } from '@angular/common';
 import { Book } from '../../interfaces/book';
 import { UserReview } from '../../interfaces/review';
 import { Router, ActivatedRoute } from '@angular/router';
+import { EncryptionService } from '../../services/encryption.service';
+import { BookService } from '../../services/book.service';
 
 @Component({
   selector: 'app-book-details',
@@ -11,12 +13,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class BookDetailsComponent implements OnInit {
   book: Book = {
-    "id": 1000,
-    "bookId": 367,
-    "title": "10 BĂIEȚI CARE AU FĂCUT ISTORIE",
-    "author": "IRENE HOWART",
-    "category": "CARTE COPII",
-    "amount": 1
+    "id": 0,
+    "bookId": 0,
+    "title": "",
+    "author": "",
+    "category": "",
+    "amount": 0
   };
   relatedBooks: Book[] = [];
   isAvailable: boolean = false;
@@ -59,11 +61,24 @@ export class BookDetailsComponent implements OnInit {
     }
   ];
 
-  constructor(private route: ActivatedRoute, private router: Router, @Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(
+      private bookservice: BookService,
+      private encryptionService: EncryptionService,
+      private route: ActivatedRoute,
+      private router: Router,
+      @Inject(PLATFORM_ID) private platformId: Object) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as {book: Book};
     if (state && state.book) {
       this.book = state.book;
+      
+    } else {
+      this.route.queryParams.subscribe(params => {
+        const decryptedId = this.encryptionService.decrypt(params['id']);
+        this.bookservice.getBookById(Number(decryptedId)).then((data: any) => {
+          this.book = data;
+        })
+      });
     }
     if (isPlatformBrowser(this.platformId)) {
       // This code will only execute on the browser

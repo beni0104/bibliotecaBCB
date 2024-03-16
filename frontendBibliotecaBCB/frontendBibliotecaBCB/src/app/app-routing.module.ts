@@ -5,7 +5,7 @@ import { BookDetailsComponent } from './layout/book-details/book-details.compone
 
 const routes: Routes = [
   { path: "", component: CardGridComponent},
-  { path: "bookdetails" , component: BookDetailsComponent}
+  { path: 'bookdetails', component: BookDetailsComponent }
 ];
 
 @NgModule({

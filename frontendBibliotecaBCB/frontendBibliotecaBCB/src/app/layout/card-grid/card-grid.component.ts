@@ -1,6 +1,6 @@
 import { Component, Inject, PLATFORM_ID  } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { BookServiceService } from '../../services/book-service.service';
+import { BookService } from '../../services/book.service';
 import { Book } from '../../interfaces/book';
 
 @Component({
@@ -15,7 +15,7 @@ export class CardGridComponent {
   collectionSize = 0;
   searchTerm: string = '';
 
-  constructor(private bookservice: BookServiceService, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(private bookservice: BookService, @Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit() {
     this.getBooks();

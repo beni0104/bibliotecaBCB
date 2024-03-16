@@ -5,7 +5,7 @@ import { Book } from '../interfaces/book';
 @Injectable({
   providedIn: 'root'
 })
-export class BookServiceService {
+export class BookService {
 
   constructor(private http: HttpClient) { }
 
@@ -48,5 +48,21 @@ export class BookServiceService {
     }
   }
 
+  async getBookById(id: number) {
+    try {
+      const response = await fetch(`http://localhost:8080/api/book/getbyid?id=` + id, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const data: Book = await response.json();
+      return data;
+    }
+    catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 
 }
