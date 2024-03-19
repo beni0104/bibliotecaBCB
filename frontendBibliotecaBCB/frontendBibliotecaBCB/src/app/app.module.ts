@@ -12,6 +12,7 @@ import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { BookDetailsComponent } from './layout/book-details/book-details.component';
 import { FormsModule } from '@angular/forms';
+import { ReviewDropdownComponent } from './layout/review-dropdown/review-dropdown.component';
 
 const icons = {
   Person
@@ -22,7 +23,8 @@ const icons = {
     AppComponent,
     BookCardComponent,
     CardGridComponent,
-    BookDetailsComponent
+    BookDetailsComponent,
+    ReviewDropdownComponent,
   ],
   imports: [
     BrowserModule,
