@@ -2,6 +2,9 @@ package com.example.bibliotecaBCB.data.service;
 
 import com.example.bibliotecaBCB.data.entity.Book;
 import com.example.bibliotecaBCB.data.repository.BookRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,8 +26,8 @@ public class BookService {
         bookRepository.save(book);
     }
 
-    public void delete(Book book){
-        bookRepository.delete(book);
+    public void deleteById(Long id){
+        bookRepository.deleteById(id);
     }
 
     public void update(Book book){
@@ -33,6 +36,14 @@ public class BookService {
 
     public Optional<Book> findById(Long id){
         return bookRepository.findById(id);
+    }
+
+    public Page<Book> getPagedBooks(int offset) {
+        int limit = 25;
+        int page = offset / limit; // calculate page number
+        Pageable pageable = PageRequest.of(page, limit);
+
+        return bookRepository.findAll(pageable);
     }
 
 }

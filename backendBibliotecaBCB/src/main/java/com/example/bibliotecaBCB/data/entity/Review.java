@@ -20,4 +20,9 @@ public class Review {
     private double rating;
     private String description;
 
+    public Review(String type, double rating, String description) {
+        this.type = type;
+        this.rating = rating;
+        this.description = description;
+    }
 }

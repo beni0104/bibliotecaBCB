@@ -22,4 +22,8 @@ public class Loan {
     private Date dateLoaned;
     private Date dateReturned;
 
+    public Loan(Date dateLoaned, Date dateReturned) {
+        this.dateLoaned = dateLoaned;
+        this.dateReturned = dateReturned;
+    }
 }
