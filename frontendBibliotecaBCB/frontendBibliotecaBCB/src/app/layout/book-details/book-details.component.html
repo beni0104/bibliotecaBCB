@@ -43,9 +43,11 @@
     <app-review-dropdown [bookId]="book.id"></app-review-dropdown>
   
     <!-- Related Books -->
-    <div class="row">
-      <div class="col" *ngFor="let relatedBook of relatedBooks">
-        <app-book-card [book]="relatedBook"></app-book-card>
+    <hr>
+    <h4>Alte cărți din aceeași categorie</h4>
+    <div class="related-books-container">
+      <div class="related-book" *ngFor="let relatedBook of relatedBooks" >
+        <app-related-book-card [book]="relatedBook"></app-related-book-card>
       </div>
     </div>
 </div>

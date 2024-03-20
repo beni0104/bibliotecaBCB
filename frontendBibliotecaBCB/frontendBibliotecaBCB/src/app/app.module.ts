@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BookDetailsComponent } from './layout/book-details/book-details.component';
 import { FormsModule } from '@angular/forms';
 import { ReviewDropdownComponent } from './layout/review-dropdown/review-dropdown.component';
+import { RelatedBookCardComponent } from './layout/related-book-card/related-book-card.component';
 
 const icons = {
   Person
@@ -25,6 +26,7 @@ const icons = {
     CardGridComponent,
     BookDetailsComponent,
     ReviewDropdownComponent,
+    RelatedBookCardComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,66 @@
+/* .book-card {
+  transition: transform 0.2s;
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 5px;
+  margin: 10px 0;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+} */
+.book-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 150px; /* Adjust as needed */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+    position: relative;
+    padding: 10px;
+}
+
+.book-card:hover {
+  transform: scale(1.02);
+  border-color: #007bff;
+}
+
+.card-top-left {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+/* .favorite-btn {
+  border: none;
+  background: transparent;
+} */
+.favorite-btn {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+/* .book-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 10px;
+} */
+.book-image {
+    width: 100%;
+    height: 70%; /* Makes the image larger */
+    object-fit: cover; /* Adjust fit as needed */
+}
+
+/* .book-title {
+  font-weight: bold;
+} */
+
+.book-title {
+    font-size: 0.9rem; /* Makes the title a bit smaller */
+    margin-top: 10px;
+}
+  

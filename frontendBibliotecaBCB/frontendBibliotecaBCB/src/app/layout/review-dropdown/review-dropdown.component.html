@@ -4,7 +4,34 @@
     <span style="font-size: larger;">Recenzii </span>
     <span class="review-summary">
         <div class="star-rating">
-            <div class="star-rating-top" [style.width.%]="averageRating / 5 * 100">
+          <div class="star-rating-top" [style.width.%]="averageRating / 5 * 100">
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+          </div>
+          <div class="star-rating-bottom">
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+            <span>★</span>
+          </div>
+        </div>  
+        <span>{{numberOfReviews}}</span>
+    </span>
+    <span class="dropdown-arrow" [ngClass]="{'rotate': isDropdownOpen}">&#x25BC;</span>
+    
+    </button>
+    <div class="dropdown-content" *ngIf="isDropdownOpen">
+    <!-- Review content goes here -->
+    <div *ngFor="let review of userReviews; let isFirst = first" class="user-review px-4 py-2">
+        <hr *ngIf="!isFirst">
+        <p><strong>{{ review.username }}</strong> says: {{ review.comment }}</p>
+        <div class="review-summary">
+          <div class="star-rating">
+            <div class="star-rating-top" [style.width.%]="review.rating / 5 * 100">
               <span>★</span>
               <span>★</span>
               <span>★</span>
@@ -19,17 +46,7 @@
               <span>★</span>
             </div>
           </div>  
-          <span>{{numberOfReviews}}</span>
-    </span>
-    <span class="dropdown-arrow" [ngClass]="{'rotate': isDropdownOpen}">&#x25BC;</span>
-    
-    </button>
-    <div class="dropdown-content" *ngIf="isDropdownOpen">
-    <!-- Review content goes here -->
-    <div *ngFor="let review of userReviews" class="user-review px-4 py-2">
-        <p><strong>{{ review.username }}</strong> says: {{ review.comment }}</p>
-        <ngb-rating [rate]="review.rating" [readonly]="true"></ngb-rating>
-        <hr>
+        </div>
     </div>
     </div>
 </div>

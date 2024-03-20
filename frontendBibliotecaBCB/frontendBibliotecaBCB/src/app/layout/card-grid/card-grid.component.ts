@@ -18,13 +18,11 @@ export class CardGridComponent {
   constructor(private bookservice: BookService, @Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit() {
-    this.getBooks();
     this.getAllBooks();
   }
 
   async getBooks() {
     this.bookservice.getPagedBooks(this.page).then((data: any) => {
-      this.collectionSize = data.totalCount;
       this.books = data.books;
     })
     .catch(error => { 
@@ -40,6 +38,10 @@ export class CardGridComponent {
   async getAllBooks() {
     this.bookservice.getAllBooks().then((data: any) => {
       this.allBooks = data;
+      for (let i = 0; i < 25; i++) {
+        this.books.push(this.allBooks[i]);
+      }
+      this.collectionSize = this.allBooks.length;
     })
     .catch(error => { 
       console.error(error);

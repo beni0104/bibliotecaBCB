@@ -10,6 +10,7 @@ import { EncryptionService } from '../../services/encryption.service';
 })
 export class BookCardComponent {
   @Input() book!: Book;
+  rating = 4.7;
   constructor(private router: Router, private encryptionService: EncryptionService) { }
 
   goToDetails(book: Book) {

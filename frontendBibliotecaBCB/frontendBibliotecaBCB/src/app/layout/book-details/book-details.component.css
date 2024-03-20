@@ -28,3 +28,15 @@
   .star-rating span {
     margin-right: -0.06em; /* Adjust spacing based on font and size */
   }
+
+  .related-books-container {
+    display: flex;
+    overflow-x: auto;
+    padding: 15px 0;
+  }
+  
+  .related-book {
+    flex: 0 0 auto; /* Prevents cards from shrinking and ensures they stay the same width */
+    width: 200px; /* Adjust based on your desired card width */
+    margin-right: 15px;
+  }
