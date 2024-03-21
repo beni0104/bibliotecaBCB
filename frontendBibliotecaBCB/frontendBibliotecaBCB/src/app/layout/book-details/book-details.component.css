@@ -40,3 +40,9 @@
     width: 200px; /* Adjust based on your desired card width */
     margin-right: 15px;
   }
+
+  @media (max-width: 768px) {
+    .book-title {
+      padding-top: 10px;
+    }
+  }

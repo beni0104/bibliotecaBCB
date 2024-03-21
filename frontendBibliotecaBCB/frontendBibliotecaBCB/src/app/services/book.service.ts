@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Book } from '../interfaces/book';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -33,7 +34,7 @@ export class BookService {
 
   async getAllBooks() {
     try {
-      const response = await fetch(`http://localhost:8080/api/book/all`, {
+      const response = await fetch('http://' + environment.host + ':8080/api/book/all', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -50,7 +51,7 @@ export class BookService {
 
   async getBookById(id: number) {
     try {
-      const response = await fetch(`http://localhost:8080/api/book/getbyid?id=` + id, {
+      const response = await fetch('http://' + environment.host + ':8080/api/book/getbyid?id=' + id, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
