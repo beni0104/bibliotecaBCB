@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -53,6 +54,7 @@ public class BookController {
     }
 
     @PostMapping("/create")
+    @PreAuthorize("hasRole('ADMIN')")
     //have to test if I can send one or more books with only this controller
     public ResponseEntity<List<Book>> saveBooks (@RequestBody List<Book> books){
         books.forEach(bookService::save);
@@ -60,6 +62,7 @@ public class BookController {
     }
 
     @DeleteMapping("/delete{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> deleteById(@PathVariable Long id){
         bookService.deleteById(id);
         return ResponseEntity.ok("Successfully delete!");
