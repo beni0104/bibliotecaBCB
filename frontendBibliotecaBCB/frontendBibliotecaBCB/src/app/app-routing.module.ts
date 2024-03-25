@@ -5,6 +5,7 @@ import { BookDetailsComponent } from './layout/book-details/book-details.compone
 import { LoginComponent } from './layout/login/login.component';
 import { SignupComponent } from './layout/signup/signup.component';
 import { MainPageComponent } from './layout/main-page/main-page.component';
+import { AddBooksPageComponent } from './layout/add-books-page/add-books-page.component';
 import { sign } from 'crypto';
 
 
@@ -15,13 +16,13 @@ const routes: Routes = [
     children: [
       { path: "", component: CardGridComponent},
       { path: 'bookdetails', component: BookDetailsComponent },
-      { path: 'login', component: LoginComponent }
+      { path: 'login', component: LoginComponent },
+      { path: 'addbooks', component: AddBooksPageComponent}
     ]
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent},
   { path: 'signup', component: SignupComponent}
-  
 ];
 
 @NgModule({

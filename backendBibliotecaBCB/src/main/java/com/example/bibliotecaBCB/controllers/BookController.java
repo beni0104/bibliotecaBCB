@@ -53,12 +53,20 @@ public class BookController {
             return null;
     }
 
-    @PostMapping("/create")
+    @PostMapping("/createbooks")
     @PreAuthorize("hasRole('ADMIN')")
     //have to test if I can send one or more books with only this controller
     public ResponseEntity<List<Book>> saveBooks (@RequestBody List<Book> books){
         books.forEach(bookService::save);
         return ResponseEntity.ok(books);
+    }
+
+    @PostMapping("/create")
+    @PreAuthorize("hasRole('ADMIN')")
+    //have to test if I can send one or more books with only this controller
+    public ResponseEntity<Book> saveBook (@RequestBody Book book){
+        bookService.save(book);
+        return ResponseEntity.ok(book);
     }
 
     @DeleteMapping("/delete{id}")

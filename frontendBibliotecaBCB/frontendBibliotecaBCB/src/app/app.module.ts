@@ -34,7 +34,7 @@ const icons = {
     LoginComponent,
     MainPageComponent,
     SignupComponent,
-    AddBooksPageComponent,
+    AddBooksPageComponent
   ],
   imports: [
     BrowserModule,

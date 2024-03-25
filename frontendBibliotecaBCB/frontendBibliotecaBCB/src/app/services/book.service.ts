@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Book } from '../interfaces/book';
+import { BookDTO } from '../interfaces/book';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -66,17 +67,23 @@ export class BookService {
     }
   }
 
-  async createBook(book: Book) {
+  async createBook(book: BookDTO) {
     try {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
+      const jwtToken = currentUser ? currentUser.accessToken : null;
       const response = await fetch('http://' + environment.host + ':8080/api/book/create', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + jwtToken
         },
         body: JSON.stringify(book)
       });
-      const data = await response.json();
-      return data;
+      if(response.ok) {
+        return true;
+      }else{
+        return false;
+      }
     }
     catch (error) {
       console.error(error);
