@@ -14,6 +14,10 @@ import { BookDetailsComponent } from './layout/book-details/book-details.compone
 import { FormsModule } from '@angular/forms';
 import { ReviewDropdownComponent } from './layout/review-dropdown/review-dropdown.component';
 import { RelatedBookCardComponent } from './layout/related-book-card/related-book-card.component';
+import { LoginComponent } from './layout/login/login.component';
+import { MainPageComponent } from './layout/main-page/main-page.component';
+import { SignupComponent } from './layout/signup/signup.component';
+import { AddBooksPageComponent } from './layout/add-books-page/add-books-page.component';
 
 const icons = {
   Person
@@ -27,6 +31,10 @@ const icons = {
     BookDetailsComponent,
     ReviewDropdownComponent,
     RelatedBookCardComponent,
+    LoginComponent,
+    MainPageComponent,
+    SignupComponent,
+    AddBooksPageComponent,
   ],
   imports: [
     BrowserModule,

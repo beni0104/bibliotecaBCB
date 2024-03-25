@@ -17,7 +17,7 @@ export class RelatedBookCardComponent {
   openBookDetails(book : Book) {
     // Implement navigation to book details page
     const encryptedId = this.encryptionService.encrypt(this.book.id.toString());
-    this.router.navigate(['/bookdetails'], { queryParams: { id: encryptedId }, state: { book } });
+    this.router.navigate(['/home/bookdetails'], { queryParams: { id: encryptedId }, state: { book } });
   }
 
   toggleFavorite(event: Event, book: Book) {

@@ -7,13 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'frontendBibliotecaBCB';
-  isLoggedIn = false;
 
-  constructor() {
-  }
-
-  changeLoginStatus() {
-    this.isLoggedIn = !this.isLoggedIn;
-  }
 
 }

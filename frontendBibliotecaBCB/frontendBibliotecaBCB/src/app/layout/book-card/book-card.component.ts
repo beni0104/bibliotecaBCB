@@ -15,6 +15,6 @@ export class BookCardComponent {
 
   goToDetails(book: Book) {
     const encryptedId = this.encryptionService.encrypt(book.id.toString());
-    this.router.navigate(['/bookdetails'], { queryParams: { id: encryptedId }, state: { book } });
+    this.router.navigate(['/home/bookdetails'], { queryParams: { id: encryptedId }, state: { book } });
   }
 }

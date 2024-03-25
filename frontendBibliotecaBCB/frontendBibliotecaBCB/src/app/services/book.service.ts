@@ -66,4 +66,22 @@ export class BookService {
     }
   }
 
+  async createBook(book: Book) {
+    try {
+      const response = await fetch('http://' + environment.host + ':8080/api/book/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(book)
+      });
+      const data = await response.json();
+      return data;
+    }
+    catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
 }

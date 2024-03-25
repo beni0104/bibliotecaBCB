@@ -136,7 +136,7 @@ export class BookDetailsComponent implements OnInit {
   }
   ];
   isAvailable: boolean = true;
-  averageRating: number = 3.87;
+  averageRating: number = 1.5;
 
 
   constructor(
@@ -147,6 +147,10 @@ export class BookDetailsComponent implements OnInit {
       @Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      // This code will only execute on the browser
+      window.scrollTo(0, 0);
+    }
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as {book: Book};
     if (state && state.book) {
@@ -159,10 +163,6 @@ export class BookDetailsComponent implements OnInit {
           this.book = data;
         })
       });
-    }
-    if (isPlatformBrowser(this.platformId)) {
-      // This code will only execute on the browser
-      window.scrollTo(0, 0);
     }
   }
 

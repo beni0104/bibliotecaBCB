@@ -1,0 +1,47 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header bg-dark text-white">Sign Up</div>
+          <div class="card-body">
+            <form>
+              <div class="mb-3">
+                <label for="nameSignupInput" class="form-label">Nume complet</label>
+                <input type="text" class="form-control" id="nameSignupInput" [(ngModel)]="name" name="name">
+              </div>
+              <div class="mb-3">
+                <label for="emailSignupInput" class="form-label">Adresă de email</label>
+                <input type="email" class="form-control" id="emailSignupInput" [(ngModel)]="email" name="email">
+              </div>
+              <div class="mb-3">
+                <label for="passwordSignupInput" class="form-label">Parolă</label>
+                <input type="password" class="form-control" id="passwordSignupInput" [(ngModel)]="password" name="password">
+              </div>
+              <div class="mb-3">
+                <label for="confirmPasswordInput" class="form-label">Confirmă parola</label>
+                <input type="password" class="form-control" id="confirmPasswordInput" [(ngModel)]="confirmPassword" name="confirmPassword">
+              </div>
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary" (click)="signup()">Sign Up</button>
+                <button type="button" class="btn btn-outline-primary" (click)="login()">Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">{{modalTitle}}</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <p>{{modalMessage}}</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>
+  
