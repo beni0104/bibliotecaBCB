@@ -4,7 +4,8 @@ import com.example.bibliotecaBCB.data.entity.UserFavorites;
 import com.example.bibliotecaBCB.data.repository.UserFavoritesRepository;
 import com.example.bibliotecaBCB.data.repository.UserRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class FavoriteService {
@@ -21,8 +22,14 @@ public class FavoriteService {
 
     public boolean addFavorite(Long userId, Long bookId) {
         if (!userFavoritesRepository.existsUserFavoritesByUserIdAndBookId(userId, bookId)) {
-            if(!(userRepository.findById(userId).isPresent() && bookService.findById(bookId).isPresent()))
+            if(!(userRepository.findById(userId).isPresent() && bookService.findById(bookId).isPresent())){
+                if(userRepository.findById(userId).isPresent())
+                    System.out.println("user is present");
+                if(bookService.findById(bookId).isPresent())
+                    System.out.println("book is present");
+                System.out.println("first in service");
                 return false;
+            }
             UserFavorites userFavorites = new UserFavorites(
                     userRepository.findById(userId).get(),
                     bookService.findById(bookId).get()
@@ -30,6 +37,7 @@ public class FavoriteService {
             userFavoritesRepository.save(userFavorites);
             return true;
         }
+        System.out.println("second in service");
         return false;
     }
 
@@ -50,5 +58,9 @@ public class FavoriteService {
             return userRepository.findByEmail(email).get().getId();
         else
             return null;
+    }
+
+    public List<UserFavorites> getAllFavoritesByUserId(Long userId){
+        return userFavoritesRepository.findByUserId(userId);
     }
 }

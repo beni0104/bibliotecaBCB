@@ -1,16 +1,17 @@
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { BookService } from '../../services/book.service';
 import { Book } from '../../interfaces/book';
+import { BookService } from '../../services/book.service';
+import { min } from 'rxjs';
 
 @Component({
-  selector: 'app-card-grid',
-  templateUrl: './card-grid.component.html',
-  styleUrl: './card-grid.component.css'
+  selector: 'app-favorites-page',
+  templateUrl: './favorites-page.component.html',
+  styleUrl: './favorites-page.component.css'
 })
-export class CardGridComponent {
+export class FavoritesPageComponent {
   page = 1;
-  allBooks: Book[] = [];
+  allFavorites: Book[] = [];
   displayedBooks: Book[] = [];
   filteredBooks: Book[] = [];
   collectionSize = 0;
@@ -58,10 +59,13 @@ export class CardGridComponent {
   ];
   isAvailable = false;
 
-  constructor(private bookservice: BookService, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(private bookservice: BookService, @Inject(PLATFORM_ID) private platformId: Object) {
+  }
 
   ngOnInit() {
-    this.getAllBooks();
+    if (isPlatformBrowser(this.platformId)) {
+      this.getFavoriteBooks();
+    }
   }
 
   getPagedBooks() {
@@ -69,7 +73,7 @@ export class CardGridComponent {
       this.displayedBooks = this.filteredBooks.slice((this.page - 1) * 25, this.page * 25);
     }
     else {
-      this.displayedBooks = this.allBooks.slice((this.page - 1) * 25, this.page * 25);
+      this.displayedBooks = this.allFavorites.slice((this.page - 1) * 25, this.page * 25);
     }
     
     if (isPlatformBrowser(this.platformId)) {
@@ -78,13 +82,13 @@ export class CardGridComponent {
     }
   }
 
-  async getAllBooks() {
-    this.bookservice.getAllBooks().then((data: any) => {
-      this.allBooks = data;
-      for (let i = 0; i < 25; i++) {
-        this.displayedBooks.push(this.allBooks[i]);
+  async getFavoriteBooks() {
+    this.bookservice.getFavoriteBooks().then((data: any) => {
+      this.allFavorites = data;
+      for (let i = 0; i < Math.min(25, this.allFavorites.length); i++) {
+        this.displayedBooks.push(this.allFavorites[i]);
       }
-      this.collectionSize = this.allBooks.length;
+      this.collectionSize = this.allFavorites.length;
     })
     .catch(error => { 
       console.error(error);
@@ -93,11 +97,11 @@ export class CardGridComponent {
 
   searchBooks(): void {
     if (!this.searchTerm || this.searchTerm === '') {
-      this.displayedBooks = this.allBooks.slice(0, 25);
-      this.collectionSize = this.allBooks.length;
+      this.displayedBooks = this.allFavorites.slice(0, 25);
+      this.collectionSize = this.allFavorites.length;
       this.filterApplied = false;
     } else {
-      this.filteredBooks = this.allBooks.filter(book =>
+      this.filteredBooks = this.allFavorites.filter(book =>
         book.title.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
         book.author.toLowerCase().includes(this.searchTerm.toLowerCase())
         // Add other fields you want to search by
@@ -112,7 +116,7 @@ export class CardGridComponent {
     const selectedCategories = this.categories.filter(category => category.selected).map(category => category.name);
     // TODO filter based on availability
     if (selectedCategories.length > 0 || this.isAvailable) {
-      this.filteredBooks = this.allBooks.filter(book => {
+      this.filteredBooks = this.allFavorites.filter(book => {
         for (let i = 0; i < selectedCategories.length; i++) {
           if (book.category.toLowerCase().includes(selectedCategories[i].toLowerCase())) {
             return true;
@@ -125,7 +129,7 @@ export class CardGridComponent {
       this.filterApplied = true;
     }else{
       this.filterApplied = false;
-      this.collectionSize = this.allBooks.length;
+      this.collectionSize = this.allFavorites.length;
       this.getPagedBooks();
     }
   }
@@ -144,9 +148,9 @@ export class CardGridComponent {
     });
     this.isAvailable = false;
     this.filterApplied = false;
-    this.collectionSize = this.allBooks.length;
+    this.collectionSize = this.allFavorites.length;
     this.filteredBooks = [];
-    this.displayedBooks = this.allBooks.slice((this.page - 1) * 25, this.page * 25);
+    this.displayedBooks = this.allFavorites.slice((this.page - 1) * 25, this.page * 25);
   }
 
   sortBooks(criteria: string): void {
@@ -156,8 +160,8 @@ export class CardGridComponent {
           this.filteredBooks.sort((a, b) => a.title.localeCompare(b.title));
           this.displayedBooks = this.filteredBooks.slice((this.page - 1) * 25, this.page * 25);
         }else {
-        this.allBooks.sort((a, b) => a.title.localeCompare(b.title));
-        this.displayedBooks = this.allBooks.slice((this.page - 1) * 25, this.page * 25);
+        this.allFavorites.sort((a, b) => a.title.localeCompare(b.title));
+        this.displayedBooks = this.allFavorites.slice((this.page - 1) * 25, this.page * 25);
         }
         break;
       case 'z-a':
@@ -165,8 +169,8 @@ export class CardGridComponent {
           this.filteredBooks.sort((a, b) => b.title.localeCompare(a.title));
           this.displayedBooks = this.filteredBooks.slice((this.page - 1) * 25, this.page * 25);
         } else {
-          this.allBooks.sort((a, b) => b.title.localeCompare(a.title));
-          this.displayedBooks = this.allBooks.slice((this.page - 1) * 25, this.page * 25);
+          this.allFavorites.sort((a, b) => b.title.localeCompare(a.title));
+          this.displayedBooks = this.allFavorites.slice((this.page - 1) * 25, this.page * 25);
         }
         break;
       case 'popularity':
@@ -177,6 +181,4 @@ export class CardGridComponent {
         break;
     }
   }
-  
-
 }

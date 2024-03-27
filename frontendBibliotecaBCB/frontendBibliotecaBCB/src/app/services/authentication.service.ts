@@ -8,8 +8,8 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private currentUserSubject: BehaviorSubject<any>;
-  public currentUser: Observable<any>;
+  // private currentUserSubject: BehaviorSubject<any>;
+  // public currentUser: Observable<any>;
 
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
     let currentUser = null;
@@ -18,13 +18,13 @@ export class AuthenticationService {
       currentUser = storedUser ? JSON.parse(storedUser) : null;
     }
     
-    this.currentUserSubject = new BehaviorSubject<any>(currentUser);
-    this.currentUser = this.currentUserSubject.asObservable();
+    // this.currentUserSubject = new BehaviorSubject<any>(currentUser);
+    // this.currentUser = this.currentUserSubject.asObservable();
   }
 
-  public get currentUserValue() {
-    return this.currentUserSubject.value;
-  }
+  // public get currentUserValue() {
+  //   return this.currentUserSubject.value;
+  // }
 
   async signup(username: string, email: string, password: string) {
     try {
@@ -53,14 +53,16 @@ export class AuthenticationService {
         },
         body: JSON.stringify({email, password})
       });
-      const user = await response.json();
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      this.currentUserSubject.next(user);
-      return user;
+
+      const data = await response.json();
+      let user = JSON.stringify(data);
+      console.log(user);
+      localStorage.setItem('currentUser', user);
+      // this.currentUserSubject.next(user);
+      return true;
     }
     catch (error) {
-      console.error(error);
-      throw error;
+      return false;
     }
   }
 
@@ -68,6 +70,6 @@ export class AuthenticationService {
     // remove user from local storage to log user out
     console.log(localStorage.getItem('currentUser'));
     localStorage.removeItem('currentUser');
-    this.currentUserSubject.next(null);
+    // this.currentUserSubject.next(null);
   }
 }

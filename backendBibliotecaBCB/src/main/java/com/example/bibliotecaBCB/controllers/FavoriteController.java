@@ -1,6 +1,8 @@
 package com.example.bibliotecaBCB.controllers;
 
 
+import com.example.bibliotecaBCB.data.entity.Book;
+import com.example.bibliotecaBCB.data.entity.UserFavorites;
 import com.example.bibliotecaBCB.data.service.FavoriteService;
 import com.example.bibliotecaBCB.security.jwt.JwtUtils;
 import org.springframework.http.ResponseEntity;
@@ -8,8 +10,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/favorite")
+@CrossOrigin(origins = "http://heregoesmyip:4200/")
 public class FavoriteController {
 
     private final FavoriteService favoriteService;
@@ -28,14 +34,40 @@ public class FavoriteController {
         return favoriteService.getUserIdByUserEmail(username);
     }
 
+    @GetMapping("/getall")
+    @PreAuthorize("hasRole('USER')")
+    public ResponseEntity<?> getAllFavorites(@RequestHeader(value="Authorization") String token){
+
+        Long userId = extractUserIdFromJWT(token);
+        if(userId != null){
+            List<UserFavorites> userFavoritesList = favoriteService.getAllFavoritesByUserId(userId);
+            List<Book> books = new ArrayList<>();
+            for(UserFavorites userFavorites: userFavoritesList){
+                Book book = new Book(
+                        userFavorites.getBook().getId(),
+                        userFavorites.getBook().getBookId(),
+                        userFavorites.getBook().getTitle(),
+                        userFavorites.getBook().getAuthor(),
+                        userFavorites.getBook().getCategory(),
+                        userFavorites.getBook().getAmount()
+                );
+                books.add(book);
+            }
+            return ResponseEntity.ok(books);
+        }
+        return ResponseEntity.badRequest().build();
+    }
+
     @PatchMapping("/add")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> addBookToFavorites(@RequestHeader(value="Authorization") String token, @RequestParam Long bookId){
 
         Long userId = extractUserIdFromJWT(token);
-
+        System.out.println("User token: "+token);
         if(userId != null){
+            System.out.println("User id:" + userId);
             if(favoriteService.addFavorite(userId, bookId)){
+                System.out.println("second");
                 return ResponseEntity.ok("Book successfully added to favorites!");
             }
         }
@@ -48,7 +80,7 @@ public class FavoriteController {
     public ResponseEntity<?> deleteBookFromFavorites(@RequestHeader(value="Authorization") String token, @RequestParam Long bookId){
 
         Long userId = extractUserIdFromJWT(token);
-        
+
         if(userId != null){
             if(favoriteService.deleteFavorite(userId, bookId)) {
                 return ResponseEntity.ok("Book successfully deleted from favorites!");

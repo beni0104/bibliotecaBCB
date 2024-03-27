@@ -18,6 +18,7 @@ import { LoginComponent } from './layout/login/login.component';
 import { MainPageComponent } from './layout/main-page/main-page.component';
 import { SignupComponent } from './layout/signup/signup.component';
 import { AddBooksPageComponent } from './layout/add-books-page/add-books-page.component';
+import { FavoritesPageComponent } from './layout/favorites-page/favorites-page.component';
 
 const icons = {
   Person
@@ -34,7 +35,8 @@ const icons = {
     LoginComponent,
     MainPageComponent,
     SignupComponent,
-    AddBooksPageComponent
+    AddBooksPageComponent,
+    FavoritesPageComponent
   ],
   imports: [
     BrowserModule,

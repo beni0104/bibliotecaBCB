@@ -18,6 +18,9 @@ export class MainPageComponent {
       const storedUser = localStorage.getItem('currentUser');
       this.user = storedUser ? JSON.parse(storedUser) : null;
       this.checkUserRole();
+      if (this.user) {
+        this.isLoggedIn = true;
+      }
     }
   }
 

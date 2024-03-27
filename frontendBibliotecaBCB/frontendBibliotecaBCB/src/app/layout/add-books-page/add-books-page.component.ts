@@ -1,4 +1,4 @@
-import { Component,inject, ViewChild, TemplateRef } from '@angular/core';
+import { Component, inject, ViewChild, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BookService } from '../../services/book.service';
 import { BookDTO } from '../../interfaces/book';

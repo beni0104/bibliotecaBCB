@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, PLATFORM_ID, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { isPlatformBrowser } from '@angular/common';
 import { Book } from '../interfaces/book';
 import { BookDTO } from '../interfaces/book';
 import { environment } from '../../environments/environment';
@@ -9,7 +10,16 @@ import { environment } from '../../environments/environment';
 })
 export class BookService {
 
-  constructor(private http: HttpClient) { }
+  jwtToken: string = "";
+
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
+    if (isPlatformBrowser(this.platformId)) {
+      const storedUser = localStorage.getItem('currentUser');
+      const currentUser = storedUser ? JSON.parse(storedUser) : null;
+      this.jwtToken = currentUser ? currentUser.accessToken : null;
+    }
+    
+   }
 
   async getPagedBooks(page: number) {
     const offset = (page - 1) * 25;
@@ -50,6 +60,24 @@ export class BookService {
     }
   }
 
+  async getFavoriteBooks() {
+    try {
+      const response = await fetch('http://' + environment.host + ':8080/api/favorite/getall', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.jwtToken
+        }
+      });
+      const data: Book = await response.json();
+      return data;
+    }
+    catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
   async getBookById(id: number) {
     try {
       const response = await fetch('http://' + environment.host + ':8080/api/book/getbyid?id=' + id, {
@@ -69,13 +97,11 @@ export class BookService {
 
   async createBook(book: BookDTO) {
     try {
-      const currentUser = JSON.parse(localStorage.getItem('currentUser') ?? '');
-      const jwtToken = currentUser ? currentUser.accessToken : null;
       const response = await fetch('http://' + environment.host + ':8080/api/book/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + jwtToken
+          'Authorization': 'Bearer ' + this.jwtToken
         },
         body: JSON.stringify(book)
       });
@@ -90,5 +116,51 @@ export class BookService {
       throw error;
     }
   }
+
+  async addBookToFavorites(bookId: number) {
+    try {
+      const url = `http://${environment.host}:8080/api/favorite/add?bookId=${bookId}`;
+      const response = await fetch(url, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.jwtToken
+        }
+      });
+      if(response.ok) {
+        return true;
+      }else{
+        return false;
+      }
+    }
+    catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  async removeBookFromFavorites(bookId: number) {
+    try {
+      const url = `http://${environment.host}:8080/api/favorite/delete?bookId=${bookId}`;
+
+      const response = await fetch(url, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.jwtToken
+        }
+      });
+      if(response.ok) {
+        return true;
+      }else{
+        return false;
+      }
+    }
+    catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
 
 }

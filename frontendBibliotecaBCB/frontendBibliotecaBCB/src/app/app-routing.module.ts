@@ -6,7 +6,7 @@ import { LoginComponent } from './layout/login/login.component';
 import { SignupComponent } from './layout/signup/signup.component';
 import { MainPageComponent } from './layout/main-page/main-page.component';
 import { AddBooksPageComponent } from './layout/add-books-page/add-books-page.component';
-import { sign } from 'crypto';
+import { FavoritesPageComponent } from './layout/favorites-page/favorites-page.component';
 
 
 const routes: Routes = [
@@ -17,7 +17,8 @@ const routes: Routes = [
       { path: "", component: CardGridComponent},
       { path: 'bookdetails', component: BookDetailsComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'addbooks', component: AddBooksPageComponent}
+      { path: 'addbooks', component: AddBooksPageComponent},
+      { path: 'favoriteBooks', component: FavoritesPageComponent}
     ]
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
