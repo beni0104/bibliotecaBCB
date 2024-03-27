@@ -30,7 +30,7 @@
       </div>
     </div>
     <div class="col">
-      <div class="row">
+      <div class="row" *ngIf="displayedBooks.length > 0; else noResultsTemplate">
         <div *ngFor="let book of displayedBooks" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
             <app-book-card [book]="book"></app-book-card>
         </div>
@@ -44,6 +44,12 @@
                             [maxSize]="3"
                             aria-label="Default pagination" />
     </div>
+    <!-- No results template -->
+    <ng-template #noResultsTemplate>
+      <div class="alert alert-warning" role="alert">
+        Nu s-au găsit rezultate
+      </div>
+    </ng-template>
 </main>
 
 <!-- Filter Modal -->

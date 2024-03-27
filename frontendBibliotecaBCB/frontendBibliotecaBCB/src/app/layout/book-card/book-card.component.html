@@ -1,7 +1,7 @@
 <div class="card h-100">
   <div class="card-top-left">
     <button (click)="toggleFavorite($event, book)" class="favorite-btn">
-      <span [class]="this.isFavorite ? 'fas fa-heart text-danger' : 'far fa-heart'"></span>
+      <span [class]="this.book.isFavorite ? 'fas fa-heart text-danger' : 'far fa-heart'"></span>
     </button>
   </div>
   <img class="card-img-top" src="assets/images/bibliotecaBCBLogo.jpg" alt="Card image cap">

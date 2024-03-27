@@ -19,7 +19,9 @@ export class BookDetailsComponent implements OnInit {
     "title": "",
     "author": "",
     "category": "",
-    "amount": 0
+    "amount": 0,
+    "isFavorite": false,
+    "rating": 0
   };
   relatedBooks: Book[] = [
     {
@@ -28,7 +30,9 @@ export class BookDetailsComponent implements OnInit {
       "title": "PLEDUARIE PENTRU IERTARE",
       "author": "BEBE CIAUȘU ",
       "category": "",
-      "amount": 1
+      "amount": 1,
+      "isFavorite": false,
+      "rating": 4.5
   },
   {
       "id": 1547,
@@ -36,7 +40,9 @@ export class BookDetailsComponent implements OnInit {
       "title": "POATE OMUL SĂ TRĂIASCĂ FĂRĂ DUMNEZEU?",
       "author": "RAVI ZACHARIAS",
       "category": "APOLOGETICĂ ",
-      "amount": 1
+      "amount": 1,
+      "isFavorite": false,
+      "rating": 4.5
   },
   {
       "id": 1548,
@@ -44,7 +50,9 @@ export class BookDetailsComponent implements OnInit {
       "title": "POATE ȘTIINȚA EXPLICA TOTUL?",
       "author": "JOHN C. LENNOX",
       "category": "",
-      "amount": 1
+      "amount": 1,
+      "isFavorite": false,
+      "rating": 4.5
   },
   {
       "id": 1549,
@@ -52,7 +60,9 @@ export class BookDetailsComponent implements OnInit {
       "title": "POEME PENTRU OAMENI SINCERI",
       "author": "FLORIN LUCACI",
       "category": "",
-      "amount": 1
+      "amount": 1,
+      "isFavorite": false,
+      "rating": 4.5
   },
   {
       "id": 1550,
@@ -60,7 +70,9 @@ export class BookDetailsComponent implements OnInit {
       "title": "POLIȚISTUL CREȘTIN",
       "author": "KIBINGE WA MUTURI",
       "category": "",
-      "amount": 1
+      "amount": 1,
+      "isFavorite": false,
+      "rating": 4.5
   },
   {
       "id": 1551,
@@ -68,7 +80,9 @@ export class BookDetailsComponent implements OnInit {
       "title": "POLLYANNA",
       "author": "HARRIET LUMMIS SMITH",
       "category": "",
-      "amount": 1
+      "amount": 1,
+      "isFavorite": false,
+      "rating": 4.5
   },
   {
       "id": 1552,
@@ -76,7 +90,9 @@ export class BookDetailsComponent implements OnInit {
       "title": "PORTRETE DIN CIOBURI vol 1,2",
       "author": "LIGIA SEMAN",
       "category": "BELETRISTICĂ ",
-      "amount": 1
+      "amount": 1,
+      "isFavorite": false,
+      "rating": 4.5
   },
   {
       "id": 1553,
@@ -84,7 +100,9 @@ export class BookDetailsComponent implements OnInit {
       "title": "PORTRETUL BIBLIC AL CĂSNICIEI",
       "author": "DR. BRUCE H. WILKILSON",
       "category": "CĂSĂTORIE",
-      "amount": 1
+      "amount": 1,
+      "isFavorite": false,
+      "rating": 4.5
   },
   {
       "id": 1554,
@@ -92,7 +110,9 @@ export class BookDetailsComponent implements OnInit {
       "title": "POVESTEA LUI DUMNEZEU",
       "author": "MAX LUCADO",
       "category": "",
-      "amount": 1
+      "amount": 1,
+      "isFavorite": false,
+      "rating": 4.5
   },
   {
       "id": 1555,
@@ -100,7 +120,9 @@ export class BookDetailsComponent implements OnInit {
       "title": "POVESTEA LUI TAD",
       "author": "MARY E. ROPES",
       "category": "CARTE COPII",
-      "amount": 1
+      "amount": 1,
+      "isFavorite": false,
+      "rating": 4.5
   },
   {
       "id": 1556,
@@ -108,7 +130,9 @@ export class BookDetailsComponent implements OnInit {
       "title": "POVESTIȚI PRINTRE NEAMURI SLAVA LUI",
       "author": "RUBEN DUBEI",
       "category": "",
-      "amount": 1
+      "amount": 1,
+      "isFavorite": false,
+      "rating": 4.5
   },
   {
       "id": 1557,
@@ -116,7 +140,9 @@ export class BookDetailsComponent implements OnInit {
       "title": "PREA OCUPAT PENTRU A MĂ RUGA",
       "author": "BILL HYBELS",
       "category": "",
-      "amount": 1
+      "amount": 1,
+      "isFavorite": false,
+      "rating": 4.5
   },
   {
       "id": 1558,
@@ -124,7 +150,9 @@ export class BookDetailsComponent implements OnInit {
       "title": "PREDESTINAREA ABSOLUTĂ",
       "author": "ANDREI CROITORU",
       "category": "",
-      "amount": 1
+      "amount": 1,
+      "isFavorite": false,
+      "rating": 4.5
   },
   {
       "id": 1559,
@@ -132,7 +160,9 @@ export class BookDetailsComponent implements OnInit {
       "title": "PREDICI CU HAR",
       "author": "C. H. SPURGEON",
       "category": "",
-      "amount": 1
+      "amount": 1,
+      "isFavorite": false,
+      "rating": 4.5
   }
   ];
   isAvailable: boolean = true;

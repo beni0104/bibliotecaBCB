@@ -4,7 +4,9 @@ export interface Book {
     title: string,
     author: string,
     category: string,
-    amount: number
+    amount: number,
+    isFavorite: boolean,
+    rating: number
 }
 
 export interface BookDTO {

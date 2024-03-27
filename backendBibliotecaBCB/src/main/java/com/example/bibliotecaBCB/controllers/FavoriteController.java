@@ -1,7 +1,6 @@
 package com.example.bibliotecaBCB.controllers;
 
-
-import com.example.bibliotecaBCB.data.entity.Book;
+import com.example.bibliotecaBCB.data.dto.BookDTO;
 import com.example.bibliotecaBCB.data.entity.UserFavorites;
 import com.example.bibliotecaBCB.data.service.FavoriteService;
 import com.example.bibliotecaBCB.security.jwt.JwtUtils;
@@ -15,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/favorite")
-@CrossOrigin(origins = "http://heregoesmyip:4200/")
+@CrossOrigin(origins = "http://myip/")
 public class FavoriteController {
 
     private final FavoriteService favoriteService;
@@ -41,19 +40,15 @@ public class FavoriteController {
         Long userId = extractUserIdFromJWT(token);
         if(userId != null){
             List<UserFavorites> userFavoritesList = favoriteService.getAllFavoritesByUserId(userId);
-            List<Book> books = new ArrayList<>();
+            List<BookDTO> bookDTOS = new ArrayList<>();
             for(UserFavorites userFavorites: userFavoritesList){
-                Book book = new Book(
-                        userFavorites.getBook().getId(),
-                        userFavorites.getBook().getBookId(),
-                        userFavorites.getBook().getTitle(),
-                        userFavorites.getBook().getAuthor(),
-                        userFavorites.getBook().getCategory(),
-                        userFavorites.getBook().getAmount()
+                BookDTO bookDTO = new BookDTO(
+                        userFavorites.getBook()
                 );
-                books.add(book);
+                bookDTO.setFavorite(true);
+                bookDTOS.add(bookDTO);
             }
-            return ResponseEntity.ok(books);
+            return ResponseEntity.ok(bookDTOS);
         }
         return ResponseEntity.badRequest().build();
     }

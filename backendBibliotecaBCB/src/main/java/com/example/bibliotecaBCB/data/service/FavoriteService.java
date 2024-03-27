@@ -6,6 +6,8 @@ import com.example.bibliotecaBCB.data.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class FavoriteService {
@@ -62,5 +64,14 @@ public class FavoriteService {
 
     public List<UserFavorites> getAllFavoritesByUserId(Long userId){
         return userFavoritesRepository.findByUserId(userId);
+    }
+
+    public Set<Long> getUserFavoritesBookIDs(Long userId){
+        List<UserFavorites> userFavoritesList = userFavoritesRepository.findByUserId(userId);
+        return userFavoritesList.stream()
+                .filter(userFavorite -> userFavorite.getBook() != null)
+                .map(userFavorite -> userFavorite.getBook().getBookId())
+                .collect(Collectors.toSet());
+
     }
 }

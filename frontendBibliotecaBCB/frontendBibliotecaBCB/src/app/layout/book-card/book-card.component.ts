@@ -12,7 +12,6 @@ import { BookService } from '../../services/book.service';
 export class BookCardComponent {
   @Input() book!: Book;
   rating = 4.7;
-  isFavorite = true;
   constructor(private router: Router, private encryptionService: EncryptionService, private bookService: BookService) { }
 
   goToDetails(book: Book) {
@@ -23,12 +22,12 @@ export class BookCardComponent {
   toggleFavorite(event: Event, book: Book) {
     event.stopPropagation(); // Prevent opening book details when clicking the favorite button
 
-    if (!this.isFavorite) {
+    if (!this.book.isFavorite) {
       this.bookService.addBookToFavorites(book.id);
-      this.isFavorite = true;
+      this.book.isFavorite = true;
     }else{
       this.bookService.removeBookFromFavorites(book.id);
-      this.isFavorite = false;
+      this.book.isFavorite = false;
     }
   }
 }

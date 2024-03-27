@@ -12,14 +12,15 @@ export class BookService {
 
   jwtToken: string = "";
 
-  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {}
+
+  attributeJwtToken() {
     if (isPlatformBrowser(this.platformId)) {
       const storedUser = localStorage.getItem('currentUser');
       const currentUser = storedUser ? JSON.parse(storedUser) : null;
       this.jwtToken = currentUser ? currentUser.accessToken : null;
     }
-    
-   }
+  }
 
   async getPagedBooks(page: number) {
     const offset = (page - 1) * 25;
@@ -44,11 +45,13 @@ export class BookService {
   }
 
   async getAllBooks() {
+    this.attributeJwtToken();
     try {
       const response = await fetch('http://' + environment.host + ':8080/api/book/all', {
         method: 'GET',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.jwtToken
         }
       });
       const data: Book = await response.json();
@@ -61,6 +64,7 @@ export class BookService {
   }
 
   async getFavoriteBooks() {
+    this.attributeJwtToken();
     try {
       const response = await fetch('http://' + environment.host + ':8080/api/favorite/getall', {
         method: 'GET',
@@ -96,6 +100,7 @@ export class BookService {
   }
 
   async createBook(book: BookDTO) {
+    this.attributeJwtToken();
     try {
       const response = await fetch('http://' + environment.host + ':8080/api/book/create', {
         method: 'POST',
@@ -118,6 +123,7 @@ export class BookService {
   }
 
   async addBookToFavorites(bookId: number) {
+    this.attributeJwtToken();
     try {
       const url = `http://${environment.host}:8080/api/favorite/add?bookId=${bookId}`;
       const response = await fetch(url, {
@@ -140,6 +146,7 @@ export class BookService {
   }
 
   async removeBookFromFavorites(bookId: number) {
+    this.attributeJwtToken();
     try {
       const url = `http://${environment.host}:8080/api/favorite/delete?bookId=${bookId}`;
 

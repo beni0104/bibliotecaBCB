@@ -1,8 +1,11 @@
 package com.example.bibliotecaBCB.controllers;
 
 import com.example.bibliotecaBCB.data.ExcelHelper;
+import com.example.bibliotecaBCB.data.dto.BookDTO;
 import com.example.bibliotecaBCB.data.entity.Book;
 import com.example.bibliotecaBCB.data.service.BookService;
+import com.example.bibliotecaBCB.data.service.FavoriteService;
+import com.example.bibliotecaBCB.security.jwt.JwtUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -11,8 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @RestController
 //@CrossOrigin(origins = "http://LOCALHOST:4200/")
@@ -21,16 +23,48 @@ public class BookController {
 
     private final BookService bookService;
     private final ExcelHelper excelHelper;
+    private final JwtUtils jwtUtils;
+    private final FavoriteService favoriteService;
 
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, JwtUtils jwtUtils, FavoriteService favoriteService) {
         this.bookService = bookService;
         excelHelper = new ExcelHelper(bookService);
+        this.jwtUtils = jwtUtils;
+        this.favoriteService = favoriteService;
     }
 
+    private Long extractUserIdFromJWT(String token){
+        if(token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
+        String username = jwtUtils.getUserNameFromJwtToken(token);
+        return favoriteService.getUserIdByUserEmail(username);
+    }
     @GetMapping("/all")
-    public ResponseEntity<List<Book>> getAllBooks(){
+    public ResponseEntity<List<BookDTO>> getAllBooks(@RequestHeader(value="Authorization") String token){
+        if(token != null && token.startsWith("Bearer ") && token.split("\\.").length == 3) {
+            Long userId = extractUserIdFromJWT(token);
+            if (userId != null) {
+                List<Book> books = bookService.findAll();
+                List<BookDTO> bookDTOS = new ArrayList<>();
+                Set<Long> favoriteBookIds = favoriteService.getUserFavoritesBookIDs(userId);
+                for (Book book : books) {
+                    BookDTO bookDTO = new BookDTO(book);
+                    if (favoriteBookIds.contains(bookDTO.getBookId()))
+                        bookDTO.setFavorite(true);
+                    bookDTOS.add(bookDTO);
+                }
+                return ResponseEntity.ok(bookDTOS);
+            }
+        }
+
         List<Book> books = bookService.findAll();
-        return ResponseEntity.ok(books);
+        List<BookDTO> bookDTOS = new ArrayList<>();
+        for(Book book: books){
+            BookDTO bookDTO = new BookDTO(book);
+            bookDTOS.add(bookDTO);
+        }
+        return ResponseEntity.ok(bookDTOS);
     }
 
     @GetMapping("/getpagedbooks")
