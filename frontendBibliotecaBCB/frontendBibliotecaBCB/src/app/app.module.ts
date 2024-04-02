@@ -19,6 +19,7 @@ import { MainPageComponent } from './layout/main-page/main-page.component';
 import { SignupComponent } from './layout/signup/signup.component';
 import { AddBooksPageComponent } from './layout/add-books-page/add-books-page.component';
 import { FavoritesPageComponent } from './layout/favorites-page/favorites-page.component';
+import { GlobalAlertComponent } from './layout/global-alert/global-alert.component';
 
 const icons = {
   Person
@@ -36,7 +37,8 @@ const icons = {
     MainPageComponent,
     SignupComponent,
     AddBooksPageComponent,
-    FavoritesPageComponent
+    FavoritesPageComponent,
+    GlobalAlertComponent
   ],
   imports: [
     BrowserModule,

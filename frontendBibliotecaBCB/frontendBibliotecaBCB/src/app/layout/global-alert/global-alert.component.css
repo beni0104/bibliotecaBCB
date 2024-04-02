@@ -1,0 +1,6 @@
+.global-alert {
+    position: fixed;
+    right: 10px;
+    top: 10px;
+    z-index: 1050; /* Ensures it appears above most other elements */
+  }

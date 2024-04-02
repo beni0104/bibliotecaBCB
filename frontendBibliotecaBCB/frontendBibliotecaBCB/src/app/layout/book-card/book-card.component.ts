@@ -3,6 +3,7 @@ import { Book } from '../../interfaces/book';
 import { Router } from '@angular/router';
 import { EncryptionService } from '../../services/encryption.service';
 import { BookService } from '../../services/book.service';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-book-card',
@@ -12,7 +13,10 @@ import { BookService } from '../../services/book.service';
 export class BookCardComponent {
   @Input() book!: Book;
   rating = 4.7;
-  constructor(private router: Router, private encryptionService: EncryptionService, private bookService: BookService) { }
+  constructor(private router: Router,
+              private encryptionService: EncryptionService,
+              private bookService: BookService,
+              private alertService: AlertService) { }
 
   goToDetails(book: Book) {
     const encryptedId = this.encryptionService.encrypt(book.id.toString());
@@ -23,9 +27,11 @@ export class BookCardComponent {
     event.stopPropagation(); // Prevent opening book details when clicking the favorite button
 
     if (!this.book.isFavorite) {
+      this.alertService.showAlert('Cartea a fost adăugată la favorite!', 5000);
       this.bookService.addBookToFavorites(book.id);
       this.book.isFavorite = true;
     }else{
+      this.alertService.showAlert('Cartea a fost ștearsă de la favorite!', 5000);
       this.bookService.removeBookFromFavorites(book.id);
       this.book.isFavorite = false;
     }
