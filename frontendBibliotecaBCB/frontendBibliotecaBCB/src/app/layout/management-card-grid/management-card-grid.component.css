@@ -1,0 +1,43 @@
+.bi {
+    display: inline-block;
+    width: 1rem;
+    height: 1rem;
+}
+
+.category-scroll {
+  max-height: 180px;
+  overflow-y: auto; 
+}
+
+.search-bar {
+  margin-right: -1px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0; 
+}
+
+.search-btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.delete-btn {
+  margin-left: 10px;
+}
+
+@media (max-width: 396px) {
+  .sort-btn {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 465px) {
+  .filter-btn {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 1107px) {
+  .delete-btn {
+    margin-top: 10px;
+  }
+}

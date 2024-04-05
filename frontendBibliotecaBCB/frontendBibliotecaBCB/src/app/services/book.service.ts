@@ -169,5 +169,27 @@ export class BookService {
     }
   }
 
+  async updateBook(book: BookDTO) {
+    this.attributeJwtToken();
+    try {
+      const response = await fetch('http://' + environment.host + ':8080/api/book/update', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.jwtToken
+        },
+        body: JSON.stringify(book)
+      });
+      if(response.ok) {
+        return true;
+      }else{
+        return false;
+      }
+    }
+    catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
 
 }

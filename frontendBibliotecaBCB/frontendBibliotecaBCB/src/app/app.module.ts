@@ -20,6 +20,10 @@ import { SignupComponent } from './layout/signup/signup.component';
 import { AddBooksPageComponent } from './layout/add-books-page/add-books-page.component';
 import { FavoritesPageComponent } from './layout/favorites-page/favorites-page.component';
 import { GlobalAlertComponent } from './layout/global-alert/global-alert.component';
+import { ManagementBookCardComponent } from './layout/management-book-card/management-book-card.component';
+import { ManagementCardGridComponent } from './layout/management-card-grid/management-card-grid.component';
+import { EditBookComponent } from './layout/edit-book/edit-book.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const icons = {
   Person
@@ -38,7 +42,10 @@ const icons = {
     SignupComponent,
     AddBooksPageComponent,
     FavoritesPageComponent,
-    GlobalAlertComponent
+    GlobalAlertComponent,
+    ManagementBookCardComponent,
+    ManagementCardGridComponent,
+    EditBookComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +54,8 @@ const icons = {
     BootstrapIconsModule.pick(icons),
     NgbPaginationModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideClientHydration()

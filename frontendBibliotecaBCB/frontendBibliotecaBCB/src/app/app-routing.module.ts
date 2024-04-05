@@ -7,7 +7,8 @@ import { SignupComponent } from './layout/signup/signup.component';
 import { MainPageComponent } from './layout/main-page/main-page.component';
 import { AddBooksPageComponent } from './layout/add-books-page/add-books-page.component';
 import { FavoritesPageComponent } from './layout/favorites-page/favorites-page.component';
-
+import { ManagementCardGridComponent } from './layout/management-card-grid/management-card-grid.component';
+import { EditBookComponent } from './layout/edit-book/edit-book.component';
 
 const routes: Routes = [
   {
@@ -18,7 +19,9 @@ const routes: Routes = [
       { path: 'bookdetails', component: BookDetailsComponent },
       { path: 'login', component: LoginComponent },
       { path: 'addbooks', component: AddBooksPageComponent},
-      { path: 'favoriteBooks', component: FavoritesPageComponent}
+      { path: 'favoriteBooks', component: FavoritesPageComponent},
+      { path: 'managebooks', component: ManagementCardGridComponent},
+      { path: 'editbook', component: EditBookComponent}
     ]
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },

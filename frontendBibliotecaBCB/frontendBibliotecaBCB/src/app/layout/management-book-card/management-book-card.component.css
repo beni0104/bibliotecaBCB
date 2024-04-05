@@ -1,0 +1,39 @@
+.horizontal-card {
+  display: flex;
+  align-items: center; /* Align items vertically in the center */
+  justify-content: start; /* Align items to the start of the container */
+  gap: 15px; /* Add some space between elements */
+  padding: 15px; /* Add padding inside the card */
+  border: 1px solid #ddd;
+  border-radius: 6px; /* Slight rounding of corners */
+}
+
+.card-checkbox .form-check-input {
+  margin-right: 15px; /* Ensure spacing between checkbox and image */
+}
+
+.card-img {
+  width: 80px; /* Adjust based on your design */
+  height: auto; /* Maintain aspect ratio */
+}
+
+.card-info {
+  flex-grow: 1; /* This will make the title and author section grow to use available space */
+  padding-right: 15px; /* Adds padding between the info and the button */
+}
+
+.card-title, .card-author {
+  margin: 0; /* Remove any default margin */
+}
+
+.btn-warning {
+  background-color: #FFC107; /* Bootstrap yellow for warning buttons */
+  color: black; /* Text color for the button */
+  padding: 10px 20px; /* Adjust button padding */
+  border: none; /* No border */
+  border-radius: 4px; /* Consistent border radius with the card */
+}
+
+.btn-warning:hover {
+  background-color: #e0a800; /* A darker shade of yellow for hover effect */
+}
