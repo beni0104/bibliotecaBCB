@@ -26,8 +26,9 @@ public class BookService {
         bookRepository.save(book);
     }
 
-    public void deleteById(Long id){
-        bookRepository.deleteById(id);
+    public void deleteById(List<Long> ids){
+        for(Long id: ids)
+            bookRepository.deleteById(id);
     }
 
     public void update(Book book){

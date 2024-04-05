@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
 @Data
 @Table
@@ -21,6 +23,9 @@ public class Book {
     private String author;
     private String category;
     private int amount;
+
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserFavorites> userFavorites;
 
     public Book(long bookId, String title, String author, String category, int amount) {
         this.bookId = bookId;

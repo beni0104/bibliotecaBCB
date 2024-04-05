@@ -1,6 +1,6 @@
 <div class="horizontal-card">
     <div class="card-checkbox">
-      <input type="checkbox" class="form-check-input">
+      <input type="checkbox" class="form-check-input" (change)="onCheckboxChange($event)" [value]="book.id">
     </div>
     <img class="card-img" src="assets/images/bibliotecaBCBLogo.jpg" alt="{{book.title}}">
     <div class="card-info">

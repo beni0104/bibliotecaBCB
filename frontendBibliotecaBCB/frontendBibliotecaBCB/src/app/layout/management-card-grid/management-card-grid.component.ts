@@ -1,7 +1,13 @@
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, PLATFORM_ID, inject, ViewChild, TemplateRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { BookService } from '../../services/book.service';
 import { Book } from '../../interfaces/book';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+interface deletePair{
+  id: number;
+  selected: boolean;
+}
 
 @Component({
   selector: 'app-management-card-grid',
@@ -9,6 +15,8 @@ import { Book } from '../../interfaces/book';
   styleUrl: './management-card-grid.component.css'
 })
 export class ManagementCardGridComponent {
+  @ViewChild('deleteConfirmationModal') contentTemplate!: TemplateRef<any>;
+  private modalService = inject(NgbModal);
   page = 1;
   allBooks: Book[] = [];
   displayedBooks: Book[] = [];
@@ -16,6 +24,7 @@ export class ManagementCardGridComponent {
   collectionSize = 0;
   searchTerm: string = '';
   filterApplied = false;
+  selectedBookIds: number[] = [];
 
   // Fields for the Filter logic
   categories = [
@@ -178,5 +187,32 @@ export class ManagementCardGridComponent {
     }
   }
   
+
+  handleSelectionChange(deletePair: deletePair): void {
+    if(deletePair.selected) {
+      this.selectedBookIds.push(deletePair.id);
+    } else {
+      const index = this.selectedBookIds.indexOf(deletePair.id);
+      if (index > -1) {
+          this.selectedBookIds.splice(index, 1);
+      }
+    }
+  }
+
+  openDeleteConfirmationModal() {
+    this.modalService.open(this.contentTemplate, { centered: true });
+  }
+
+  deleteSelectedBooks() {
+    this.bookservice.deleteBooks(this.selectedBookIds).then(() => {
+      this.displayedBooks = this.displayedBooks.filter(book => !this.selectedBookIds.includes(book.id));
+      this.selectedBookIds = [];
+      console.log(this.displayedBooks)
+    })
+    .catch(error => {
+      console.error(error);
+    });
+    this.modalService.dismissAll();
+  }
 
 }

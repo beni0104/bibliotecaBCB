@@ -27,13 +27,13 @@
             </svg>
           Filtre
         </button>
-        <button type="button" class="btn btn-danger delete-btn">Șterge cărțile selectate</button>
+        <button type="button" class="btn btn-danger delete-btn" [disabled]="selectedBookIds.length == 0" (click)="openDeleteConfirmationModal()">Șterge cărțile selectate</button>
       </div>
     </div>
     <div class="col">
       <div class="row" *ngIf="displayedBooks.length > 0; else noResultsTemplate">
         <div *ngFor="let book of displayedBooks" class="col-12 mb-4">
-            <app-management-book-card [book]="book"></app-management-book-card>
+            <app-management-book-card [book]="book" (selectionChange)="handleSelectionChange($event)"></app-management-book-card>
         </div>
       </div>
             <ngb-pagination class="d-flex justify-content-center"
@@ -92,4 +92,16 @@
   </div>
 </div>
 
-
+<!-- Delete Confirmation modal -->
+<ng-template #deleteConfirmationModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">ATENȚIE</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>Sunteți sigur că doriți să ștergeti {{selectedBookIds.length}} cărți?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="deleteSelectedBooks()">Confirmă</button>
+  </div>
+</ng-template>

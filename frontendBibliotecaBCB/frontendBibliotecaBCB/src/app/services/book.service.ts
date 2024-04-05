@@ -192,4 +192,27 @@ export class BookService {
     }
   }
 
+  async deleteBooks(bookIds: number[]) {
+    this.attributeJwtToken();
+    try {
+      const response = await fetch('http://' + environment.host + ':8080/api/book/delete', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.jwtToken
+        },
+        body: JSON.stringify(bookIds)
+      });
+      if(response.ok) {
+        return true;
+      }else{
+        return false;
+      }
+    }
+    catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
 }

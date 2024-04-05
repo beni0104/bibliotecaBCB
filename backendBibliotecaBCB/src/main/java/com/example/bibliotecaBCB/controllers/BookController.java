@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.*;
 
 @RestController
-//@CrossOrigin(origins = "http://LOCALHOST:4200/")
+@CrossOrigin(origins = "http://:4200/")
 @RequestMapping("/api/book")
 public class BookController {
 
@@ -103,10 +103,17 @@ public class BookController {
         return ResponseEntity.ok(book);
     }
 
-    @DeleteMapping("/delete{id}")
+    @PutMapping("/update")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<?> deleteById(@PathVariable Long id){
-        bookService.deleteById(id);
+    public ResponseEntity<?> updateBook (@RequestBody Book book){
+        bookService.update(book);
+        return ResponseEntity.ok(book);
+    }
+
+    @DeleteMapping("/delete")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> deleteById(@RequestBody List<Long> bookIds){
+        bookService.deleteById(bookIds);
         return ResponseEntity.ok("Successfully delete!");
     }
    // Tried to read data from Excel
