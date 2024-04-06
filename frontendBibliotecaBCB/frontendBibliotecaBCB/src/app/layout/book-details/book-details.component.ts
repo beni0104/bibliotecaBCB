@@ -14,7 +14,7 @@ import { truncateSync } from 'fs';
 export class BookDetailsComponent implements OnInit {
 
   book: Book = {
-    "id": 0,
+    "id": -1,
     "bookId": 0,
     "title": "",
     "author": "",
@@ -185,7 +185,6 @@ export class BookDetailsComponent implements OnInit {
     const state = navigation?.extras.state as {book: Book};
     if (state && state.book) {
       this.book = state.book;
-      
     } else {
       this.route.queryParams.subscribe(params => {
         const decryptedId = this.encryptionService.decrypt(params['id']);

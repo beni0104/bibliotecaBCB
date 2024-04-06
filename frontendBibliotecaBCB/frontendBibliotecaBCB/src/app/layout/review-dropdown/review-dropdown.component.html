@@ -26,10 +26,30 @@
     </button>
     <div class="dropdown-content" *ngIf="isDropdownOpen">
     <!-- Review content goes here -->
-    <div *ngFor="let review of userReviews; let isFirst = first" class="user-review px-4 py-2">
-        <hr *ngIf="!isFirst">
-        <p><strong>{{ review.username }}</strong> says: {{ review.comment }}</p>
-        <div class="review-summary">
+
+    <button class="btn btn-primary my-2" (click)="showReviewForm = !showReviewForm">Adaugă o recenzie</button>
+    <div *ngIf="showReviewForm">
+      <form>
+        <div class="form-group">
+          <label for="reviewRating" style="margin-right: 5px;">Rating</label>
+          <ngb-rating [(rate)]="reviewRating" [max]="5"></ngb-rating>
+        </div>
+        <div class="form-group">
+          <label for="reviewDescription">Descriere:</label>
+          <textarea class="form-control" id="reviewDescription" rows="3" [(ngModel)]="reviewDescription" name="reviewDescription"></textarea>
+        </div>
+        <div class="form-group d-flex justify-content-end">
+          <button type="button" class="btn btn-secondary mr-2 add-review-btn" (click)="cancelReview()">Renunță</button>
+          <button type="submit" class="btn btn-success add-review-btn" [disabled]="!this.reviewRating" (click)="submitReview()">Trimite recenzia</button>
+        </div>
+      </form>
+    </div>
+
+
+    <div *ngFor="let review of userReviews" class="user-review px-4 py-2">
+        <hr>
+        <span><strong>{{ review.username }}</strong></span>
+        <span class="review-summary" style="margin-left: 10px;">
           <div class="star-rating">
             <div class="star-rating-top" [style.width.%]="review.rating / 5 * 100">
               <span>★</span>
@@ -46,6 +66,9 @@
               <span>★</span>
             </div>
           </div>  
+        </span>
+        <div class="review-comment">
+          {{ review.description }}
         </div>
     </div>
     </div>

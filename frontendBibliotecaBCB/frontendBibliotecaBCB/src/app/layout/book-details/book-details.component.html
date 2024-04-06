@@ -40,7 +40,9 @@
     </div>
   
     <!-- User Reviews -->
-    <app-review-dropdown [bookId]="book.id"></app-review-dropdown>
+    <div *ngIf="book.id != -1">
+      <app-review-dropdown [bookId]="book.id"></app-review-dropdown>
+    </div>
   
     <!-- Related Books -->
     <hr>

@@ -1,3 +1,7 @@
+.review-comment{
+  margin-top: 10px;
+}
+
 .review-dropdown {
     font-family: 'Arial', sans-serif;
     margin: 20px;
@@ -71,6 +75,11 @@
 
 .star-rating span {
   margin-right: -0.06em; /* Adjust spacing based on font and size */
+}
+
+.add-review-btn {
+  margin-top: 5px;
+  margin-left: 5px;
 }
 
   
