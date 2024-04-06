@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "http://:4200/")
+
 @RequestMapping("/api/book")
 public class BookController {
 
@@ -99,8 +99,10 @@ public class BookController {
     @PutMapping("/update")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateBook (@RequestBody Book book){
-        bookService.update(book);
-        return ResponseEntity.ok(book);
+        if(bookService.update(book))
+            return ResponseEntity.ok(book);
+        else
+            return ResponseEntity.internalServerError().build();
     }
 
     @DeleteMapping("/delete")
