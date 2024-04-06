@@ -24,11 +24,6 @@ public class FavoriteService {
     public boolean addFavorite(Long userId, Long bookId) {
         if (!userFavoritesRepository.existsUserFavoritesByUserIdAndBookId(userId, bookId)) {
             if(!(userService.findById(userId).isPresent() && bookService.findById(bookId).isPresent())){
-                if(userService.findById(userId).isPresent())
-                    System.out.println("user is present");
-                if(bookService.findById(bookId).isPresent())
-                    System.out.println("book is present");
-                System.out.println("first in service");
                 return false;
             }
             UserFavorites userFavorites = new UserFavorites(

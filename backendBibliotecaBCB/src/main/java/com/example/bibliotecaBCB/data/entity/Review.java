@@ -1,6 +1,7 @@
 package com.example.bibliotecaBCB.data.entity;
 
 
+import com.example.bibliotecaBCB.data.dto.ReviewDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,8 +28,16 @@ public class Review {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    public Review(double rating, String description) {
-        this.rating = rating;
-        this.description = description;
+    public Review(ReviewDTO reviewDTO, User user, Book book) {
+        this.rating = reviewDTO.getRating();
+        this.description = reviewDTO.getDescription();
+        this.book = book;
+        this.user = user;
+    }
+
+    public Review(ReviewDTO reviewDTO, User user) {
+        this.rating = reviewDTO.getRating();
+        this.description = reviewDTO.getDescription();
+        this.user = user;
     }
 }

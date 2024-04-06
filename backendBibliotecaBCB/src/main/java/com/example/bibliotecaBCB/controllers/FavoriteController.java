@@ -50,11 +50,8 @@ public class FavoriteController {
     public ResponseEntity<?> addBookToFavorites(@RequestHeader(value="Authorization") String token, @RequestParam Long bookId){
 
         Long userId = jwtUtils.extractUserIdFromJWT(token);
-        System.out.println("User token: "+token);
         if(userId != null){
-            System.out.println("User id:" + userId);
             if(favoriteService.addFavorite(userId, bookId)){
-                System.out.println("second");
                 return ResponseEntity.ok("Book successfully added to favorites!");
             }
         }
