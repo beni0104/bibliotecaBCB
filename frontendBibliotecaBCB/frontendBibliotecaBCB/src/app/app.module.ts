@@ -9,7 +9,7 @@ import { Person } from 'ng-bootstrap-icons/icons';
 import { BookCardComponent } from './layout/book-card/book-card.component';
 import { CardGridComponent } from './layout/card-grid/card-grid.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { BookDetailsComponent } from './layout/book-details/book-details.component';
 import { FormsModule } from '@angular/forms';
 import { ReviewDropdownComponent } from './layout/review-dropdown/review-dropdown.component';
@@ -58,7 +58,8 @@ const icons = {
     ReactiveFormsModule
   ],
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })

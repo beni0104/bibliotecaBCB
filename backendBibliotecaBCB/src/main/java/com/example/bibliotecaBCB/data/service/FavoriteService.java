@@ -2,7 +2,6 @@ package com.example.bibliotecaBCB.data.service;
 
 import com.example.bibliotecaBCB.data.entity.UserFavorites;
 import com.example.bibliotecaBCB.data.repository.UserFavoritesRepository;
-import com.example.bibliotecaBCB.data.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,20 +11,20 @@ import java.util.stream.Collectors;
 @Service
 public class FavoriteService {
 
-    private final UserRepository userRepository;
     private final BookService bookService;
+    private final UserService userService;
     private final UserFavoritesRepository userFavoritesRepository;
 
-    public FavoriteService(UserRepository userRepository, BookService bookService, UserFavoritesRepository userFavoritesRepository) {
-        this.userRepository = userRepository;
+    public FavoriteService(BookService bookService, UserService userService, UserFavoritesRepository userFavoritesRepository) {
         this.bookService = bookService;
+        this.userService = userService;
         this.userFavoritesRepository = userFavoritesRepository;
     }
 
     public boolean addFavorite(Long userId, Long bookId) {
         if (!userFavoritesRepository.existsUserFavoritesByUserIdAndBookId(userId, bookId)) {
-            if(!(userRepository.findById(userId).isPresent() && bookService.findById(bookId).isPresent())){
-                if(userRepository.findById(userId).isPresent())
+            if(!(userService.findById(userId).isPresent() && bookService.findById(bookId).isPresent())){
+                if(userService.findById(userId).isPresent())
                     System.out.println("user is present");
                 if(bookService.findById(bookId).isPresent())
                     System.out.println("book is present");
@@ -33,7 +32,7 @@ public class FavoriteService {
                 return false;
             }
             UserFavorites userFavorites = new UserFavorites(
-                    userRepository.findById(userId).get(),
+                    userService.findById(userId).get(),
                     bookService.findById(bookId).get()
             );
             userFavoritesRepository.save(userFavorites);
@@ -45,7 +44,7 @@ public class FavoriteService {
 
     public boolean deleteFavorite(Long userId, Long bookId){
         if (userFavoritesRepository.existsUserFavoritesByUserIdAndBookId(userId, bookId)) {
-            if(!(userRepository.findById(userId).isPresent() && bookService.findById(bookId).isPresent())){
+            if(!(userService.findById(userId).isPresent() && bookService.findById(bookId).isPresent())){
                 return false;
             }
             UserFavorites userFavorites = userFavoritesRepository.findByUserIdAndBookId(userId, bookId);
@@ -53,13 +52,6 @@ public class FavoriteService {
             return true;
         }
         return false;
-    }
-
-    public Long getUserIdByUserEmail(String email){
-        if(userRepository.findByEmail(email).isPresent())
-            return userRepository.findByEmail(email).get().getId();
-        else
-            return null;
     }
 
     public List<UserFavorites> getAllFavoritesByUserId(Long userId){

@@ -3,6 +3,7 @@ package com.example.bibliotecaBCB.security.jwt;
 import java.security.Key;
 import java.util.Date;
 
+import com.example.bibliotecaBCB.data.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,12 +19,17 @@ import com.example.bibliotecaBCB.security.services.UserDetailsImpl;
 @Component
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
+    private final UserService userService;
 
     @Value("${bibliotecabcb.app.jwtSecret}")
     private String jwtSecret;
 
     @Value("${bibliotecabcb.app.jwtExpirationMs}")
     private int jwtExpirationMs;
+
+    public JwtUtils(UserService userService) {
+        this.userService = userService;
+    }
 
     public String generateJwtToken(Authentication authentication) {
 
@@ -44,6 +50,14 @@ public class JwtUtils {
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parserBuilder().setSigningKey(key()).build()
                 .parseClaimsJws(token).getBody().getSubject();
+    }
+
+    public Long extractUserIdFromJWT(String token){
+        if(token.startsWith("Bearer ")) {
+            token = token.substring(7);
+        }
+        String username = getUserNameFromJwtToken(token);
+        return userService.getUserIdByUserEmail(username);
     }
 
     public boolean validateJwtToken(String authToken) {

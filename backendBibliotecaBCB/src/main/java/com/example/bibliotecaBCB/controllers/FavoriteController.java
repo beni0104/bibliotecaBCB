@@ -25,19 +25,11 @@ public class FavoriteController {
         this.jwtUtils = jwtUtils;
     }
 
-    private Long extractUserIdFromJWT(String token){
-        if(token.startsWith("Bearer ")) {
-            token = token.substring(7);
-        }
-        String username = jwtUtils.getUserNameFromJwtToken(token);
-        return favoriteService.getUserIdByUserEmail(username);
-    }
-
     @GetMapping("/getall")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> getAllFavorites(@RequestHeader(value="Authorization") String token){
 
-        Long userId = extractUserIdFromJWT(token);
+        Long userId = jwtUtils.extractUserIdFromJWT(token);
         if(userId != null){
             List<UserFavorites> userFavoritesList = favoriteService.getAllFavoritesByUserId(userId);
             List<BookDTO> bookDTOS = new ArrayList<>();
@@ -57,7 +49,7 @@ public class FavoriteController {
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> addBookToFavorites(@RequestHeader(value="Authorization") String token, @RequestParam Long bookId){
 
-        Long userId = extractUserIdFromJWT(token);
+        Long userId = jwtUtils.extractUserIdFromJWT(token);
         System.out.println("User token: "+token);
         if(userId != null){
             System.out.println("User id:" + userId);
@@ -74,7 +66,7 @@ public class FavoriteController {
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> deleteBookFromFavorites(@RequestHeader(value="Authorization") String token, @RequestParam Long bookId){
 
-        Long userId = extractUserIdFromJWT(token);
+        Long userId = jwtUtils.extractUserIdFromJWT(token);
 
         if(userId != null){
             if(favoriteService.deleteFavorite(userId, bookId)) {

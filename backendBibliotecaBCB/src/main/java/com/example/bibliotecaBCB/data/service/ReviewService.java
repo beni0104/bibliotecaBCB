@@ -27,6 +27,9 @@ public class ReviewService {
         reviewRepository.save(review);
     }
 
+    public void findByBookId(Long bookId){
+        reviewRepository.findByBookId(bookId);
+    }
 
 
 }

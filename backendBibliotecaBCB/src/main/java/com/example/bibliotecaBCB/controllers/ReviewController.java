@@ -4,6 +4,7 @@ package com.example.bibliotecaBCB.controllers;
 import com.example.bibliotecaBCB.data.dto.ReviewDTO;
 import com.example.bibliotecaBCB.data.entity.Review;
 import com.example.bibliotecaBCB.data.service.ReviewService;
+import com.example.bibliotecaBCB.security.jwt.JwtUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,9 +14,11 @@ import java.util.List;
 @RequestMapping("/api/review")
 public class ReviewController {
     private final ReviewService reviewService;
+    private final JwtUtils jwtUtils;
 
-    public ReviewController(ReviewService reviewService) {
+    public ReviewController(ReviewService reviewService, JwtUtils jwtUtils) {
         this.reviewService = reviewService;
+        this.jwtUtils = jwtUtils;
     }
 
     @GetMapping("/getall")
@@ -25,7 +28,7 @@ public class ReviewController {
 
     @PostMapping("/create")
     public ResponseEntity<Review> createReview(@RequestBody ReviewDTO reviewDTO){
-        Review review = new Review(reviewDTO.getType(), reviewDTO.getRating(), reviewDTO.getDescription());
+        Review review = new Review(reviewDTO.getRating(), reviewDTO.getDescription());
         reviewService.save(review);
         return ResponseEntity.ok(review);
     }

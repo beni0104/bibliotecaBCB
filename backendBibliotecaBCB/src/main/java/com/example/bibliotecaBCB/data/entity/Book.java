@@ -1,5 +1,6 @@
 package com.example.bibliotecaBCB.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,8 +25,13 @@ public class Book {
     private String category;
     private int amount;
 
+    @JsonIgnoreProperties
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserFavorites> userFavorites;
+
+    @JsonIgnoreProperties
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews;
 
     public Book(long bookId, String title, String author, String category, int amount) {
         this.bookId = bookId;

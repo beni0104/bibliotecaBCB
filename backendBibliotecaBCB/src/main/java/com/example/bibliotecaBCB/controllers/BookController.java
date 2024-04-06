@@ -33,17 +33,10 @@ public class BookController {
         this.favoriteService = favoriteService;
     }
 
-    private Long extractUserIdFromJWT(String token){
-        if(token.startsWith("Bearer ")) {
-            token = token.substring(7);
-        }
-        String username = jwtUtils.getUserNameFromJwtToken(token);
-        return favoriteService.getUserIdByUserEmail(username);
-    }
     @GetMapping("/all")
     public ResponseEntity<List<BookDTO>> getAllBooks(@RequestHeader(value="Authorization") String token){
         if(token != null && token.startsWith("Bearer ") && token.split("\\.").length == 3) {
-            Long userId = extractUserIdFromJWT(token);
+            Long userId = jwtUtils.extractUserIdFromJWT(token);
             if (userId != null) {
                 List<Book> books = bookService.findAll();
                 List<BookDTO> bookDTOS = new ArrayList<>();
@@ -77,12 +70,12 @@ public class BookController {
     }
 
     @GetMapping("/getbyid")
-    public ResponseEntity<Book> findById(@RequestParam Long id){
+    public ResponseEntity<BookDTO> findById(@RequestParam Long id){
         Optional<Book> book = bookService.findById(id);
         //        .orElseThrow(()-> new ResourceNotFoundException("Book does not exist with id: " +id));
         //   Exception handling
         if(book.isPresent())
-            return ResponseEntity.ok(book.get());
+            return ResponseEntity.ok(new BookDTO(book.get()));
         else
             return null;
     }
