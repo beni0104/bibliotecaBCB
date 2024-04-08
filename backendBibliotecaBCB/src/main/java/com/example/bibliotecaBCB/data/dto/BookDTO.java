@@ -14,7 +14,7 @@ public class BookDTO {
     private int amount;
     @JsonProperty("isFavorite")
     private boolean isFavorite;
-    private float rating;
+    private Float rating;
 
     public BookDTO(Book book) {
         this.id = book.getId();
@@ -23,5 +23,6 @@ public class BookDTO {
         this.author = book.getAuthor();
         this.category = book.getCategory();
         this.amount = book.getAmount();
+        this.rating = book.getAverageRating();
     }
 }

@@ -1,11 +1,13 @@
 package com.example.bibliotecaBCB.data.service;
 
 import com.example.bibliotecaBCB.data.dto.ReviewDTO;
+import com.example.bibliotecaBCB.data.entity.Book;
 import com.example.bibliotecaBCB.data.entity.Review;
 import com.example.bibliotecaBCB.data.repository.ReviewRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReviewService {
@@ -36,15 +38,20 @@ public class ReviewService {
     }
 
     public boolean addBookReview(ReviewDTO reviewDTO, Long userId, Long bookId){
-        if(!(userService.findById(userId).isPresent() && bookService.findById(bookId).isPresent())){
+        Optional<Book> optionalBook = bookService.findById(bookId);
+        if(!(userService.findById(userId).isPresent() && optionalBook.isPresent())){
             return false;
         }
+        Book book = optionalBook.get();
         Review review = new Review(
                 reviewDTO,
                 userService.findById(userId).get(),
-                bookService.findById(bookId).get()
+                book
         );
+        int numberOfReviews = book.getReviews().size();
         reviewRepository.save(review);
+        book.setAverageRating((float) ((book.getAverageRating() * numberOfReviews) + review.getRating()) /  (numberOfReviews + 1));
+        bookService.update(book);
         return true;
     }
 

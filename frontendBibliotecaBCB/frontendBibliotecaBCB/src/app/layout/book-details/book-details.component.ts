@@ -4,7 +4,6 @@ import { Book } from '../../interfaces/book';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { EncryptionService } from '../../services/encryption.service';
 import { BookService } from '../../services/book.service';
-import { truncateSync } from 'fs';
 
 @Component({
   selector: 'app-book-details',
@@ -166,7 +165,7 @@ export class BookDetailsComponent implements OnInit {
   }
   ];
   isAvailable: boolean = true;
-  averageRating: number = 1.5;
+  averageRating: number = 0;
 
 
   constructor(
@@ -193,6 +192,10 @@ export class BookDetailsComponent implements OnInit {
         })
       });
     }
+  }
+
+  updateAverageRating(newRating: number) {
+    this.averageRating = newRating;
   }
 
   rentBook(): void {

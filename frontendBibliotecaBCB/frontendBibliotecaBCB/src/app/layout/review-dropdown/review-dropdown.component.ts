@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { UserReview } from '../../interfaces/review';
 import { ReviewService } from '../../services/review.service';
 
@@ -10,6 +10,7 @@ import { ReviewService } from '../../services/review.service';
 export class ReviewDropdownComponent {
   isDropdownOpen = false;
   @Input() bookId!: number;
+  @Output() averageRatingChange = new EventEmitter<number>();
   numberOfReviews!: number;
   averageRating: number = 0;
   userReviews: UserReview[] = [];
@@ -30,8 +31,13 @@ export class ReviewDropdownComponent {
     try {
       const reviews = await this.reviewService.getReviewsByBookId(this.bookId);
       this.numberOfReviews = reviews.length;
-      this.averageRating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
+      this.averageRating = +(reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length).toFixed(1);
       this.userReviews = reviews;
+      // Emit the average rating to the parent component
+      if(this.numberOfReviews > 0)
+        this.averageRatingChange.emit(this.averageRating);
+      else
+        this.averageRatingChange.emit(0);
     }
     catch (error) {
       console.error(error);

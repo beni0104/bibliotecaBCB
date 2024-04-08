@@ -1,6 +1,7 @@
 package com.example.bibliotecaBCB.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +25,7 @@ public class Book {
     private String author;
     private String category;
     private int amount;
+    private Float averageRating;
 
     @JsonIgnoreProperties
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -33,11 +35,12 @@ public class Book {
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
 
-    public Book(long bookId, String title, String author, String category, int amount) {
+    public Book(long bookId, String title, String author, String category, int amount, Float averageRating) {
         this.bookId = bookId;
         this.title = title;
         this.author = author;
         this.category = category;
         this.amount = amount;
+        this.averageRating = averageRating;
     }
 }

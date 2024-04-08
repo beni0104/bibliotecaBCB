@@ -12,7 +12,6 @@ import { AlertService } from '../../services/alert.service';
 })
 export class BookCardComponent {
   @Input() book!: Book;
-  rating = 4.7;
   constructor(private router: Router,
               private encryptionService: EncryptionService,
               private bookService: BookService,
