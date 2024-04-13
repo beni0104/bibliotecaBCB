@@ -1,13 +1,13 @@
 // encryption.service.ts
 import { Injectable } from '@angular/core';
-import * as CryptoJS from 'crypto-js'; // Make sure to install crypto-js
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EncryptionService {
 
-  private secretKey = 'your_secret_key'; // Use a secure key
+  private secretKey = 'your_secret_key';
 
   constructor() { }
 

@@ -1,0 +1,9 @@
+.scrollable-dropdown {
+    max-height: 200px; /* Adjust the height as needed */
+    overflow-y: auto; /* Enables vertical scrolling */
+  }
+
+.dropdown-button {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}

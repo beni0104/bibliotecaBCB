@@ -24,6 +24,7 @@ import { ManagementBookCardComponent } from './layout/management-book-card/manag
 import { ManagementCardGridComponent } from './layout/management-card-grid/management-card-grid.component';
 import { EditBookComponent } from './layout/edit-book/edit-book.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LoanRegisterPageComponent } from './layout/loan-register-page/loan-register-page.component';
 
 const icons = {
   Person
@@ -45,7 +46,8 @@ const icons = {
     GlobalAlertComponent,
     ManagementBookCardComponent,
     ManagementCardGridComponent,
-    EditBookComponent
+    EditBookComponent,
+    LoanRegisterPageComponent
   ],
   imports: [
     BrowserModule,

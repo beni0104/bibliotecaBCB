@@ -9,6 +9,7 @@ import { AddBooksPageComponent } from './layout/add-books-page/add-books-page.co
 import { FavoritesPageComponent } from './layout/favorites-page/favorites-page.component';
 import { ManagementCardGridComponent } from './layout/management-card-grid/management-card-grid.component';
 import { EditBookComponent } from './layout/edit-book/edit-book.component';
+import { LoanRegisterPageComponent } from './layout/loan-register-page/loan-register-page.component';
 
 const routes: Routes = [
   {
@@ -21,7 +22,8 @@ const routes: Routes = [
       { path: 'addbooks', component: AddBooksPageComponent},
       { path: 'favoriteBooks', component: FavoritesPageComponent},
       { path: 'managebooks', component: ManagementCardGridComponent},
-      { path: 'editbook', component: EditBookComponent}
+      { path: 'editbook', component: EditBookComponent},
+      { path: 'loanRegister', component: LoanRegisterPageComponent},
     ]
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },

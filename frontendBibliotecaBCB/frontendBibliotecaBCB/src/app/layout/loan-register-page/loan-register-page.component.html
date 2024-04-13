@@ -1,0 +1,80 @@
+<form #loanForm="ngForm" (ngSubmit)="onSubmit(loanForm)">
+    <div class="form-group col-md-6 position-relative">
+      <label for="userName">Name</label>
+      <div class="input-group">
+        <input type="text" class="form-control" id="userName" placeholder="Enter Name" [(ngModel)]="userName" name="userName" (input)="filterOptions('userName')" (click)="toggleDropdown('userName')" autocomplete="off">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary dropdown-button" type="button" (click)="toggleDropdown('userName')"><i class="fas fa-caret-down"></i></button>
+        </div>
+      </div>
+      <div class="dropdown-menu w-100 scrollable-dropdown" style="display: block;" *ngIf="showUserNameDropdown && filteredUsers.length > 0">
+        <a class="dropdown-item" *ngFor="let user of users" (click)="selectUser(user)">{{user.name}}</a>
+      </div>
+    </div>
+
+    <div class="form-group col-md-6 position-relative">
+      <label for="userId">UserID (Optional)</label>
+      <div class="input-group">
+        <input type="text" class="form-control" id="userId" placeholder="Enter UserID" [(ngModel)]="userId" name="userId" (input)="filterOptions('userId')" (click)="toggleDropdown('userId')" autocomplete="off">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary dropdown-button" type="button" (click)="toggleDropdown('userId')"><i class="fas fa-caret-down"></i></button>
+        </div>
+      </div>
+      <div class="dropdown-menu w-100 scrollable-dropdown" style="display: block;" *ngIf="showUserIdDropdown && filteredUsers.length > 0">
+        <a class="dropdown-item" *ngFor="let user of users" (click)="selectUser(user)">{{user.id}}</a>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="beginDate">Begin Date</label>
+        <input type="date" class="form-control" id="beginDate" [(ngModel)]="beginDate" name="beginDate">
+      </div>
+      <div class="form-group col-md-6">
+        <label for="endDate">End Date</label>
+        <input type="date" class="form-control" id="endDate" [(ngModel)]="endDate" name="endDate">
+      </div>
+    </div>
+    
+    <div class="form-group col-md-6 position-relative">
+        <label for="bookName">Book Name</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="bookName" placeholder="Enter Book Name" [(ngModel)]="bookName" name="bookName" (input)="filterOptions('book')" (click)="toggleDropdown('book')" autocomplete="off">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary dropdown-button" type="button" (click)="toggleDropdown('book')"><i class="fas fa-caret-down"></i></button>
+          </div>
+        </div>
+        <div class="dropdown-menu w-100 scrollable-dropdown" style="display: block;" *ngIf="showBookDropdown && filteredBooks.length > 0">
+          <a class="dropdown-item" *ngFor="let book of filteredBooks" (click)="selectBook(book)">{{book.title}}</a>
+        </div>
+      </div>
+
+
+      <div class="form-group col-md-6 position-relative">
+        <label for="bookId">BookID</label>
+        <div class="input-group">
+            <input type="text" class="form-control" id="bookId" placeholder="Enter BookID" [(ngModel)]="bookId" name="bookId" (input)="filterOptions('bookId')" (click)="toggleDropdown('bookId')" autocomplete="off">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary dropdown-button" type="button" (click)="toggleDropdown('bookId')"><i class="fas fa-caret-down"></i></button>
+            </div>
+        </div>
+            <div class="dropdown-menu w-100 scrollable-dropdown" style="display: block;" *ngIf="showBookIdDropdown && filteredBooks.length > 0">
+                <a class="dropdown-item" *ngFor="let book of filteredBooks" (click)="selectBook(book)">{{book.bookId}}</a>
+            </div>
+        </div>    
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">{{modalTitle}}</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <p>{{modalMessage}}</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    </div>
+  </ng-template>
+  

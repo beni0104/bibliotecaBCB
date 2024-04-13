@@ -36,6 +36,7 @@ export class MainPageComponent {
       localStorage.removeItem('currentUser');
       this.user = null;
       this.isAdmin = false;
+      this.isLoggedIn = false;
       console.log(localStorage.getItem('currentUser'));
     }
   }
@@ -44,9 +45,5 @@ export class MainPageComponent {
   }
   signup() {
     this.router.navigate(['/signup']);
-  }
-
-  showuser(){
-    console.log(this.user);
   }
 }
