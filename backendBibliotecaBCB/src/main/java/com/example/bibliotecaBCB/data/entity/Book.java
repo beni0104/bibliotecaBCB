@@ -35,6 +35,10 @@ public class Book {
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews;
 
+    @JsonIgnoreProperties
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Loan> loans;
+
     public Book(long bookId, String title, String author, String category, int amount, Float averageRating) {
         this.bookId = bookId;
         this.title = title;

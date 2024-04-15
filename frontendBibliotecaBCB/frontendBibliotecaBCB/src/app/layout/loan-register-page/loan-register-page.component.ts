@@ -2,8 +2,9 @@ import { Component, inject, ViewChild, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Book } from '../../interfaces/book';
 import { BookService } from '../../services/book.service';
-import { UserService } from '../../services/user.service';
+import { LoanService } from '../../services/loan.service';
 import { UsernameAndId } from '../../interfaces/user';
+import { Loan } from '../../interfaces/loan';
 
 @Component({
   selector: 'app-loan-register-page',
@@ -33,7 +34,7 @@ export class LoanRegisterPageComponent {
   modalMessage = '';
   
 
-  constructor(private bookService: BookService, private userService: UserService) {}
+  constructor(private bookService: BookService, private loanService: LoanService) {}
 
   ngOnInit(): void {
     this.bookService.getAllBooks().then((data: any) => {
@@ -44,7 +45,7 @@ export class LoanRegisterPageComponent {
       console.error(error);
     });
 
-    this.userService.getUsernamesAndIds().then((data: any) => {
+    this.loanService.getUsernamesAndIds().then((data: any) => {
       this.users = data;
       this.filteredUsers = this.users;
     })
@@ -166,29 +167,43 @@ export class LoanRegisterPageComponent {
       this.modalService.open(this.contentTemplate);
     } else if (this.selectedBook) {
         if(this.selectedUser){
-          // this.bookService.createLoan(this.selectedBook.bookId, this.selectedUser.id).then((data: any) => {
-          //   this.modalTitle = 'Success';
-          //   this.modalMessage = 'Loan registered successfully';
-          //   this.modalService.open(this.contentTemplate);
-          // })
-          // .catch((error: any) => {
-          //   this.modalTitle = 'Error';
-          //   this.modalMessage = 'An error occurred while registering the loan';
-          //   this.modalService.open(this.contentTemplate);
-          //   console.error(error);
-          // });
+          const loan: Loan = {
+            userName: this.selectedUser.name,
+            userId: this.selectedUser.id,
+            dateLoaned: this.beginDate as Date,
+            dateReturned: this.endDate as Date,
+            bookId: this.selectedBook.id
+          }
+          this.loanService.createLoan(loan).then((data: any) => {
+            this.modalTitle = 'Success';
+            this.modalMessage = 'Loan registered successfully';
+            this.modalService.open(this.contentTemplate);
+          })
+          .catch((error: any) => {
+            this.modalTitle = 'Error';
+            this.modalMessage = 'An error occurred while registering the loan';
+            this.modalService.open(this.contentTemplate);
+            console.error(error);
+          });
         } else if(this.userName.length > 0) {
-          // this.bookService.createLoan(this.selectedBook.bookId, this.userName).then((data: any) => {
-          //   this.modalTitle = 'Success';
-          //   this.modalMessage = 'Loan registered successfully';
-          //   this.modalService.open(this.contentTemplate);
-          // })
-          // .catch((error: any) => {
-          //   this.modalTitle = 'Error';
-          //   this.modalMessage = 'An error occurred while registering the loan';
-          //   this.modalService.open(this.contentTemplate);
-          //   console.error(error);
-          // });
+          const loan: Loan = {
+            userName: this.userName,
+            userId: -1,
+            dateLoaned: this.beginDate as Date,
+            dateReturned: this.endDate as Date,
+            bookId: this.selectedBook.id
+          }
+          this.loanService.createLoan(loan).then((data: any) => {
+            this.modalTitle = 'Success';
+            this.modalMessage = 'Loan registered successfully';
+            this.modalService.open(this.contentTemplate);
+          })
+          .catch((error: any) => {
+            this.modalTitle = 'Error';
+            this.modalMessage = 'An error occurred while registering the loan';
+            this.modalService.open(this.contentTemplate);
+            console.error(error);
+          });
         } else {
           this.modalTitle = 'Error';
           this.modalMessage = 'Please select a user';

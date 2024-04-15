@@ -63,11 +63,13 @@ public class WebSecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers("/api/auth/**").permitAll()
+                        auth.requestMatchers("/api/book/all").permitAll()
+                                .requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api/test/**").permitAll()
                                 .requestMatchers("/api/book/**").permitAll()
                                 .requestMatchers("/api/favorite/**").permitAll()
                                 .requestMatchers("/api/review/**").permitAll()
+                                .requestMatchers("/api/loan/**").permitAll()
                                 .anyRequest().authenticated()
                 );
 

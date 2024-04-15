@@ -7,7 +7,7 @@ import * as CryptoJS from 'crypto-js';
 })
 export class EncryptionService {
 
-  private secretKey = 'your_secret_key';
+  private secretKey = 'your_secret_key'; // Use a secure key
 
   constructor() { }
 

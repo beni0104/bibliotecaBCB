@@ -1,6 +1,8 @@
 import { Component, PLATFORM_ID, Inject  } from '@angular/core';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
+import { jwtDecode } from 'jwt-decode';
+
 
 @Component({
   selector: 'app-main-page',
@@ -19,9 +21,20 @@ export class MainPageComponent {
       this.user = storedUser ? JSON.parse(storedUser) : null;
       this.checkUserRole();
       if (this.user) {
-        this.isLoggedIn = true;
+        if (!this.isTokenExpired(this.user['accessToken'])) {
+          this.isLoggedIn = true;
+        } else {
+          this.signOut();
+        }
       }
     }
+  }
+
+  isTokenExpired(token: string): boolean {
+    if(!token) return true;
+    const decodedToken = jwtDecode(token);
+    const currentTime = Date.now() / 1000; // Convert to seconds
+    return decodedToken.exp !== undefined && decodedToken.exp < currentTime;
   }
 
   checkUserRole(): void {
