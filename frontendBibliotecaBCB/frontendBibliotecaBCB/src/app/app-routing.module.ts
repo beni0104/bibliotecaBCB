@@ -9,7 +9,7 @@ import { AddBooksPageComponent } from './layout/add-books-page/add-books-page.co
 import { FavoritesPageComponent } from './layout/favorites-page/favorites-page.component';
 import { ManagementCardGridComponent } from './layout/management-card-grid/management-card-grid.component';
 import { EditBookComponent } from './layout/edit-book/edit-book.component';
-import { AddLoanComponent } from './layout/add-loan/add-loan.component';
+import { LoanPageComponent } from './layout/loan-page/loan-page.component';
 
 const routes: Routes = [
   {
@@ -23,7 +23,7 @@ const routes: Routes = [
       { path: 'favoriteBooks', component: FavoritesPageComponent},
       { path: 'managebooks', component: ManagementCardGridComponent},
       { path: 'editbook', component: EditBookComponent},
-      { path: 'loanRegister', component: AddLoanComponent},
+      { path: 'manageLoans', component: LoanPageComponent},
     ]
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },

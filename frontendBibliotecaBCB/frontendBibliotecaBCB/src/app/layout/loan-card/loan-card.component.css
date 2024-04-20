@@ -1,0 +1,33 @@
+.card {
+    margin-bottom: 1rem;
+}
+
+.main-dropdown-button {
+    padding: 10px 15px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  .dropdown-arrow {
+    float: right;
+    margin-left: 10px;
+  }
+  
+  .rotate {
+    transform: rotate(180deg);
+  }
+
+.card-body {
+    display: flex;
+}
+
+.group {
+    flex: 1;
+}
+
+.group button {
+    margin-top: 10px;
+}

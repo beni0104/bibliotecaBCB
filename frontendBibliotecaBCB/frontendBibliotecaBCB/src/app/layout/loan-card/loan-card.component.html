@@ -1,0 +1,36 @@
+<div class="card">
+    <button class="btn main-dropdown-button" (click)="toggleDropdown()" [class.active]="showDropdown" aria-expanded="false">
+        <span>{{ this.user.name}}</span>
+        <span class="dropdown-arrow" [ngClass]="{'rotate': showDropdown}">&#x25BC;</span>
+    </button>
+    <div class="dropdown-content" *ngIf="showDropdown">
+        <div *ngFor="let loan of loanList">
+            <hr>
+            <div class="card-body horizontal-layout" *ngIf="this.loan.dateLoaned">
+                <div class="group">
+                    <div>
+                        <label><strong>Loaned:</strong></label>
+                        <div>{{ this.loan.dateLoaned | date }}</div>
+                    </div>
+                    <div>
+                        <label><strong>Returned:</strong></label>
+                        <div>{{ this.loan.dateReturned | date }}</div>
+                    </div>
+                </div>
+                <div class="group">
+                    <div>
+                        <label><strong>Title:</strong></label>
+                        <div>Titlu carte</div>
+                    </div>
+                    <div>
+                        <label><strong>Author:</strong></label>
+                        <div>Autor carte</div>
+                    </div>
+                </div>
+            
+                <button type="button" class="btn btn-sm btn-outline-secondary" *ngIf="!this.loan.dateReturned" (click)="addReturnedDate()">Add Date Returned</button>
+                
+            </div>
+        </div>
+    </div>
+</div>
