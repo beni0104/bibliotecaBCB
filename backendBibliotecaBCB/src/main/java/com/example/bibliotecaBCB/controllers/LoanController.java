@@ -23,13 +23,22 @@ public class LoanController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Loan>> getAllLoans(){
+    public ResponseEntity<List<LoanDTO>> getAllLoans(){
         return ResponseEntity.ok(loanService.findAll());
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<List<LoanDTO>> getUserLoans(@RequestParam(defaultValue = "-1") Long userId,
+                                                      @RequestParam(defaultValue = "") String userName){
+        if(userId == -1){
+            return ResponseEntity.ok(loanService.findByUserName(userName));
+        } else {
+            return ResponseEntity.ok(loanService.findByUserId(userId));
+        }
     }
 
     @PostMapping("/create")
     public ResponseEntity<LoanDTO> createLoan(@RequestBody LoanDTO loanDTO){
-        System.out.println("LoanDTO: " + loanDTO);
         loanService.create(loanDTO);
 
         return ResponseEntity.ok(loanDTO);

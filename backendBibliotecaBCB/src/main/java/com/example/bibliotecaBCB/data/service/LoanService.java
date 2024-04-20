@@ -7,6 +7,7 @@ import com.example.bibliotecaBCB.data.entity.User;
 import com.example.bibliotecaBCB.data.repository.LoanRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,8 +23,39 @@ public class LoanService {
         this.userService = userService;
     }
 
-    public List<Loan> findAll(){
-        return loanRepository.findAll();
+    public List<LoanDTO> findAll(){
+        List<Loan> loans = loanRepository.findAll();
+        List<LoanDTO> loanDTOS = new ArrayList<>();
+        for(Loan loan: loans){
+            LoanDTO loanDTO = new LoanDTO(loan);
+            loanDTOS.add(loanDTO);
+        }
+        return loanDTOS;
+    }
+
+    public List<LoanDTO> findByUserId(Long userId){
+        Optional<User> optionalUser = userService.findById(userId);
+        if(optionalUser.isPresent()){
+            List<Loan> loans = loanRepository.findByUser(optionalUser.get());
+            List<LoanDTO> loanDTOS = new ArrayList<>();
+            for(Loan loan: loans){
+                LoanDTO loanDTO = new LoanDTO(loan);
+                loanDTOS.add(loanDTO);
+            }
+            return loanDTOS;
+        }
+        //TODO treat the case when user is not present
+        return null;
+    }
+
+    public List<LoanDTO> findByUserName(String userName){
+        List<Loan> loans = loanRepository.findByUserNameAndUserIsNull(userName);
+        List<LoanDTO> loanDTOS = new ArrayList<>();
+        for(Loan loan: loans){
+            LoanDTO loanDTO = new LoanDTO(loan);
+            loanDTOS.add(loanDTO);
+        }
+        return loanDTOS;
     }
 
     public void create(LoanDTO loanDTO){
@@ -55,5 +87,6 @@ public class LoanService {
     public void update(Loan loan){
         loanRepository.save(loan);
     }
+
 
 }

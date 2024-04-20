@@ -173,24 +173,25 @@ export class BookDetailsComponent implements OnInit {
       private encryptionService: EncryptionService,
       private route: ActivatedRoute,
       private router: Router,
-      @Inject(PLATFORM_ID) private platformId: Object) {}
+      @Inject(PLATFORM_ID) private platformId: Object) {
+        const navigation = this.router.getCurrentNavigation();
+        const state = navigation?.extras.state as {book: Book};
+        if (state && state.book) {
+          this.book = state.book;
+        } else {
+          this.route.queryParams.subscribe(params => {
+            const decryptedId = this.encryptionService.decrypt(params['id']);
+            this.bookservice.getBookById(Number(decryptedId)).then((data: any) => {
+              this.book = data;
+            })
+          });
+        }
+      }
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) {
       // This code will only execute on the browser
       window.scrollTo(0, 0);
-    }
-    const navigation = this.router.getCurrentNavigation();
-    const state = navigation?.extras.state as {book: Book};
-    if (state && state.book) {
-      this.book = state.book;
-    } else {
-      this.route.queryParams.subscribe(params => {
-        const decryptedId = this.encryptionService.decrypt(params['id']);
-        this.bookservice.getBookById(Number(decryptedId)).then((data: any) => {
-          this.book = data;
-        })
-      });
     }
   }
 

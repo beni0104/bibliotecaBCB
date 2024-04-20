@@ -39,6 +39,53 @@ export class LoanService {
     }
   }
 
+  async getLoans(userId?: number, userName?: string) {
+    if(userId) {
+      try {
+        const response = await fetch('http://' + environment.host + ':8080/api/loan/user?userId=' + userId, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        const data: Loan = await response.json();
+        return data;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    } else if(userName) {
+      try {
+        const response = await fetch('http://' + environment.host + ':8080/api/loan/user?userName=' + userName, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        const data: Loan = await response.json();
+        return data;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    } else {
+      try {
+        const response = await fetch('http://' + environment.host + ':8080/api/loan/all', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+        const data: Loan = await response.json();
+        return data;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    }
+    
+  }
+
   async createLoan(loan: Loan) {
     this.attributeJwtToken();
     try {

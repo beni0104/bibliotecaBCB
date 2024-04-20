@@ -37,7 +37,6 @@ public class ReviewController {
     @PostMapping("/create")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> createReview(@RequestHeader(value="Authorization") String token, @RequestBody ReviewDTO reviewDTO, @RequestParam(required = false) Long bookId){
-        System.out.println(bookId);
         Long userId = jwtUtils.extractUserIdFromJWT(token);
         if(userId != null){
             if (bookId != null) {

@@ -72,7 +72,7 @@
         <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" routerLink="/home">
+              <a class="nav-link d-flex align-items-center gap-2 active" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-current="page" routerLink="/home">
                 <svg class="bi"><use xlink:href="#house-fill"/></svg>
                 Cărți
               </a>
@@ -80,7 +80,7 @@
           </ul>
           <ul class="nav flex-column" *ngIf="isLoggedIn">
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" routerLink="/home/favoriteBooks">
+              <a class="nav-link d-flex align-items-center gap-2 active" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-current="page" routerLink="/home/favoriteBooks">
                 <svg class="bi"><use xlink:href="#bookmark-heart"/></svg>
                 Cărți favorite
               </a>
@@ -88,7 +88,7 @@
           </ul>
           <ul class="nav flex-column" *ngIf="isAdmin">
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" routerLink="/home/addbooks">
+              <a class="nav-link d-flex align-items-center gap-2 active" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-current="page" routerLink="/home/addbooks">
                 <svg class="bi"><use xlink:href="#circle-plus"/></svg>
                 Adaugă carte
               </a>
@@ -96,7 +96,7 @@
           </ul>
           <ul class="nav flex-column" *ngIf="isAdmin">
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" routerLink="/home/managebooks">
+              <a class="nav-link d-flex align-items-center gap-2 active" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-current="page" routerLink="/home/managebooks">
                 <svg class="bi"><use xlink:href="#circle-plus"/></svg>
                 Modifică/Șterge cărți
               </a>
@@ -104,7 +104,7 @@
           </ul>
           <ul class="nav flex-column" *ngIf="isAdmin">
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" routerLink="/home/loanRegister">
+              <a class="nav-link d-flex align-items-center gap-2 active" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-current="page" routerLink="/home/loanRegister">
                 <svg class="bi"><use xlink:href="#circle-plus"/></svg>
                 Adaugă fișa de împrumut
               </a>

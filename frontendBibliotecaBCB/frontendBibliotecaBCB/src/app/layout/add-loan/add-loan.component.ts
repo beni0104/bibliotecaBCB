@@ -7,11 +7,11 @@ import { UsernameAndId } from '../../interfaces/user';
 import { Loan } from '../../interfaces/loan';
 
 @Component({
-  selector: 'app-loan-register-page',
-  templateUrl: './loan-register-page.component.html',
-  styleUrl: './loan-register-page.component.css'
+  selector: 'app-add-loan',
+  templateUrl: './add-loan.component.html',
+  styleUrl: './add-loan.component.css'
 })
-export class LoanRegisterPageComponent {
+export class AddLoanComponent {
   @ViewChild('content') contentTemplate!: TemplateRef<any>;
   private modalService = inject(NgbModal);
   bookName = '';
@@ -22,6 +22,7 @@ export class LoanRegisterPageComponent {
   endDate: Date | undefined;
   selectedBook: Book | undefined;
   selectedUser: UsernameAndId | undefined;
+  showMainDropdown = false;
   showBookDropdown = false;
   showBookIdDropdown = false;
   showUserIdDropdown = false;
@@ -52,6 +53,14 @@ export class LoanRegisterPageComponent {
     .catch(error => { 
       console.error(error);
     });
+    
+    this.loanService.getLoans(undefined ,"Alexandru Ionescu").then((data: any) => {
+      console.log(data);
+    });
+  }
+
+  toggleMainDropdown() {
+    this.showMainDropdown = !this.showMainDropdown;
   }
 
   filterOptions(type: 'book' | 'bookId' | 'userId' | 'userName'): void {

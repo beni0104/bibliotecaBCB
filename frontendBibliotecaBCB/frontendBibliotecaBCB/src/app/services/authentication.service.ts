@@ -56,7 +56,6 @@ export class AuthenticationService {
 
       const data = await response.json();
       let user = JSON.stringify(data);
-      console.log(user);
       localStorage.setItem('currentUser', user);
       // this.currentUserSubject.next(user);
       return true;
@@ -68,7 +67,6 @@ export class AuthenticationService {
 
   logout() {
     // remove user from local storage to log user out
-    console.log(localStorage.getItem('currentUser'));
     localStorage.removeItem('currentUser');
     // this.currentUserSubject.next(null);
   }

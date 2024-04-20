@@ -33,7 +33,6 @@ public class FavoriteService {
             userFavoritesRepository.save(userFavorites);
             return true;
         }
-        System.out.println("second in service");
         return false;
     }
 

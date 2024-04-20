@@ -17,6 +17,7 @@ export class MainPageComponent {
 
   constructor(private router: Router,  @Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {
+      console.log(localStorage.getItem('currentUser'));
       const storedUser = localStorage.getItem('currentUser');
       this.user = storedUser ? JSON.parse(storedUser) : null;
       this.checkUserRole();

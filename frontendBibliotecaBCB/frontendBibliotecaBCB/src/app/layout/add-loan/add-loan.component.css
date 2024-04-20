@@ -1,0 +1,50 @@
+.scrollable-dropdown {
+    max-height: 200px; /* Adjust the height as needed */
+    overflow-y: auto; /* Enables vertical scrolling */
+  }
+
+.dropdown-button {
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.main-dropdown-button {
+  padding: 10px 15px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.dropdown-arrow {
+  float: right;
+  margin-left: 10px;
+}
+
+.rotate {
+  transform: rotate(180deg);
+}
+
+.custom-col {
+  display: inline-block;
+  width: 100%; /* Initially set to 100% */
+  margin-bottom: 10px; /* Add some space between inputs */
+}
+
+.top-input{
+  margin-top: 1rem;
+}
+
+@media (min-width: 768px) {
+  .custom-col {
+    width: 48%; /* Adjust as needed for larger screens */
+    margin-right: 2%; /* Adjust margin between inputs */
+  }
+}
+
+@media (max-width: 768px) {
+  .top-input {
+    margin-top: 1.5rem;
+  }
+}
