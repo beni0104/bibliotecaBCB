@@ -84,7 +84,19 @@ public class LoanService {
         loanRepository.save(loan);
     }
 
-    public void update(Loan loan){
+    public void update(LoanDTO loanDTO){
+        Loan loan = new Loan(
+                loanDTO.getId(),
+                loanDTO.getDateLoaned(),
+                loanDTO.getDateReturned(),
+                loanDTO.getUserName()
+        );
+        System.out.println(loanDTO.getBookId());
+        Optional<Book> book = bookService.findById(loanDTO.getBookId());
+        book.ifPresent(loan::setBook);
+        Optional<User> user = userService.findById(loanDTO.getUserId());
+        user.ifPresent(loan::setUser);
+
         loanRepository.save(loan);
     }
 

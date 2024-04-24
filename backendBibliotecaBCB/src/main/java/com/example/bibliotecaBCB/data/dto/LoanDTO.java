@@ -8,6 +8,7 @@ import java.util.Date;
 
 @Data
 public class LoanDTO {
+    private Long id;
     private String userName;
     private Long userId;
     private Date dateLoaned;
@@ -15,12 +16,13 @@ public class LoanDTO {
     private Long bookId;
 
     public LoanDTO(Loan loan) {
+        this.id = loan.getId();
         this.userName = loan.getUserName();
         if(loan.getUser() != null)
             this.userId = loan.getUser().getId();
         this.dateLoaned = loan.getDateLoaned();
         this.dateReturned = loan.getDateReturned();
-        this.bookId = loan.getBook().getBookId();
+        this.bookId = loan.getBook().getId();
     }
 
     public LoanDTO() {

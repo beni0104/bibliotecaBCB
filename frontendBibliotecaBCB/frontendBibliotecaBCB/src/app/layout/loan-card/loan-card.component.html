@@ -10,27 +10,47 @@
                 <div class="group">
                     <div>
                         <label><strong>Loaned:</strong></label>
-                        <div>{{ this.loan.dateLoaned | date }}</div>
+                        <div>{{ loan.dateLoaned | date }}</div>
                     </div>
                     <div>
                         <label><strong>Returned:</strong></label>
-                        <div>{{ this.loan.dateReturned | date }}</div>
+                        <div *ngIf="this.loan.dateReturned; else notReturned">{{ loan.dateReturned | date }}</div>
+                        <ng-template #notReturned>
+                            <div style="color: red;">Not returned</div>
+                        </ng-template>
                     </div>
                 </div>
                 <div class="group">
                     <div>
                         <label><strong>Title:</strong></label>
-                        <div>Titlu carte</div>
+                        <div>{{loanBooks[loan.id!].title}}</div>
                     </div>
                     <div>
                         <label><strong>Author:</strong></label>
-                        <div>Autor carte</div>
+                        <div>{{loanBooks[loan.id!].author}}</div>
                     </div>
                 </div>
             
-                <button type="button" class="btn btn-sm btn-outline-secondary" *ngIf="!this.loan.dateReturned" (click)="addReturnedDate()">Add Date Returned</button>
-                
+                <div *ngIf="!loan.dateReturned && loan.id !== undefined">
+                    <label for="endDate-{{loan.id}}">End Date</label>
+                    <input type="date" class="form-control" id="endDate-{{loan.id}}" [ngModel]="temporaryReturnDates[loan.id]" (ngModelChange)="setTemporaryDate(loan.id, $event)" name="endDate-{{loan.id}}">
+                    <button type="button" class="btn btn-sm btn-outline-secondary" (click)="openAddReturnedDateModal(loan)">Add Date Returned</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">{{modalTitle}}</h4>
+      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    </div>
+    <div class="modal-body">
+      <p>{{modalMessage}}</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="addReturnedDate()">Confirm</button>
+    </div>
+</ng-template>

@@ -1,4 +1,5 @@
 export interface Loan {
+    id?: number;
     userName: string;
     userId: number;
     dateLoaned: Date;

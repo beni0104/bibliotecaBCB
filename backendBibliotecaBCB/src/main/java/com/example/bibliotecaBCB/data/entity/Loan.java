@@ -33,6 +33,13 @@ public class Loan {
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
+    public Loan(long id, Date dateLoaned, Date dateReturned, String userName) {
+        this.id = id;
+        this.dateLoaned = dateLoaned;
+        this.dateReturned = dateReturned;
+        this.userName = userName;
+    }
+
     public Loan(Date dateLoaned, Date dateReturned, String userName, Book book) {
         this.dateLoaned = dateLoaned;
         this.dateReturned = dateReturned;

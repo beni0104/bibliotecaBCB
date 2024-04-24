@@ -44,6 +44,12 @@ public class LoanController {
         return ResponseEntity.ok(loanDTO);
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<LoanDTO> updateLoan(@RequestBody LoanDTO loanDTO){
+        loanService.update(loanDTO);
+        return ResponseEntity.ok(loanDTO);
+    }
+
     @GetMapping("/userDetails")
     public ResponseEntity<List<UserDTO>> getUserDetails(){
         List<UserDTO> userDTOS = userService.getUserNamesAndIds();
