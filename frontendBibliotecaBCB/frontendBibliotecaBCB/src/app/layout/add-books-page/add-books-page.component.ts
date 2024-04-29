@@ -14,6 +14,7 @@ export class AddBooksPageComponent {
   selectedFile: File | null = null;
   modalTitle = '';
   modalMessage = '';
+  showMainDropdown = false;
 
   constructor(private bookService: BookService) { }
 
@@ -46,6 +47,10 @@ export class AddBooksPageComponent {
       }
       
     }
+  }
+
+  toggleMainDropdown() {
+    this.showMainDropdown = !this.showMainDropdown;
   }
 
   onFileSelected(event: any): void {

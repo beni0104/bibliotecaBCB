@@ -1,6 +1,6 @@
 <main>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-      <h1 class="h2" (click)="clearFilters()">Cărțile bibliotecii</h1>
+      <h1 class="h2" (click)="clearFilters()">Gestionează cărțile</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
           <form class="d-flex" role="search">
@@ -30,6 +30,9 @@
         <button type="button" class="btn btn-danger delete-btn" [disabled]="selectedBookIds.length == 0" (click)="openDeleteConfirmationModal()">Șterge cărțile selectate</button>
       </div>
     </div>
+
+    <app-add-books-page></app-add-books-page>
+
     <div class="col">
       <div class="row" *ngIf="displayedBooks.length > 0; else noResultsTemplate">
         <div *ngFor="let book of displayedBooks" class="col-12 mb-4">

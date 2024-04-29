@@ -19,7 +19,6 @@ const routes: Routes = [
       { path: "", component: CardGridComponent},
       { path: 'bookdetails', component: BookDetailsComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'addbooks', component: AddBooksPageComponent},
       { path: 'favoriteBooks', component: FavoritesPageComponent},
       { path: 'managebooks', component: ManagementCardGridComponent},
       { path: 'editbook', component: EditBookComponent},

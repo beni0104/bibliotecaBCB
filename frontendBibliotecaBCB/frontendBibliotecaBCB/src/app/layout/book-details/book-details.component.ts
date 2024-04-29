@@ -200,6 +200,7 @@ export class BookDetailsComponent implements OnInit {
   }
 
   rentBook(): void {
+    console.log("Procentul de rating al cartii este: ", this.averageRating / 5 * 100);
     // Logic to handle renting the book
   }
 
