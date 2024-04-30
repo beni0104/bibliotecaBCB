@@ -1,10 +1,10 @@
 import { Component, Input, inject, ViewChild, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { UsernameAndId } from '../../interfaces/user';
-import { LoanService } from '../../services/loan.service';
-import { BookService } from '../../services/book.service';
-import { Loan } from '../../interfaces/loan';
-import { Book } from '../../interfaces/book';
+import { UsernameAndId } from '../../../interfaces/user';
+import { LoanService } from '../../../services/loan.service';
+import { BookService } from '../../../services/book.service';
+import { Loan } from '../../../interfaces/loan';
+import { Book } from '../../../interfaces/book';
 
 @Component({
   selector: 'app-loan-card',

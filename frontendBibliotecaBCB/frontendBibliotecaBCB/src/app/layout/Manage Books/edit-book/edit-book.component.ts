@@ -1,11 +1,11 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Book } from '../../interfaces/book';
-import { BookService } from '../../services/book.service';
-import { EncryptionService } from '../../services/encryption.service';
+import { Book } from '../../../interfaces/book';
+import { BookService } from '../../../services/book.service';
+import { EncryptionService } from '../../../services/encryption.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertService } from '../../services/alert.service';
+import { AlertService } from '../../../services/alert.service';
 
 @Component({
   selector: 'app-edit-book',

@@ -1,6 +1,6 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
-import { UserReview } from '../../interfaces/review';
-import { ReviewService } from '../../services/review.service';
+import { UserReview } from '../../../interfaces/review';
+import { ReviewService } from '../../../services/review.service';
 
 @Component({
   selector: 'app-review-dropdown',

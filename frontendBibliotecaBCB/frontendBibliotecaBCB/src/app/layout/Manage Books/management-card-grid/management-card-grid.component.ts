@@ -1,7 +1,7 @@
 import { Component, Inject, PLATFORM_ID, inject, ViewChild, TemplateRef } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { BookService } from '../../services/book.service';
-import { Book } from '../../interfaces/book';
+import { BookService } from '../../../services/book.service';
+import { Book } from '../../../interfaces/book';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 interface deletePair{

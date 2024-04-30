@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { Book } from '../../interfaces/book';
+import { Book } from '../../../interfaces/book';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { EncryptionService } from '../../services/encryption.service';
-import { BookService } from '../../services/book.service';
+import { EncryptionService } from '../../../services/encryption.service';
+import { BookService } from '../../../services/book.service';
 
 @Component({
   selector: 'app-book-details',

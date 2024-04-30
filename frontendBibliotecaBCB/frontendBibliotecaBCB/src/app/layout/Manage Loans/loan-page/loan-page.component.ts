@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { UsernameAndId } from '../../interfaces/user';
-import { LoanService } from '../../services/loan.service';
+import { UsernameAndId } from '../../../interfaces/user';
+import { LoanService } from '../../../services/loan.service';
 
 @Component({
   selector: 'app-loan-page',

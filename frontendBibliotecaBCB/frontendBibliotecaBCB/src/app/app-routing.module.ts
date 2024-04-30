@@ -1,15 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CardGridComponent } from './layout/card-grid/card-grid.component';
-import { BookDetailsComponent } from './layout/book-details/book-details.component';
-import { LoginComponent } from './layout/login/login.component';
-import { SignupComponent } from './layout/signup/signup.component';
+import { BookDetailsComponent } from './layout/Book Details/book-details/book-details.component';
+import { LoginComponent } from './layout/Authentication/login/login.component';
+import { SignupComponent } from './layout/Authentication/signup/signup.component';
 import { MainPageComponent } from './layout/main-page/main-page.component';
-import { AddBooksPageComponent } from './layout/add-books-page/add-books-page.component';
 import { FavoritesPageComponent } from './layout/favorites-page/favorites-page.component';
-import { ManagementCardGridComponent } from './layout/management-card-grid/management-card-grid.component';
-import { EditBookComponent } from './layout/edit-book/edit-book.component';
-import { LoanPageComponent } from './layout/loan-page/loan-page.component';
+import { ManagementCardGridComponent } from './layout/Manage Books/management-card-grid/management-card-grid.component';
+import { EditBookComponent } from './layout/Manage Books/edit-book/edit-book.component';
+import { LoanPageComponent } from './layout/Manage Loans/loan-page/loan-page.component';
 
 const routes: Routes = [
   {

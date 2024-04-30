@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Book } from '../../interfaces/book';
-import { EncryptionService } from '../../services/encryption.service';
+import { Book } from '../../../interfaces/book';
+import { EncryptionService } from '../../../services/encryption.service';
 import { Router } from '@angular/router';
 
 @Component({

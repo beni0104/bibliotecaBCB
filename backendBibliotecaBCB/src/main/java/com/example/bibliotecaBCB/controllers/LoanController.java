@@ -53,6 +53,11 @@ public class LoanController {
     @GetMapping("/userDetails")
     public ResponseEntity<List<UserDTO>> getUserDetails(){
         List<UserDTO> userDTOS = userService.getUserNamesAndIds();
+        List<String> nonUserNames = loanService.getUsernameForNonUsers();
+        for(String name: nonUserNames){
+            UserDTO userDTO = new UserDTO(name);
+            userDTOS.add(userDTO);
+        }
         return ResponseEntity.ok(userDTOS);
     }
 

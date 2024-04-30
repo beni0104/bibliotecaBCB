@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter  } from '@angular/core';
-import { Book } from '../../interfaces/book';
+import { Book } from '../../../interfaces/book';
 import { Router } from '@angular/router';
-import { EncryptionService } from '../../services/encryption.service';
+import { EncryptionService } from '../../../services/encryption.service';
 
 interface deletePair{
   id: number;

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class LoanService {
@@ -98,6 +99,14 @@ public class LoanService {
         user.ifPresent(loan::setUser);
 
         loanRepository.save(loan);
+    }
+
+    public List<String> getUsernameForNonUsers(){
+        return loanRepository.findByUserIdIsNull()
+                .stream()
+                .map(Loan::getUserName)
+                .distinct()
+                .collect(Collectors.toList());
     }
 
 

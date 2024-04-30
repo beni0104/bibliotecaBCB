@@ -1,6 +1,6 @@
 import { Component, inject, ViewChild, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../../services/authentication.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({

@@ -1,10 +1,10 @@
 import { Component, inject, ViewChild, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Book } from '../../interfaces/book';
-import { BookService } from '../../services/book.service';
-import { LoanService } from '../../services/loan.service';
-import { UsernameAndId } from '../../interfaces/user';
-import { Loan } from '../../interfaces/loan';
+import { Book } from '../../../interfaces/book';
+import { BookService } from '../../../services/book.service';
+import { LoanService } from '../../../services/loan.service';
+import { UsernameAndId } from '../../../interfaces/user';
+import { Loan } from '../../../interfaces/loan';
 
 @Component({
   selector: 'app-add-loan',
@@ -63,7 +63,7 @@ export class AddLoanComponent {
     this.showMainDropdown = !this.showMainDropdown;
   }
 
-  filterOptions(type: 'book' | 'bookId' | 'userId' | 'userName'): void {
+  filterOptions(type: 'book' | 'bookId' | 'userName'): void {
     if (type === 'book') {
       if(this.bookName.length > 0) {
         this.filteredBooks = this.books.filter(book =>
@@ -84,16 +84,6 @@ export class AddLoanComponent {
         this.filteredBooks = this.books;
         this.bookName = '';
         this.selectedBook = undefined;
-      }
-    } else if (type === 'userId') {
-      if(this.userId.length > 0) {
-        this.filteredUsers = this.users.filter(user =>
-          user.id.toString().startsWith(this.userId)
-        );
-      } else {
-        this.filteredUsers = this.users;
-        this.userName = '';
-        this.selectedUser = undefined;
       }
     } else if (type === 'userName') {
       if(this.userName.length > 0) {
@@ -146,7 +136,8 @@ export class AddLoanComponent {
   selectUser(user: UsernameAndId): void {
     this.selectedUser = user;
     this.userName = user.name;
-    this.userId = user.id.toString();
+    if(user.id !== null)
+      this.userId = user.id.toString();
     this.filteredUsers = [];
     this.showBookIdDropdown = false;
     this.showBookDropdown = false;
