@@ -28,12 +28,30 @@
         
   
         <!-- Rent Button -->
-        <button class="btn btn-primary" (click)="rentBook()" [disabled]="!isAvailable">Rent this Book</button>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rentModal" [disabled]="!isAvailable">Depune o cerere de împrumut</button>
   
-        
-  
-        <!-- Submit Review Form -->
-        <!-- Form for submitting a review -->
+        <div class="modal fade" id="rentModal" tabindex="-1" aria-labelledby="rentModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="rentModalLabel">Depunde cerere de împrumut</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="mb-3">
+                    <label for="pickupDate" class="form-label">Pickup Date</label>
+                    <input type="date" class="form-control" id="pickupDate" [(ngModel)]="pickupDate" name="pickup-date" (ngModelChange)="checkDate()">
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Renunță</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="!isDateValid" (click)="confirmRental()">Confirmă</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   

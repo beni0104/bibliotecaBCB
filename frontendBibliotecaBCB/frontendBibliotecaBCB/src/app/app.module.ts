@@ -27,6 +27,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AddLoanComponent } from './layout/Manage Loans/add-loan/add-loan.component';
 import { LoanCardComponent } from './layout/Manage Loans/loan-card/loan-card.component';
 import { LoanPageComponent } from './layout/Manage Loans/loan-page/loan-page.component';
+import { LoanRequestCardComponent } from './layout/Loan Requests/loan-request-card/loan-request-card.component';
+import { LoanRequestsPageComponent } from './layout/Loan Requests/loan-requests-page/loan-requests-page.component';
 
 const icons = {
   Person
@@ -51,7 +53,9 @@ const icons = {
     EditBookComponent,
     AddLoanComponent,
     LoanCardComponent,
-    LoanPageComponent
+    LoanPageComponent,
+    LoanRequestCardComponent,
+    LoanRequestsPageComponent
   ],
   imports: [
     BrowserModule,

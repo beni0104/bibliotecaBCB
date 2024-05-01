@@ -16,7 +16,7 @@ public class Review {
     @Id
     @SequenceGenerator(name = "reviewIdGenerator", initialValue = 1000, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reviewIdGenerator")
-    private long id;
+    private Long id;
     private double rating;
     private String description;
 

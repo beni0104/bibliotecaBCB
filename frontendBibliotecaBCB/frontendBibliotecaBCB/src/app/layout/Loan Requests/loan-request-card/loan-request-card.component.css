@@ -1,0 +1,9 @@
+.card-title {
+    font-size: 1.25rem; /* Larger and more prominent */
+    font-weight: bold;
+  }
+  
+  .card-text {
+    font-size: 0.9rem; /* Less eye-catching */
+  }
+  

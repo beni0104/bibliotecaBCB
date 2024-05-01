@@ -4,6 +4,8 @@ import { Book } from '../../../interfaces/book';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { EncryptionService } from '../../../services/encryption.service';
 import { BookService } from '../../../services/book.service';
+import { LoanService } from '../../../services/loan.service';
+import { LoanRequest } from '../../../interfaces/loan';
 
 @Component({
   selector: 'app-book-details',
@@ -167,8 +169,12 @@ export class BookDetailsComponent implements OnInit {
   isAvailable: boolean = true;
   averageRating: number = 0;
 
+  pickupDate: string = '';
+  isDateValid: boolean = false;
+
 
   constructor(
+      private loanService: LoanService,
       private bookservice: BookService,
       private encryptionService: EncryptionService,
       private route: ActivatedRoute,
@@ -199,12 +205,28 @@ export class BookDetailsComponent implements OnInit {
     this.averageRating = newRating;
   }
 
-  rentBook(): void {
-    console.log("Procentul de rating al cartii este: ", this.averageRating / 5 * 100);
-    // Logic to handle renting the book
+  checkDate() {
+    if (this.pickupDate) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0); // Remove time components
+      const selectedDate = new Date(this.pickupDate);
+
+      this.isDateValid = selectedDate > today;
+    } else {
+      this.isDateValid = false;
+    }
   }
 
-  submitReview(): void {
-    // Logic to handle submitting a review
+  confirmRental() {
+    if (this.isDateValid) {
+      const loanRequest: LoanRequest = {
+        pickupDate: new Date(this.pickupDate),
+        requestedDate: new Date(),
+        bookId: this.book.id
+      }
+      this.loanService.createLoanRequest(loanRequest).then(() => {
+        console.log('Loan request created');
+      });
+    }
   }
 }

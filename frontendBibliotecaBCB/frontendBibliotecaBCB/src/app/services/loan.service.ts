@@ -4,6 +4,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { environment } from '../../environments/environment';
 import { UsernameAndId } from '../interfaces/user';
 import { Loan } from '../interfaces/loan';
+import { LoanRequest } from '../interfaces/loan';
 
 @Injectable({
   providedIn: 'root'
@@ -131,4 +132,73 @@ export class LoanService {
       throw error;
     }
   }
+
+  //Loan Requests
+
+  async getLoanRequests() {
+    try {
+      const response = await fetch('http://' + environment.host + ':8080/api/loanRequest/getall', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      const data: LoanRequest = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  async updateLoanRequest(loanRequest: LoanRequest, status: string) {
+    this.attributeJwtToken();
+    loanRequest.status = status;
+    try {
+      const response = await fetch('http://' + environment.host + ':8080/api/loanRequest/update', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.jwtToken
+        },
+        body: JSON.stringify(loanRequest)
+      });
+      if(response.ok) {
+        return true;
+      }else{
+        return false;
+      }
+    }
+    catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
+  async createLoanRequest(loanRequest: LoanRequest) {
+    const storedUser = localStorage.getItem('currentUser');
+    const currentUser = storedUser ? JSON.parse(storedUser) : null;
+    this.jwtToken = currentUser ? currentUser.accessToken : null;
+    loanRequest.userId = currentUser.id;
+    try {
+      const response = await fetch('http://' + environment.host + ':8080/api/loanRequest/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.jwtToken
+        },
+        body: JSON.stringify(loanRequest)
+      });
+      if(response.ok) {
+        return true;
+      }else{
+        return false;
+      }
+    }
+    catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
 }

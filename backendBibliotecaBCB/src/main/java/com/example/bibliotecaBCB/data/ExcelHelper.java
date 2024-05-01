@@ -33,7 +33,7 @@ public class ExcelHelper {
                     if(r.getCellAsNumber(3).isPresent())
                         book.setBookId(r.getCellAsNumber(3).get().longValue());
                     else
-                        book.setBookId(-1);
+                        book.setBookId((long) -1);
                     book.setAuthor(r.getCellAsString(2).orElse(null));
                     book.setTitle(r.getCellAsString(1).orElse(null));
                     book.setCategory(r.getCellAsString(0).orElse(null));

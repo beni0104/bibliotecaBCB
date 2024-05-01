@@ -1,0 +1,40 @@
+<div class="card mb-3">
+    <div class="card-body">
+      <div class="row align-items-center">
+        <!-- Book Info -->
+        <div class="col-md-3">
+          <h5 class="card-title">{{this.loanRequest.bookTitle}}</h5>
+          <p class="card-text text-muted">by {{this.loanRequest.bookAuthor}}</p>
+        </div>
+  
+        <!-- Username -->
+        <div class="col-md-2">
+          <p class="mb-0">{{this.loanRequest.userName}}</p>
+        </div>
+  
+        <!-- Status with Conditional Coloring -->
+        <div class="col-md-2">
+          <p class="mb-0" [ngClass]="{'text-success': this.loanRequest.status === 'ACCEPTED', 'text-warning': this.loanRequest.status === 'PROCESSING', 'text-danger': this.loanRequest.status === 'DENIED'}">
+            {{ this.loanRequest.status }}
+          </p>
+        </div>
+  
+        <!-- Pickup Date -->
+        <div class="col-md-2">
+          <p class="mb-0">Data ridicării: <br> {{this.loanRequest.pickupDate | date}}</p>
+        </div>
+  
+        <!-- Requested Date -->
+        <div class="col-md-2">
+          <p class="mb-0">Data depunerii cererii: <br> {{this.loanRequest.requestedDate | date}}</p>
+        </div>
+  
+        <!-- Action Buttons -->
+        <div class="col-md-1" *ngIf="this.loanRequest.status === 'PROCESSING'">
+          <button type="button" class="btn btn-success" (click)="changeStatus('ACCEPTED')">Acceptă</button>
+          <button type="button" class="btn btn-danger" (click)="changeStatus('DENIED')">Refuză</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -19,8 +19,8 @@ public class Book {
     @Id
     @SequenceGenerator(name = "bookIdGenerator", initialValue = 1000, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "bookIdGenerator")
-    private long id;
-    private long bookId;
+    private Long id;
+    private Long bookId;
     private String title;
     private String author;
     private String category;
@@ -39,7 +39,7 @@ public class Book {
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Loan> loans;
 
-    public Book(long bookId, String title, String author, String category, int amount, Float averageRating) {
+    public Book(Long bookId, String title, String author, String category, int amount, Float averageRating) {
         this.bookId = bookId;
         this.title = title;
         this.author = author;
