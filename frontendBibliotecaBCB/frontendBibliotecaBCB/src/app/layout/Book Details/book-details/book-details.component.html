@@ -16,38 +16,38 @@
           </div>  
           <span style="padding-left: 7px;">{{averageRating}}</span>
         <br>
-        <p>Autor: {{ book.author }}</p>
-        <p>Categorie: {{ book.category }}</p>
+        <p>{{ 'author' | translate }}: {{ book.author }}</p>
+        <p>{{ 'category' | translate }}: {{ book.category }}</p>
         <!-- etc. for other metadata -->
   
         <!-- Availability -->
-        <p>Status: <span [ngClass]="{'text-success': isAvailable, 'text-danger': !isAvailable}">
+        <p>{{ 'status' | translate }}: <span [ngClass]="{'text-success': isAvailable, 'text-danger': !isAvailable}">
           {{ isAvailable ? 'Available' : 'Not Available' }}
         </span></p>
   
         
   
         <!-- Rent Button -->
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rentModal" [disabled]="!isAvailable">Depune o cerere de împrumut</button>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rentModal" [disabled]="!isAvailable">{{ 'rent-book' | translate }}</button>
   
         <div class="modal fade" id="rentModal" tabindex="-1" aria-labelledby="rentModalLabel" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="rentModalLabel">Depunde cerere de împrumut</h5>
+                <h5 class="modal-title" id="rentModalLabel">{{ 'rent-book' | translate }}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
                 <form>
                   <div class="mb-3">
-                    <label for="pickupDate" class="form-label">Pickup Date</label>
+                    <label for="pickupDate" class="form-label">{{ 'pickup-date' | translate }}</label>
                     <input type="date" class="form-control" id="pickupDate" [(ngModel)]="pickupDate" name="pickup-date" (ngModelChange)="checkDate()">
                   </div>
                 </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Renunță</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="!isDateValid" (click)="confirmRental()">Confirmă</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'cancel' | translate }}</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="!isDateValid" (click)="confirmRental()">{{ 'confirm' | translate }}</button>
               </div>
             </div>
           </div>
@@ -62,7 +62,7 @@
   
     <!-- Related Books -->
     <hr>
-    <h4>Alte cărți din aceeași categorie</h4>
+    <h4>{{ 'other-books-from-same-category' | translate }}</h4>
     <div class="related-books-container">
       <div class="related-book" *ngFor="let relatedBook of relatedBooks" >
         <app-related-book-card [book]="relatedBook"></app-related-book-card>

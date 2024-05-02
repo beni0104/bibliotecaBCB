@@ -1,4 +1,6 @@
-import { Component, Input, inject, ViewChild, TemplateRef } from '@angular/core';
+import { Component, Input, inject, ViewChild, TemplateRef, PLATFORM_ID, Inject } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { isPlatformBrowser } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UsernameAndId } from '../../../interfaces/user';
 import { LoanService } from '../../../services/loan.service';
@@ -25,7 +27,16 @@ export class LoanCardComponent {
   
   showDropdown = false;
 
-  constructor(private loanService: LoanService, private bookService: BookService) {}
+  constructor(private loanService: LoanService,
+              private bookService: BookService,
+              private translate: TranslateService,
+              @Inject(PLATFORM_ID) private platformId: Object) {
+                if (isPlatformBrowser(this.platformId)) {
+                  const browserLang = translate.getBrowserLang();
+                  const userLang = localStorage.getItem('userLang') ?? browserLang;
+                  translate.use(userLang || '');
+                }
+              }
   
   ngOnInit(): void {
     if(this.user?.id){
@@ -59,13 +70,13 @@ export class LoanCardComponent {
 
   openAddReturnedDateModal(loan: any): void {
     if(this.temporaryReturnDates[loan.id] == undefined){
-      this.modalTitle = 'Eroare';
-      this.modalMessage = 'Te rog sa selectezi o data de returnare.';
+      this.modalTitle = 'error';
+      this.modalMessage = 'select-return-date';
       this.modalService.open(this.contentTemplate);
     } else {
       this.currentLoan = loan;
-      this.modalTitle = 'Confirmare';
-      this.modalMessage = 'Esti sigur ca vrei sa adaugi data de returnare pentru aceasta carte? Aceasta actiune nu poate fi anulata.';
+      this.modalTitle = 'confirm';
+      this.modalMessage = 'confirm-adding-return-date';
       this.modalService.open(this.contentTemplate);
     }
   }

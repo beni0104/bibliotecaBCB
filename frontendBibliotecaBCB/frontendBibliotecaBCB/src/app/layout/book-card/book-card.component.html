@@ -16,7 +16,7 @@
         </div>
       </div>
       <!-- <span style="padding-left: 7px;">{{book.rating}}</span> -->
-    <p class="card-text mt-auto"><small class="text-muted">Categorie: {{book.category}}</small></p>
-    <button type="button" class="btn btn-primary mt-2" (click)="goToDetails(this.book)">Detalii</button>
+    <p class="card-text mt-auto"><small class="text-muted">{{ 'category' | translate }}: {{book.category}}</small></p>
+    <button type="button" class="btn btn-primary mt-2" (click)="goToDetails(this.book)">{{ 'details' | translate }}</button>
   </div>
 </div>

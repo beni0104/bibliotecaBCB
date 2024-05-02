@@ -1,22 +1,22 @@
 <main>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-      <h1 class="h2" (click)="clearFilters()">Cărțile bibliotecii</h1>
+      <h1 class="h2" (click)="clearFilters()">{{ 'library-books' | translate }}</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
           <form class="d-flex" role="search">
-              <input type="search" class="form-control search-bar" placeholder="Search..." [(ngModel)]="searchTerm" name="searchBar" aria-label="Search">
-              <button type="button" class="btn btn-outline-secondary search-btn" (click)="searchBooks()">Search</button>
+              <input type="search" class="form-control search-bar" placeholder="{{ 'search' | translate }}..." [(ngModel)]="searchTerm" name="searchBar" aria-label="Search">
+              <button type="button" class="btn btn-outline-secondary search-btn" (click)="searchBooks()">{{ 'search' | translate }}</button>
           </form>
         </div>
         <!-- Sorting Dropdown Button -->
         <div class="btn-group me-2">
           <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle sort-btn" data-bs-toggle="dropdown" aria-expanded="false">
-            Sortare
+            {{ 'sort-by' | translate }}
           </button>
           <ul class="dropdown-menu">
             <li><button class="dropdown-item" (click)="sortBooks('a-z')">A-Z</button></li>
             <li><button class="dropdown-item" (click)="sortBooks('z-a')">Z-A</button></li>
-            <li><button class="dropdown-item" (click)="sortBooks('popularity')">Popularity</button></li>
+            <li><button class="dropdown-item" (click)="sortBooks('popularity')">{{ 'popularity' | translate }}</button></li>
           </ul>
         </div>
 
@@ -25,7 +25,7 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
                 <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
             </svg>
-          Filtre
+            {{ 'filters' | translate }}
         </button>
       </div>
     </div>
@@ -47,7 +47,7 @@
     <!-- No results template -->
     <ng-template #noResultsTemplate>
       <div class="alert alert-warning" role="alert">
-        Nu s-au gasit rezultate
+        {{ 'no-results-found' | translate }}
       </div>
     </ng-template>
 </main>
@@ -57,13 +57,13 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="filterModalLabel">Opțiuni de filtrare</h5>
+        <h5 class="modal-title" id="filterModalLabel">{{ 'filter-options' | translate }}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <!-- Categories as Scrollable Checkboxes -->
         <div class="mb-3">
-          <label class="form-label">Categories</label>
+          <label class="form-label">{{ 'category' | translate }}</label>
           <div class="category-scroll">
             <div *ngFor="let category of categories; let i = index" class="form-check">
               <input class="form-check-input" type="checkbox" id="category-{{i}}" [(ngModel)]="category.selected" [ngModelOptions]="{standalone: true}">
@@ -74,16 +74,16 @@
           </div>
         </div>
         <hr>
-        <label class="form-label">Disponibilitate:</label>
+        <label class="form-label">{{ 'availability' | translate }}:</label>
         <div class="mb-3 form-check">
           <input type="checkbox" class="form-check-input" id="availabilityCheck" [(ngModel)]="isAvailable" [ngModelOptions]="{standalone: true}">
-          <label class="form-check-label" for="availabilityCheck">Disponibil</label>
+          <label class="form-check-label" for="availabilityCheck">{{ 'available' | translate }}</label>
         </div>
       </div>
       <div class="modal-footer d-flex justify-content-between">
-        <button type="button" class="btn btn-outline-danger" (click)="clearFilters()">Clear Filters</button>
+        <button type="button" class="btn btn-outline-danger" (click)="clearFilters()">{{ 'clear-filters' | translate }}</button>
         <div>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="applyFilters()">Apply Filters</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="applyFilters()">{{ 'apply-filters' | translate }}</button>
         </div>
       </div>
       

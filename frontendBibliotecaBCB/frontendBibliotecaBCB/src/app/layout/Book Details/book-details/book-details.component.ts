@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Book } from '../../../interfaces/book';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -174,6 +175,7 @@ export class BookDetailsComponent implements OnInit {
 
 
   constructor(
+      private translate: TranslateService, 
       private loanService: LoanService,
       private bookservice: BookService,
       private encryptionService: EncryptionService,
@@ -191,6 +193,11 @@ export class BookDetailsComponent implements OnInit {
               this.book = data;
             })
           });
+        }
+        if (isPlatformBrowser(this.platformId)) {
+          const browserLang = translate.getBrowserLang();
+          const userLang = localStorage.getItem('userLang') ?? browserLang;
+          translate.use(userLang || '');
         }
       }
 

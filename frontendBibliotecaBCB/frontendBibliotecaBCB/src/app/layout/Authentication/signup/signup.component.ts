@@ -1,4 +1,6 @@
-import { Component, inject, TemplateRef, ViewChild } from '@angular/core';
+import { Component, inject, TemplateRef, ViewChild, PLATFORM_ID, Inject } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../../services/authentication.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -18,7 +20,13 @@ export class SignupComponent {
   modalTitle: string = '';
   modalMessage: string = '';
 
-  constructor(private router: Router, private authenticationService: AuthenticationService) {}
+  constructor(private router: Router, private authenticationService: AuthenticationService, private translate: TranslateService,  @Inject(PLATFORM_ID) private platformId: Object) {
+    if (isPlatformBrowser(this.platformId)) {
+      const browserLang = translate.getBrowserLang();
+      const userLang = localStorage.getItem('userLang') ?? browserLang;
+      translate.use(userLang || '');
+    }
+  }
 
   openVerticallyCentered(content: TemplateRef<any>) {
 		this.modalService.open(content);
@@ -26,14 +34,14 @@ export class SignupComponent {
 
   signup() {
     if (this.name === '' || this.email === '' || this.password === '' || this.confirmPassword === '') {
-      this.modalTitle = "Error";
-      this.modalMessage = "All fields are required";
+      this.modalTitle = "error";
+      this.modalMessage = "all-fields-required";
       this.openVerticallyCentered(this.contentTemplate);
       return;
     }
     if (this.password !== this.confirmPassword) {
-      this.modalTitle = "Error";
-      this.modalMessage = "Passwords do not match";
+      this.modalTitle = "error";
+      this.modalMessage = "passwords-dont-match";
       this.openVerticallyCentered(this.contentTemplate);
       return;
     }

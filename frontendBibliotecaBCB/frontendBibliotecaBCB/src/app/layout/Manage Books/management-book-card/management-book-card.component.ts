@@ -1,4 +1,6 @@
-import { Component, Input, Output, EventEmitter  } from '@angular/core';
+import { Component, Input, Output, EventEmitter, PLATFORM_ID, Inject } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Book } from '../../../interfaces/book';
 import { Router } from '@angular/router';
 import { EncryptionService } from '../../../services/encryption.service';
@@ -17,7 +19,16 @@ export class ManagementBookCardComponent {
   @Input() book!: Book;
   @Output() selectionChange = new EventEmitter<deletePair>();
 
-  constructor(private router: Router, private encryptionService: EncryptionService) { }
+  constructor(private router: Router,
+              private encryptionService: EncryptionService,
+              private translate: TranslateService,
+              @Inject(PLATFORM_ID) private platformId: Object) {
+                if (isPlatformBrowser(this.platformId)) {
+                  const browserLang = translate.getBrowserLang();
+                  const userLang = localStorage.getItem('userLang') ?? browserLang;
+                  translate.use(userLang || '');
+                }
+              }
 
 
   goToEdit(book: Book) {

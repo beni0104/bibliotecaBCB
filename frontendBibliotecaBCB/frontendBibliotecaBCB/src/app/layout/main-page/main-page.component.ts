@@ -2,6 +2,7 @@ import { Component, PLATFORM_ID, Inject  } from '@angular/core';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { jwtDecode } from 'jwt-decode';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -15,8 +16,11 @@ export class MainPageComponent {
   user = null;
   isAdmin = false;
 
-  constructor(private router: Router,  @Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(private translate: TranslateService, private router: Router,  @Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {
+      const browserLang = translate.getBrowserLang();
+      const userLang = localStorage.getItem('userLang') ?? browserLang;
+      translate.use(userLang || '');
       console.log(localStorage.getItem('currentUser'));
       const storedUser = localStorage.getItem('currentUser');
       this.user = storedUser ? JSON.parse(storedUser) : null;
@@ -59,5 +63,11 @@ export class MainPageComponent {
   }
   signup() {
     this.router.navigate(['/signup']);
+  }
+
+  switchLanguage(language: string) {
+    this.translate.use(language);
+    localStorage.setItem('userLang', language); // Save user preference
+    console.log(localStorage.getItem('userLang'));
   }
 }

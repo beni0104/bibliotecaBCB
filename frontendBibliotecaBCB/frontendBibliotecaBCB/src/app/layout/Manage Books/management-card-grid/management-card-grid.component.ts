@@ -1,4 +1,5 @@
 import { Component, Inject, PLATFORM_ID, inject, ViewChild, TemplateRef } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { isPlatformBrowser } from '@angular/common';
 import { BookService } from '../../../services/book.service';
 import { Book } from '../../../interfaces/book';
@@ -67,7 +68,15 @@ export class ManagementCardGridComponent {
   ];
   isAvailable = false;
 
-  constructor(private bookservice: BookService, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(private translate: TranslateService,
+              private bookservice: BookService,
+              @Inject(PLATFORM_ID) private platformId: Object) {
+                if (isPlatformBrowser(this.platformId)) {
+                  const browserLang = translate.getBrowserLang();
+                  const userLang = localStorage.getItem('userLang') ?? browserLang;
+                  translate.use(userLang || '');
+                }
+              }
 
   ngOnInit() {
     this.getAllBooks();

@@ -2,23 +2,23 @@
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="card">
-          <div class="card-header bg-dark text-white">Login</div>
+          <div class="card-header bg-dark text-white">{{ 'login' | translate }}</div>
           <div class="card-body">
             <form>
               <div class="mb-3">
-                <label for="emailInput" class="form-label">Email address</label>
+                <label for="emailInput" class="form-label">{{ 'email' | translate }}</label>
                 <input type="email" class="form-control" id="emailInput" [(ngModel)]="email" name="searchBar" aria-describedby="emailHelp">
               </div>
               <div class="mb-3">
-                <label for="passwordInput" class="form-label">Password</label>
+                <label for="passwordInput" class="form-label">{{ 'password' | translate }}</label>
                 <input type="password" class="form-control" id="passwordInput" [(ngModel)]="password" name="password">
               </div>
               <div class="mb-3">
-                <button type="button" class="btn btn-link">Forgot your password?</button>
+                <button type="button" class="btn btn-link">{{ 'forgot-password' | translate }}</button>
               </div>
               <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary" (click)="login()">Login</button>
-                <button type="button" class="btn btn-outline-primary" (click)="signup()">Sign Up</button>
+                <button type="submit" class="btn btn-primary" (click)="login()">{{ 'login' | translate }}</button>
+                <button type="button" class="btn btn-outline-primary" (click)="signup()">{{ 'signup' | translate }}</button>
               </div>
             </form>
           </div>
@@ -30,13 +30,13 @@
 
   <ng-template #content let-modal>
     <div class="modal-header">
-      <h4 class="modal-title">{{modalTitle}}</h4>
+      <h4 class="modal-title">{{ modalTitle | translate }}</h4>
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-      <p>{{modalMessage}}</p>
+      <p>{{modalMessage | translate}}</p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">{{'close' | translate}}</button>
     </div>
   </ng-template>

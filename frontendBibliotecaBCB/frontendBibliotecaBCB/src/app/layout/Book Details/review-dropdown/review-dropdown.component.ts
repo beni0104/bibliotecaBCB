@@ -1,4 +1,6 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, Input, EventEmitter, Output, PLATFORM_ID, Inject } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { isPlatformBrowser } from '@angular/common';
 import { UserReview } from '../../../interfaces/review';
 import { ReviewService } from '../../../services/review.service';
 
@@ -20,7 +22,14 @@ export class ReviewDropdownComponent {
   reviewRating = 0;
   reviewDescription = '';
 
-  constructor(private reviewService: ReviewService) {
+  constructor(private reviewService: ReviewService,
+    private translate: TranslateService, 
+    @Inject(PLATFORM_ID) private platformId: Object) {
+      if (isPlatformBrowser(this.platformId)) {
+        const browserLang = translate.getBrowserLang();
+        const userLang = localStorage.getItem('userLang') ?? browserLang;
+        translate.use(userLang || '');
+      }
   }
 
   ngOnInit() {

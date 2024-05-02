@@ -1,4 +1,6 @@
-import { Component, inject, ViewChild, TemplateRef } from '@angular/core';
+import { Component, inject, ViewChild, TemplateRef, PLATFORM_ID, Inject } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { isPlatformBrowser } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BookService } from '../../../services/book.service';
 import { BookDTO } from '../../../interfaces/book';
@@ -16,7 +18,15 @@ export class AddBooksPageComponent {
   modalMessage = '';
   showMainDropdown = false;
 
-  constructor(private bookService: BookService) { }
+  constructor(private bookService: BookService, 
+    private translate: TranslateService,
+    @Inject(PLATFORM_ID) private platformId: Object) {
+      if (isPlatformBrowser(this.platformId)) {
+        const browserLang = translate.getBrowserLang();
+        const userLang = localStorage.getItem('userLang') ?? browserLang;
+        translate.use(userLang || '');
+      }
+    }
 
 
   async onSubmit(form: any) {
@@ -24,8 +34,8 @@ export class AddBooksPageComponent {
     // Here you would typically handle the form submission to your backend
     // Don't forget to include the file upload part
     if(form.invalid) {
-      this.modalTitle = 'Error';
-      this.modalMessage = 'All fields are required';
+      this.modalTitle = 'error';
+      this.modalMessage = 'all-fields-required';
       this.modalService.open(this.contentTemplate);
       return;
     } else{
@@ -37,12 +47,12 @@ export class AddBooksPageComponent {
         amount: form.value.amount
       }
       if (await this.bookService.createBook(book)){
-        this.modalTitle = 'Success';
-        this.modalMessage = 'Book added successfully';
+        this.modalTitle = 'success';
+        this.modalMessage = 'book-added-successfully';
         this.modalService.open(this.contentTemplate);  
       } else {  
-        this.modalTitle = 'Error';
-        this.modalMessage = 'An error occurred while adding the book';
+        this.modalTitle = 'error';
+        this.modalMessage = 'error-adding-book';
         this.modalService.open(this.contentTemplate);
       }
       

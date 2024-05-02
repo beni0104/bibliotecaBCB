@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BootstrapIconsModule } from 'ng-bootstrap-icons';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Person } from 'ng-bootstrap-icons/icons';
 import { BookCardComponent } from './layout/book-card/book-card.component';
 import { CardGridComponent } from './layout/card-grid/card-grid.component';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
-import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import { HttpClientModule, HttpClient, provideHttpClient, withFetch } from '@angular/common/http';
 import { BookDetailsComponent } from './layout/Book Details/book-details/book-details.component';
 import { FormsModule } from '@angular/forms';
 import { ReviewDropdownComponent } from './layout/Book Details/review-dropdown/review-dropdown.component';
@@ -29,10 +31,15 @@ import { LoanCardComponent } from './layout/Manage Loans/loan-card/loan-card.com
 import { LoanPageComponent } from './layout/Manage Loans/loan-page/loan-page.component';
 import { LoanRequestCardComponent } from './layout/Loan Requests/loan-request-card/loan-request-card.component';
 import { LoanRequestsPageComponent } from './layout/Loan Requests/loan-requests-page/loan-requests-page.component';
+import { environment } from '../environments/environment';
 
 const icons = {
   Person
 };
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, `${environment.apiUrl}/assets/i18n/`, '.json');
+}
 
 @NgModule({
   declarations: [
@@ -65,7 +72,14 @@ const icons = {
     NgbPaginationModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     provideClientHydration(),

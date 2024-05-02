@@ -2,28 +2,28 @@
     <div class="row justify-content-center">
       <div class="col-md-6">
         <div class="card">
-          <div class="card-header bg-dark text-white">Sign Up</div>
+          <div class="card-header bg-dark text-white">{{ 'signup' | translate }}</div>
           <div class="card-body">
             <form>
               <div class="mb-3">
-                <label for="nameSignupInput" class="form-label">Nume complet</label>
+                <label for="nameSignupInput" class="form-label">{{ 'whole-name' | translate }}</label>
                 <input type="text" class="form-control" id="nameSignupInput" [(ngModel)]="name" name="name">
               </div>
               <div class="mb-3">
-                <label for="emailSignupInput" class="form-label">Adresă de email</label>
+                <label for="emailSignupInput" class="form-label">{{ 'email' | translate }}</label>
                 <input type="email" class="form-control" id="emailSignupInput" [(ngModel)]="email" name="email">
               </div>
               <div class="mb-3">
-                <label for="passwordSignupInput" class="form-label">Parolă</label>
+                <label for="passwordSignupInput" class="form-label">{{ 'password' | translate }}</label>
                 <input type="password" class="form-control" id="passwordSignupInput" [(ngModel)]="password" name="password">
               </div>
               <div class="mb-3">
-                <label for="confirmPasswordInput" class="form-label">Confirmă parola</label>
+                <label for="confirmPasswordInput" class="form-label">{{ 'confirm-password' | translate }}</label>
                 <input type="password" class="form-control" id="confirmPasswordInput" [(ngModel)]="confirmPassword" name="confirmPassword">
               </div>
               <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary" (click)="signup()">Sign Up</button>
-                <button type="button" class="btn btn-outline-primary" (click)="login()">Login</button>
+                <button type="submit" class="btn btn-primary" (click)="signup()">{{ 'signup' | translate }}</button>
+                <button type="button" class="btn btn-outline-primary" (click)="login()">{{ 'login' | translate }}</button>
               </div>
             </form>
           </div>
@@ -34,14 +34,14 @@
 
   <ng-template #content let-modal>
     <div class="modal-header">
-      <h4 class="modal-title">{{modalTitle}}</h4>
+      <h4 class="modal-title">{{modalTitle | translate}}</h4>
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-      <p>{{modalMessage}}</p>
+      <p>{{modalMessage | translate}}</p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">{{ 'close' | translate }}</button>
     </div>
   </ng-template>
   

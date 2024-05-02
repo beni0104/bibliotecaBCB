@@ -1,7 +1,7 @@
 <hr>
 <div class="review-dropdown">
     <button class="btn dropdown-button" (click)="toggleDropdown()" [class.active]="isDropdownOpen" aria-expanded="false">
-    <span style="font-size: larger;">Recenzii </span>
+    <span style="font-size: larger;">{{ 'reviews' | translate }}</span>
     <span class="review-summary">
         <div class="star-rating">
           <div class="star-rating-top" [style.width.%]="averageRating / 5 * 100">
@@ -27,20 +27,20 @@
     <div class="dropdown-content" *ngIf="isDropdownOpen">
     <!-- Review content goes here -->
 
-    <button class="btn btn-primary my-2" (click)="showReviewForm = !showReviewForm">Adaugă o recenzie</button>
+    <button class="btn btn-primary my-2" (click)="showReviewForm = !showReviewForm">{{ 'add-review' | translate }}</button>
     <div *ngIf="showReviewForm">
       <form>
         <div class="form-group">
-          <label for="reviewRating" style="margin-right: 5px;">Rating</label>
+          <label for="reviewRating" style="margin-right: 5px;">{{ 'rating' | translate }}</label>
           <ngb-rating [(rate)]="reviewRating" [max]="5"></ngb-rating>
         </div>
         <div class="form-group">
-          <label for="reviewDescription">Descriere:</label>
+          <label for="reviewDescription">{{ 'description' | translate }}:</label>
           <textarea class="form-control" id="reviewDescription" rows="3" [(ngModel)]="reviewDescription" name="reviewDescription"></textarea>
         </div>
         <div class="form-group d-flex justify-content-end">
-          <button type="button" class="btn btn-secondary mr-2 add-review-btn" (click)="cancelReview()">Renunță</button>
-          <button type="submit" class="btn btn-success add-review-btn" [disabled]="!this.reviewRating" (click)="submitReview()">Trimite recenzia</button>
+          <button type="button" class="btn btn-secondary mr-2 add-review-btn" (click)="cancelReview()">{{ 'cancel' | translate }}</button>
+          <button type="submit" class="btn btn-success add-review-btn" [disabled]="!this.reviewRating" (click)="submitReview()">{{ 'send-review' | translate }}</button>
         </div>
       </form>
     </div>

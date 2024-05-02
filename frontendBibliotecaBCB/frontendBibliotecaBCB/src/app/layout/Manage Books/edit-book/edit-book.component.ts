@@ -1,4 +1,5 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { isPlatformBrowser } from '@angular/common';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Book } from '../../../interfaces/book';
@@ -25,7 +26,8 @@ export class EditBookComponent {
     "rating": 0
   };
 
-  constructor(private fb: FormBuilder,
+  constructor(private translate: TranslateService,
+              private fb: FormBuilder,
               private bookservice: BookService,
               private alertService: AlertService,
               private encryptionService: EncryptionService,
@@ -40,6 +42,11 @@ export class EditBookComponent {
       amount: '',
       photoUrl: ''
     });
+    if (isPlatformBrowser(this.platformId)) {
+      const browserLang = translate.getBrowserLang();
+      const userLang = localStorage.getItem('userLang') ?? browserLang;
+      translate.use(userLang || '');
+    }
   }
 
   ngOnInit(): void {

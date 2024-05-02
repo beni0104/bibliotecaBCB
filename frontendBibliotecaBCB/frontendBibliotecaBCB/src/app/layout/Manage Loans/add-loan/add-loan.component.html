@@ -1,7 +1,7 @@
 <hr>
 <div class="add-loan-dropdown">
   <button class="btn main-dropdown-button" (click)="toggleMainDropdown()" [class.active]="showMainDropdown" aria-expanded="false">
-    <span style="font-size: larger; color:green">Adaugă fișă împrumut</span>
+    <span style="font-size: larger; color:green">{{ 'add-loan-file' | translate }}</span>
     <span class="dropdown-arrow" [ngClass]="{'rotate': showMainDropdown}">&#x25BC;</span>
   </button>
 
@@ -9,9 +9,9 @@
     <form #loanForm="ngForm" (ngSubmit)="onSubmit(loanForm)">
       <div class="form-row">
         <div class="form-group position-relative custom-col">
-          <label for="userName">Name</label>
+          <label for="userName">{{ 'name' | translate }}</label>
           <div class="input-group">
-            <input type="text" class="form-control" id="userName" placeholder="Enter Name" [(ngModel)]="userName" name="userName" (input)="filterOptions('userName')" (click)="toggleDropdown('userName')" autocomplete="off">
+            <input type="text" class="form-control" id="userName" placeholder="{{ 'enter' | translate }} {{ 'name' | translate }}" [(ngModel)]="userName" name="userName" (input)="filterOptions('userName')" (click)="toggleDropdown('userName')" autocomplete="off">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary dropdown-button" type="button" (click)="toggleDropdown('userName')"><i class="fas fa-caret-down"></i></button>
             </div>
@@ -24,20 +24,20 @@
 
       <div class="form-row">
         <div class="form-group custom-col top-input">
-          <label for="beginDate">Begin Date</label>
+          <label for="beginDate">{{ 'date-loaned' | translate }}</label>
           <input type="date" class="form-control" id="beginDate" [(ngModel)]="beginDate" name="beginDate">
         </div>
         <div class="form-group custom-col">
-          <label for="endDate">End Date</label>
+          <label for="endDate">{{ 'return-date' | translate }}</label>
           <input type="date" class="form-control" id="endDate" [(ngModel)]="endDate" name="endDate">
         </div>
       </div>    
       
       <div class="form-row">
         <div class="form-group position-relative custom-col top-input">
-            <label for="bookName">Book Name</label>
+            <label for="bookName">{{ 'book-title' | translate }}</label>
             <div class="input-group">
-              <input type="text" class="form-control" id="bookName" placeholder="Enter Book Name" [(ngModel)]="bookName" name="bookName" (input)="filterOptions('book')" (click)="toggleDropdown('book')" autocomplete="off">
+              <input type="text" class="form-control" id="bookName" placeholder="{{ 'enter' | translate }} {{ 'book-title' | translate }}" [(ngModel)]="bookName" name="bookName" (input)="filterOptions('book')" (click)="toggleDropdown('book')" autocomplete="off">
               <div class="input-group-append">
                 <button class="btn btn-outline-secondary dropdown-button" type="button" (click)="toggleDropdown('book')"><i class="fas fa-caret-down"></i></button>
               </div>
@@ -48,9 +48,9 @@
           </div>
 
         <div class="form-group position-relative custom-col">
-          <label for="bookId">BookID</label>
+          <label for="bookId">{{ 'book-id' | translate }}</label>
           <div class="input-group">
-            <input type="text" class="form-control" id="bookId" placeholder="Enter BookID" [(ngModel)]="bookId" name="bookId" (input)="filterOptions('bookId')" (click)="toggleDropdown('bookId')" autocomplete="off">
+            <input type="text" class="form-control" id="bookId" placeholder="{{ 'enter' | translate }} {{ 'book-id' | translate }}" [(ngModel)]="bookId" name="bookId" (input)="filterOptions('bookId')" (click)="toggleDropdown('bookId')" autocomplete="off">
             <div class="input-group-append">
               <button class="btn btn-outline-secondary dropdown-button" type="button" (click)="toggleDropdown('bookId')"><i class="fas fa-caret-down"></i></button>
             </div>
@@ -60,7 +60,7 @@
           </div>
         </div>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary">{{ 'submit' | translate }}</button>
     </form>
   </div>
 </div>
@@ -68,14 +68,14 @@
 
   <ng-template #content let-modal>
     <div class="modal-header">
-      <h4 class="modal-title">{{modalTitle}}</h4>
+      <h4 class="modal-title">{{modalTitle | translate}}</h4>
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-      <p>{{modalMessage}}</p>
+      <p>{{modalMessage | translate}}</p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">{{ 'close' | translate }}</button>
     </div>
   </ng-template>
   

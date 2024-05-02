@@ -9,32 +9,32 @@
             <div class="card-body horizontal-layout" *ngIf="this.loan.dateLoaned">
                 <div class="group">
                     <div>
-                        <label><strong>Loaned:</strong></label>
+                        <label><strong>{{ 'date-loaned' | translate }}:</strong></label>
                         <div>{{ loan.dateLoaned | date }}</div>
                     </div>
                     <div>
-                        <label><strong>Returned:</strong></label>
+                        <label><strong>{{ 'return-date' | translate }}:</strong></label>
                         <div *ngIf="this.loan.dateReturned; else notReturned">{{ loan.dateReturned | date }}</div>
                         <ng-template #notReturned>
-                            <div style="color: red;">Not returned</div>
+                            <div style="color: red;">{{ 'not-returned' | translate }}</div>
                         </ng-template>
                     </div>
                 </div>
                 <div class="group">
                     <div>
-                        <label><strong>Title:</strong></label>
+                        <label><strong>{{ 'book-title' | translate }}:</strong></label>
                         <div>{{loanBooks[loan.id!].title}}</div>
                     </div>
                     <div>
-                        <label><strong>Author:</strong></label>
+                        <label><strong>{{ 'author' | translate }}:</strong></label>
                         <div>{{loanBooks[loan.id!].author}}</div>
                     </div>
                 </div>
             
                 <div *ngIf="!loan.dateReturned && loan.id !== undefined">
-                    <label for="endDate-{{loan.id}}">End Date</label>
+                    <label for="endDate-{{loan.id}}">{{ 'return-date' | translate }}</label>
                     <input type="date" class="form-control" id="endDate-{{loan.id}}" [ngModel]="temporaryReturnDates[loan.id]" (ngModelChange)="setTemporaryDate(loan.id, $event)" name="endDate-{{loan.id}}">
-                    <button type="button" class="btn btn-sm btn-outline-secondary" (click)="openAddReturnedDateModal(loan)">Add Date Returned</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary" (click)="openAddReturnedDateModal(loan)">{{ 'add' | translate }} {{ 'return-date' | translate }}</button>
                 </div>
             </div>
         </div>
@@ -44,13 +44,13 @@
 
 <ng-template #content let-modal>
     <div class="modal-header">
-      <h4 class="modal-title">{{modalTitle}}</h4>
+      <h4 class="modal-title">{{modalTitle | translate}}</h4>
       <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
     </div>
     <div class="modal-body">
-      <p>{{modalMessage}}</p>
+      <p>{{modalMessage | translate}}</p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="addReturnedDate()">Confirm</button>
+      <button type="button" class="btn btn-secondary" (click)="addReturnedDate()">{{ 'confirm' | translate }}</button>
     </div>
 </ng-template>

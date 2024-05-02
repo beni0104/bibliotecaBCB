@@ -67,8 +67,8 @@
         <svg class="person-icon"><use xlink:href="#person"/></svg>
       </a>
       <ul class="dropdown-menu text-small" style="left: auto; right: 0;">
-        <li><a class="dropdown-item" (click)="login()">Log In</a></li>
-        <li><a class="dropdown-item" (click)="signup()">Sign Up</a></li>
+        <li><a class="dropdown-item" (click)="login()">{{ 'login' | translate }}</a></li>
+        <li><a class="dropdown-item" (click)="signup()">{{ 'signup' | translate }}</a></li>
       </ul>
     </div>
   </header>
@@ -85,7 +85,7 @@
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2 active" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-current="page" routerLink="/home">
                 <svg class="bi"><use xlink:href="#house-fill"/></svg>
-                Cărțile bibliotecii
+                {{ 'library-books' | translate }}
               </a>
             </li>
           </ul>
@@ -93,7 +93,7 @@
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2 active" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-current="page" routerLink="/home/favoriteBooks">
                 <svg class="bi"><use xlink:href="#bookmark-heart"/></svg>
-                Cărți favorite
+                {{ 'favorite-books' | translate }}
               </a>
             </li>
           </ul>
@@ -101,7 +101,7 @@
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2 active" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-current="page" routerLink="/home/managebooks">
                 <svg class="bi"><use xlink:href="#book"/></svg>
-                Gestionează cărți
+                {{ 'manage-books' | translate }}
               </a>
             </li>
           </ul>
@@ -109,7 +109,7 @@
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2 active" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-current="page" routerLink="/home/manageLoans">
                 <svg class="bi"><use xlink:href="#journal-check"/></svg>
-                Gestionează împrumuturi
+                {{ 'manage-loans' | translate }}
               </a>
             </li>
           </ul>
@@ -117,7 +117,7 @@
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2 active" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-current="page" routerLink="/home/loanRequests">
                 <svg class="bi"><use xlink:href="#inbox"/></svg>
-                Cereri de împrumut
+                {{ 'loan-requests' | translate }}
               </a>
             </li>
           </ul>
@@ -129,6 +129,18 @@
               <a class="nav-link d-flex align-items-center gap-2" href="#">
                 <svg class="bi"><use xlink:href="#gear-wide-connected"/></svg>
                 Settings
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" (click)="switchLanguage('ro')">
+                <svg class="bi"><use xlink:href="#gear-wide-connected"/></svg>
+                Romanian
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" (click)="switchLanguage('en')">
+                <svg class="bi"><use xlink:href="#gear-wide-connected"/></svg>
+                English
               </a>
             </li>
             <li class="nav-item">
@@ -151,7 +163,7 @@
     <div class="container">
       <div class="row">
         <div class="col-md-4">
-          <h5>Contact Us</h5>
+          <h5>{{ 'contact-us' | translate }}</h5>
           <ul class="list-unstyled">
             <li><a href="mailto:info@example.com">example.email&#64;gmail.com</a></li>
             <li>+123 456 7890</li>
@@ -159,7 +171,7 @@
         </div>
         
         <div class="col-md-4">
-          <h5>Follow Us</h5>
+          <h5>{{ 'follow-us' | translate }}</h5>
           <ul class="list-unstyled">
             <li><a href="https://www.facebook.com/bibliotecabcbm">Facebook</a></li>
             <li><a href="#">Instagram</a></li>

@@ -1,4 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, PLATFORM_ID, Inject } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { isPlatformBrowser } from '@angular/common';
 import { LoanRequest } from '../../../interfaces/loan';
 import { LoanService } from '../../../services/loan.service';
 
@@ -9,7 +11,15 @@ import { LoanService } from '../../../services/loan.service';
 })
 export class LoanRequestCardComponent {
   @Input() loanRequest!: LoanRequest;
-  constructor(private loanService: LoanService) { }
+  constructor(private loanService: LoanService,
+    private translate: TranslateService,
+    @Inject(PLATFORM_ID) private platformId: Object) {
+      if (isPlatformBrowser(this.platformId)) {
+        const browserLang = translate.getBrowserLang();
+        const userLang = localStorage.getItem('userLang') ?? browserLang;
+        translate.use(userLang || '');
+      }
+  }
 
   changeStatus(status: string) {
     this.loanService.updateLoanRequest(this.loanRequest, status).then((response) => {

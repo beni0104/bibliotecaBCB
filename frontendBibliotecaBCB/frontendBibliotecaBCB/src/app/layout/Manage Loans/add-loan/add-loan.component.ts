@@ -1,4 +1,6 @@
-import { Component, inject, ViewChild, TemplateRef } from '@angular/core';
+import { Component, inject, ViewChild, TemplateRef, PLATFORM_ID, Inject } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { isPlatformBrowser } from '@angular/common';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Book } from '../../../interfaces/book';
 import { BookService } from '../../../services/book.service';
@@ -35,7 +37,16 @@ export class AddLoanComponent {
   modalMessage = '';
   
 
-  constructor(private bookService: BookService, private loanService: LoanService) {}
+  constructor(private bookService: BookService,
+              private loanService: LoanService,
+              private translate: TranslateService,
+              @Inject(PLATFORM_ID) private platformId: Object) {
+                if (isPlatformBrowser(this.platformId)) {
+                  const browserLang = translate.getBrowserLang();
+                  const userLang = localStorage.getItem('userLang') ?? browserLang;
+                  translate.use(userLang || '');
+                }
+              }
 
   ngOnInit(): void {
     this.bookService.getAllBooks().then((data: any) => {
@@ -162,8 +173,8 @@ export class AddLoanComponent {
   onSubmit(form: any){
     console.log(form.value);
     if(!this.validateDates()) {
-      this.modalTitle = 'Error';
-      this.modalMessage = 'Select a valid date range';
+      this.modalTitle = 'error';
+      this.modalMessage = 'select-valid-dates';
       this.modalService.open(this.contentTemplate);
     } else if (this.selectedBook) {
         if(this.selectedUser){
@@ -175,13 +186,13 @@ export class AddLoanComponent {
             bookId: this.selectedBook.id
           }
           this.loanService.createLoan(loan).then((data: any) => {
-            this.modalTitle = 'Success';
-            this.modalMessage = 'Loan registered successfully';
+            this.modalTitle = 'success';
+            this.modalMessage = 'loan-registered-succesfully';
             this.modalService.open(this.contentTemplate);
           })
           .catch((error: any) => {
-            this.modalTitle = 'Error';
-            this.modalMessage = 'An error occurred while registering the loan';
+            this.modalTitle = 'error';
+            this.modalMessage = 'an-error-occurred-while-registering-the-loan';
             this.modalService.open(this.contentTemplate);
             console.error(error);
           });
@@ -194,25 +205,25 @@ export class AddLoanComponent {
             bookId: this.selectedBook.id
           }
           this.loanService.createLoan(loan).then((data: any) => {
-            this.modalTitle = 'Success';
-            this.modalMessage = 'Loan registered successfully';
+            this.modalTitle = 'success';
+            this.modalMessage = 'loan-registered-succesfully';
             this.modalService.open(this.contentTemplate);
           })
           .catch((error: any) => {
-            this.modalTitle = 'Error';
-            this.modalMessage = 'An error occurred while registering the loan';
+            this.modalTitle = 'error';
+            this.modalMessage = 'an-error-occurred-while-registering-the-loan';
             this.modalService.open(this.contentTemplate);
             console.error(error);
           });
         } else {
-          this.modalTitle = 'Error';
-          this.modalMessage = 'Please select a user';
+          this.modalTitle = 'error';
+          this.modalMessage = 'please-select-a-user';
           this.modalService.open(this.contentTemplate);
         }
         
     } else {
-        this.modalTitle = 'Error';
-        this.modalMessage = 'Please select a book';
+        this.modalTitle = 'error';
+        this.modalMessage = 'please-select-a-book';
         this.modalService.open(this.contentTemplate);
       }
   }
