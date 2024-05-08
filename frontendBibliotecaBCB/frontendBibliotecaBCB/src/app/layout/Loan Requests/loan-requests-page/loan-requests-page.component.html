@@ -1,3 +1,79 @@
-<div *ngFor="let loanRequest of loanRequests">
-    <app-loan-request-card [loanRequest]="loanRequest"></app-loan-request-card>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2" (click)="clearFilters()">{{ 'loan-requests' | translate }}</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group me-2">
+        <form class="d-flex" role="search">
+            <input type="search" class="form-control search-bar" placeholder="{{ 'search' | translate }}..." [(ngModel)]="searchTerm" name="searchBar" aria-label="Search">
+            <button type="button" class="btn btn-outline-secondary search-btn" (click)="search()">{{ 'search' | translate }}</button>
+        </form>
+      </div>
+      <!-- Sorting Dropdown Button -->
+      <div class="btn-group me-2">
+        <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle sort-btn" data-bs-toggle="dropdown" aria-expanded="false">
+          {{ 'sort-by' | translate }}
+        </button>
+        <ul class="dropdown-menu">
+          <li><button class="dropdown-item" (click)="sortLoanRequests('pickup-date')">{{'pickup-date' | translate}}</button></li>
+          <li><button class="dropdown-item" (click)="sortLoanRequests('request-date')">{{'requested-date' | translate}}</button></li>
+        </ul>
+      </div>
+
+      <!-- Filter Button -->
+      <button type="button" class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1 filter-btn" data-bs-toggle="modal" data-bs-target="#filterModal">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
+              <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
+          </svg>
+          {{ 'filters' | translate }}
+      </button>
+    </div>
+  </div>
+
+<!-- Filter Modal -->
+<div class="modal fade" id="filterModal" tabindex="-1" aria-labelledby="filterModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="filterModalLabel">{{ 'filter-options' | translate }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <!-- Statuses as Checkboxes -->
+          <div class="mb-3">
+            <label class="form-label">{{ 'status' | translate }}</label>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="acceptedSelected" [ngModelOptions]="{standalone: true}">
+                <label class="form-check-label">{{'ACCEPTED' | translate}}</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="deniedSelected" [ngModelOptions]="{standalone: true}">
+                <label class="form-check-label">{{'DENIED' | translate}}</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="processingSelected" [ngModelOptions]="{standalone: true}">
+                <label class="form-check-label">{{'PROCESSING' | translate}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer d-flex justify-content-between">
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" (click)="clearFilters()">{{ 'clear-filters' | translate }}</button>
+          <div>
+            <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="applyFilters()">{{ 'apply-filters' | translate }}</button>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+<div *ngIf="displayedLoanRequests.length != 0; else noResultsTemplate">
+    <div *ngFor="let loanRequest of displayedLoanRequests">
+        <app-loan-request-card [loanRequest]="loanRequest"></app-loan-request-card>
+    </div>
 </div>
+
+<!-- No results found template -->
+<ng-template #noResultsTemplate>
+    <div class="alert alert-warning" role="alert">
+      {{ 'no-results-found' | translate }}
+    </div>
+</ng-template>

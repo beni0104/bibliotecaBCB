@@ -31,3 +31,9 @@
 .group button {
     margin-top: 10px;
 }
+
+.no-results-found{
+    margin-left: 1.5rem;
+    margin-bottom: 1rem;
+    color: yellow;
+}

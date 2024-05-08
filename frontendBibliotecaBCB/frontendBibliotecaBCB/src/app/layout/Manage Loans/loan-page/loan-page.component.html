@@ -1,5 +1,29 @@
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">{{ 'manage-loans' | translate }}</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group me-2">
+        <form class="d-flex" role="search">
+            <input type="search" class="form-control search-bar" placeholder="{{ 'search-by-user' | translate }}..." [(ngModel)]="searchTerm" name="searchBar" aria-label="Search">
+            <button type="button" class="btn btn-outline-secondary search-btn" (click)="search()">{{ 'search' | translate }}</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<!-- No results found template -->
+<ng-template #noResultsTemplate>
+  <div class="alert alert-warning" role="alert">
+    {{ 'no-results-found' | translate }}
+  </div>
+</ng-template>
+
+
+<!-- Add loans -->
 <app-add-loan></app-add-loan>
 
+<!-- List of loans -->
+<div *ngIf="displayedUserList.length != 0; else noResultsTemplate">
+    <div *ngFor="let user of displayedUserList">
+        <app-loan-card [user]="user"></app-loan-card>
+</div>
 
-<div *ngFor="let user of userList">
-    <app-loan-card [user]="user"></app-loan-card>
