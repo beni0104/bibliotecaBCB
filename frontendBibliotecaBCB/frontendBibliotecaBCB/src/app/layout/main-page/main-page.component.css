@@ -83,3 +83,12 @@
   vertical-align: -.4em;
   fill: currentColor;
 }
+
+.dropdown-arrow {
+  float: right;
+}
+
+/* Styling for when the dropdown is active */
+.rotate {
+  transform: rotate(180deg);
+}

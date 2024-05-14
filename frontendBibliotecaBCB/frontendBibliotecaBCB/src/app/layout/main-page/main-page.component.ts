@@ -15,6 +15,9 @@ export class MainPageComponent {
   isLoggedIn = false;
   user = null;
   isAdmin = false;
+  settingsDropdown = false;
+  languageDropdown = false;
+  themeDropdown = false;
 
   constructor(private translate: TranslateService, private router: Router,  @Inject(PLATFORM_ID) private platformId: Object) {
     if (isPlatformBrowser(this.platformId)) {
@@ -68,6 +71,14 @@ export class MainPageComponent {
   switchLanguage(language: string) {
     this.translate.use(language);
     localStorage.setItem('userLang', language); // Save user preference
-    console.log(localStorage.getItem('userLang'));
+    this.settingsDropdown = false;
+    this.languageDropdown = false;
+    this.themeDropdown = false;
+  }
+
+  switchSettingsDropdown() {
+    this.settingsDropdown = !this.settingsDropdown;
+    this.languageDropdown = false;
+    this.themeDropdown = false;
   }
 }
