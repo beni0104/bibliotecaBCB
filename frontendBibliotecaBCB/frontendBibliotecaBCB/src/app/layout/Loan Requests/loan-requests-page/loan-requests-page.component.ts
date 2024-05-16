@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { LoanRequest } from '../../../interfaces/loan';
 import { LoanService } from '../../../services/loan.service';
-import { TranslateService } from '@ngx-translate/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-loan-requests-page',
@@ -18,11 +18,17 @@ export class LoanRequestsPageComponent {
   deniedSelected: boolean = false;
   processingSelected: boolean = false;
 
-  constructor(private translate: TranslateService, 
-    private loanService: LoanService) {
+  constructor(private loanService: LoanService,
+    @Inject(PLATFORM_ID) private platformId: Object) {
   }
 
   ngOnInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadLoanRequests();
+    }
+  }
+
+  async loadLoanRequests() {
     this.loanService.getLoanRequestsForUser().then((loanRequests: any) => {
       this.loanRequests = loanRequests;
       this.displayedLoanRequests = loanRequests;

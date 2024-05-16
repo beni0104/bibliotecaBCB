@@ -3,7 +3,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Book } from '../../interfaces/book';
 import { BookService } from '../../services/book.service';
-import { min } from 'rxjs';
 
 @Component({
   selector: 'app-favorites-page',

@@ -12,7 +12,9 @@ import { LoanRequest } from '../interfaces/loan';
 export class LoanService {
   jwtToken: string = "";
 
-  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {}
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
+    this.attributeJwtToken();
+  }
 
   attributeJwtToken() {
     if (isPlatformBrowser(this.platformId)) {
@@ -153,6 +155,7 @@ export class LoanService {
 
   async getLoanRequestsForUser() {
     this.attributeJwtToken();
+    console.log(this.jwtToken);
     try {
       const response = await fetch('http://' + environment.host + ':8080/api/loanRequest/getforauthuser', {
         method: 'GET',
