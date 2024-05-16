@@ -151,6 +151,24 @@ export class LoanService {
     }
   }
 
+  async getLoanRequestsForUser() {
+    this.attributeJwtToken();
+    try {
+      const response = await fetch('http://' + environment.host + ':8080/api/loanRequest/getforauthuser', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.jwtToken
+        }
+      });
+      const data: LoanRequest = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
   async updateLoanRequest(loanRequest: LoanRequest, status: string) {
     this.attributeJwtToken();
     loanRequest.status = status;

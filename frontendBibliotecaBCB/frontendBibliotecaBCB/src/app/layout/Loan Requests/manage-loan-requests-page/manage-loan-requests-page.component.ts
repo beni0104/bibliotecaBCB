@@ -1,14 +1,13 @@
 import { Component } from '@angular/core';
 import { LoanRequest } from '../../../interfaces/loan';
 import { LoanService } from '../../../services/loan.service';
-import { TranslateService } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-loan-requests-page',
-  templateUrl: './loan-requests-page.component.html',
-  styleUrl: './loan-requests-page.component.css'
+  selector: 'app-manage-loan-requests-page',
+  templateUrl: './manage-loan-requests-page.component.html',
+  styleUrl: './manage-loan-requests-page.component.css'
 })
-export class LoanRequestsPageComponent {
+export class ManageLoanRequestsPageComponent {
   loanRequests: LoanRequest[] = [];
   displayedLoanRequests: LoanRequest[] = [];
   filteredLoanRequests: LoanRequest[] = [];
@@ -18,12 +17,11 @@ export class LoanRequestsPageComponent {
   deniedSelected: boolean = false;
   processingSelected: boolean = false;
 
-  constructor(private translate: TranslateService, 
-    private loanService: LoanService) {
+  constructor(private loanService: LoanService) {
   }
 
   ngOnInit() {
-    this.loanService.getLoanRequestsForUser().then((loanRequests: any) => {
+    this.loanService.getLoanRequests().then((loanRequests: any) => {
       this.loanRequests = loanRequests;
       this.displayedLoanRequests = loanRequests;
     });

@@ -59,6 +59,7 @@ export class MainPageComponent {
       this.isAdmin = false;
       this.isLoggedIn = false;
       console.log(localStorage.getItem('currentUser'));
+      this.router.navigate(['/home']);
     }
   }
   login() {

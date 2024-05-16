@@ -11,6 +11,7 @@ import { LoanService } from '../../../services/loan.service';
 })
 export class LoanRequestCardComponent {
   @Input() loanRequest!: LoanRequest;
+  @Input() isAdmin: boolean = false;
   constructor(private loanService: LoanService,
     private translate: TranslateService,
     @Inject(PLATFORM_ID) private platformId: Object) {

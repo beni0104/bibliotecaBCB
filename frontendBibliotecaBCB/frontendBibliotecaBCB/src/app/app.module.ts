@@ -30,8 +30,10 @@ import { AddLoanComponent } from './layout/Manage Loans/add-loan/add-loan.compon
 import { LoanCardComponent } from './layout/Manage Loans/loan-card/loan-card.component';
 import { LoanPageComponent } from './layout/Manage Loans/loan-page/loan-page.component';
 import { LoanRequestCardComponent } from './layout/Loan Requests/loan-request-card/loan-request-card.component';
+import { ManageLoanRequestsPageComponent } from './layout/Loan Requests/manage-loan-requests-page/manage-loan-requests-page.component';
 import { LoanRequestsPageComponent } from './layout/Loan Requests/loan-requests-page/loan-requests-page.component';
 import { environment } from '../environments/environment';
+import { IsbnScannerComponent } from './layout/Manage Books/isbn-scanner/isbn-scanner.component';
 
 const icons = {
   Person
@@ -62,7 +64,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoanCardComponent,
     LoanPageComponent,
     LoanRequestCardComponent,
-    LoanRequestsPageComponent
+    LoanRequestsPageComponent,
+    ManageLoanRequestsPageComponent,
+    IsbnScannerComponent
   ],
   imports: [
     BrowserModule,

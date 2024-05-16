@@ -29,10 +29,10 @@
           <label for="amount" class="form-label">{{ 'amount' | translate }}</label>
           <input type="number" class="form-control" id="amount" name="amount" ngModel required min="1" (input)="validateNumberInput($event)">
         </div>
-        <div class="mb-3">
+        <!-- <div class="mb-3">
           <label for="bookPhoto" class="form-label">{{ 'book-img' | translate }}</label>
           <input type="file" class="form-control" id="bookPhoto" (change)="onFileSelected($event)">
-        </div>
+        </div> -->
         <button type="submit" class="btn btn-primary">{{ 'submit' | translate }}</button>
       </form>
     </div>

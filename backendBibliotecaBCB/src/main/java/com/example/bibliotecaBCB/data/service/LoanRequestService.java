@@ -66,4 +66,8 @@ public class LoanRequestService {
         return loanRequestDTO;
     }
 
+    public List<LoanRequest> getByUserId(Long userId){
+        return loanRequestRepository.findByUserId(userId);
+    }
+
 }

@@ -113,6 +113,14 @@
           </ul>
           <ul class="nav flex-column" *ngIf="isAdmin">
             <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2 active" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-current="page" routerLink="/home/loanRequests">
+                <svg class="bi"><use xlink:href="#inbox"/></svg>
+                {{ 'my-loan-requests' | translate }}
+              </a>
+            </li>
+          </ul>
+          <ul class="nav flex-column" *ngIf="isAdmin">
+            <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2 active" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-current="page" routerLink="/home/managebooks">
                 <svg class="bi"><use xlink:href="#book"/></svg>
                 {{ 'manage-books' | translate }}
@@ -129,9 +137,9 @@
           </ul>
           <ul class="nav flex-column" *ngIf="isAdmin">
             <li class="nav-item">
-              <a class="nav-link d-flex align-items-center gap-2 active" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-current="page" routerLink="/home/loanRequests">
+              <a class="nav-link d-flex align-items-center gap-2 active" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-current="page" routerLink="/home/manageLoanRequests">
                 <svg class="bi"><use xlink:href="#inbox"/></svg>
-                {{ 'loan-requests' | translate }}
+                {{ 'manage-loan-requests' | translate }}
               </a>
             </li>
           </ul>
