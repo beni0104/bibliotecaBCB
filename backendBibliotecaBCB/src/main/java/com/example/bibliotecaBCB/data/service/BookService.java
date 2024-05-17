@@ -7,8 +7,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class BookService {
@@ -56,6 +58,10 @@ public class BookService {
         Pageable pageable = PageRequest.of(page, limit);
 
         return bookRepository.findAll(pageable);
+    }
+
+    public List<Book> getRandomBooksByCategory(String category) {
+        return bookRepository.findRandomBooksByCategory(category);
     }
 
 }

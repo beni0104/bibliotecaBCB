@@ -63,6 +63,23 @@ export class BookService {
     }
   }
 
+  async getRelatedBooks(category: string) {
+    try {
+      const response = await fetch('http://' + environment.host + ':8080/api/book/get-random-by-category?category=' + category, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      });
+      const data: Book = await response.json();
+      return data;
+    }
+    catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
   async getFavoriteBooks() {
     this.attributeJwtToken();
     try {

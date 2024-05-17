@@ -69,6 +69,11 @@ public class BookController {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
+    @GetMapping("/get-random-by-category")
+    public List<Book> getRandomBooksByCategory(@RequestParam String category) {
+        return bookService.getRandomBooksByCategory(category);
+    }
+
     @GetMapping("/getbyid")
     public ResponseEntity<BookDTO> findById(@RequestParam Long id){
         Optional<Book> book = bookService.findById(id);
