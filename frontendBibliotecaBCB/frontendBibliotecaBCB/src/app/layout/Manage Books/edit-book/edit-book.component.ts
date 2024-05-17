@@ -72,7 +72,7 @@ export class EditBookComponent {
   onSubmit() {
     this.book = {...this.book, ...this.editBookForm.value};
     this.bookservice.updateBook(this.book);
-    this.alertService.showAlert('Cartea a fost actualizată cu succes!', 5000);
+    this.alertService.showAlert('Cartea a fost actualizată cu succes!', "success", 5000);
   }
 
   validateNumberInput(event: any): void {

@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { Book } from '../../../interfaces/book';
 import { EncryptionService } from '../../../services/encryption.service';
 import { Router } from '@angular/router';
+import { AlertService } from '../../../services/alert.service';
+import { BookService } from '../../../services/book.service';
 
 @Component({
   selector: 'app-related-book-card',
@@ -10,9 +12,12 @@ import { Router } from '@angular/router';
 })
 export class RelatedBookCardComponent {
   @Input() book!: Book;
-  isFavorite = true;
 
-  constructor(private router: Router, private encryptionService: EncryptionService) { }
+  constructor(private router: Router,
+    private encryptionService: EncryptionService,
+    private alertService: AlertService,
+    private bookService: BookService
+  ) { }
 
   openBookDetails(book : Book) {
     // Implement navigation to book details page
@@ -23,8 +28,20 @@ export class RelatedBookCardComponent {
 
   toggleFavorite(event: Event, book: Book) {
     event.stopPropagation(); // Prevent opening book details when clicking the favorite button
-    // Implement favorite toggle logic
-    this.isFavorite = !this.isFavorite;
+    if(localStorage.getItem('currentUser') === null){
+      this.alertService.showAlert('login-required', "danger", 5000);
+      return;
+    } else{
+      if (!this.book.isFavorite) {
+        this.alertService.showAlert('book-added-to-favorites', "success", 5000);
+        this.bookService.addBookToFavorites(book.id);
+        this.book.isFavorite = true;
+      }else{
+        this.alertService.showAlert('book-deleted-from-favorites', "success", 5000);
+        this.bookService.removeBookFromFavorites(book.id);
+        this.book.isFavorite = false;
+      }
+    }
   }
 
 }

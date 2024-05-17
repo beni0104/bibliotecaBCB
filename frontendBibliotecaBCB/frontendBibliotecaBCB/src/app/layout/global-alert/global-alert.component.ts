@@ -12,6 +12,7 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class GlobalAlertComponent implements OnInit, OnDestroy {
   alertMessage: string | null = null;
+  alertType: string = 'success';
   private alertSubscription: Subscription = new Subscription();
 
   constructor(private alertService: AlertService,
@@ -26,14 +27,15 @@ export class GlobalAlertComponent implements OnInit, OnDestroy {
               }
 
   ngOnInit() {
-    this.alertService.alertMessage.subscribe((message: string | null) => {
-      this.alertMessage = message;
+    this.alertSubscription = this.alertService.alertMessage.subscribe((alert) => {
+      this.alertMessage = alert.message;
+      this.alertType = alert.type;
     });
   }
 
   closeAlert() {
     this.alertService.clearTimeout();
-    this.alertService.alertMessage.next(null);
+    this.alertService.alertMessage.next({ message: null, type: this.alertType });
     // this.cdRef.detectChanges();
   }
 

@@ -34,15 +34,19 @@ export class BookCardComponent {
 
   toggleFavorite(event: Event, book: Book) {
     event.stopPropagation(); // Prevent opening book details when clicking the favorite button
-
-    if (!this.book.isFavorite) {
-      this.alertService.showAlert('book-added-to-favorites', 5000);
-      this.bookService.addBookToFavorites(book.id);
-      this.book.isFavorite = true;
-    }else{
-      this.alertService.showAlert('book-deleted-from-favorites', 5000);
-      this.bookService.removeBookFromFavorites(book.id);
-      this.book.isFavorite = false;
+    if(localStorage.getItem('currentUser') === null){
+      this.alertService.showAlert('login-required', "danger", 5000);
+      return;
+    } else{
+      if (!this.book.isFavorite) {
+        this.alertService.showAlert('book-added-to-favorites', "success", 5000);
+        this.bookService.addBookToFavorites(book.id);
+        this.book.isFavorite = true;
+      }else{
+        this.alertService.showAlert('book-deleted-from-favorites', "success", 5000);
+        this.bookService.removeBookFromFavorites(book.id);
+        this.book.isFavorite = false;
+      }
     }
   }
 }

@@ -64,11 +64,13 @@ export class BookService {
   }
 
   async getRelatedBooks(category: string) {
+    this.attributeJwtToken();
     try {
       const response = await fetch('http://' + environment.host + ':8080/api/book/get-random-by-category?category=' + category, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.jwtToken
         }
       });
       const data: Book = await response.json();

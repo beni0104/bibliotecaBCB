@@ -1,4 +1,3 @@
-<ngb-alert *ngIf="alertMessage" type="success" (close)="closeAlert()" class="global-alert">
-    {{ alertMessage | translate}}
+<ngb-alert *ngIf="alertMessage" [type]="alertType" (close)="closeAlert()" class="global-alert">
+    {{ alertMessage | translate }}
 </ngb-alert>
-  

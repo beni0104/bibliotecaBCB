@@ -70,8 +70,30 @@ public class BookController {
     }
 
     @GetMapping("/get-random-by-category")
-    public List<Book> getRandomBooksByCategory(@RequestParam String category) {
-        return bookService.getRandomBooksByCategory(category);
+    public ResponseEntity<List<BookDTO>> getRandomBooksByCategory(@RequestParam String category, @RequestHeader(value="Authorization") String token) {
+        if(token != null && token.startsWith("Bearer ") && token.split("\\.").length == 3) {
+            Long userId = jwtUtils.extractUserIdFromJWT(token);
+            if (userId != null) {
+                List<Book> books = bookService.getRandomBooksByCategory(category);
+                List<BookDTO> bookDTOS = new ArrayList<>();
+                Set<Long> favoriteBookIds = favoriteService.getUserFavoritesBookIDs(userId);
+                for (Book book : books) {
+                    BookDTO bookDTO = new BookDTO(book);
+                    if (favoriteBookIds.contains(bookDTO.getBookId()))
+                        bookDTO.setFavorite(true);
+                    bookDTOS.add(bookDTO);
+                }
+                return ResponseEntity.ok(bookDTOS);
+            }
+        }
+
+        List<Book> books = bookService.getRandomBooksByCategory(category);
+        List<BookDTO> bookDTOS = new ArrayList<>();
+        for(Book book: books){
+            BookDTO bookDTO = new BookDTO(book);
+            bookDTOS.add(bookDTO);
+        }
+        return ResponseEntity.ok(bookDTOS);
     }
 
     @GetMapping("/getbyid")
