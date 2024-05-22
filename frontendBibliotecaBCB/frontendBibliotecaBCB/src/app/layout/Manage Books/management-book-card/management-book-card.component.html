@@ -2,7 +2,7 @@
     <div class="card-checkbox">
       <input type="checkbox" class="form-check-input" (change)="onCheckboxChange($event)" [value]="book.id">
     </div>
-    <img class="card-img" src="assets/images/bibliotecaBCBLogo.jpg" alt="{{book.title}}">
+    <img class="card-img" [src]="book.photoUrl ? book.photoUrl : 'assets/images/no-img-found.jpg'" alt="{{book.title}}">
     <div class="card-info">
       <h5 class="card-title">{{book.title}}</h5>
       <p class="card-author">{{ 'by' | translate }} {{book.author}}</p>

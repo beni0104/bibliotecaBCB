@@ -96,5 +96,7 @@
     "confirm-adding-return-date": "Esti sigur ca vrei sa adaugi data de returnare pentru aceasta carte? Aceasta actiune nu poate fi anulata!",
 
     "book-added-to-favorites": "Cartea a fost adăugată la favorite!",
-    "book-deleted-from-favorites": "Cartea a fost ștearsă din favorite!"
+    "book-deleted-from-favorites": "Cartea a fost ștearsă din favorite!",
+
+    "scan-isbn": "Scanează ISBN"
 }

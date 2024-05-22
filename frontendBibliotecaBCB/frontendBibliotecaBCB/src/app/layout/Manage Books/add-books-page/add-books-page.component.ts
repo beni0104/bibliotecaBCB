@@ -1,9 +1,10 @@
 import { Component, inject, ViewChild, TemplateRef, PLATFORM_ID, Inject } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { isPlatformBrowser } from '@angular/common';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef  } from '@ng-bootstrap/ng-bootstrap';
 import { BookService } from '../../../services/book.service';
-import { BookDTO } from '../../../interfaces/book';
+import { Book, BookDTO } from '../../../interfaces/book';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-add-books-page',
@@ -12,6 +13,9 @@ import { BookDTO } from '../../../interfaces/book';
 })
 export class AddBooksPageComponent {
   @ViewChild('content') contentTemplate!: TemplateRef<any>;
+  @ViewChild('isbnscanner') IsbnScannerComponent!: TemplateRef<any>;
+  @ViewChild('bookForm') bookForm!: NgForm;
+  private modalRef: NgbModalRef | undefined; // To keep the modal reference
   private modalService = inject(NgbModal);
   selectedFile: File | null = null;
   modalTitle = '';
@@ -44,6 +48,7 @@ export class AddBooksPageComponent {
         title: form.value.title,
         author: form.value.author,
         category: form.value.category,
+        photoUrl: form.value.photoUrl,
         amount: form.value.amount
       }
       if (await this.bookService.createBook(book)){
@@ -82,5 +87,26 @@ export class AddBooksPageComponent {
   
     // Update the input field with the cleaned value
     event.target.value = input;
+  }
+
+  openIsbnScanner(): void {
+    this.modalRef = this.modalService.open(this.IsbnScannerComponent);
+  }
+
+  completeFormFromScannedISBN(scannedData: Book): void {
+    if (this.bookForm) {
+      this.bookForm.setValue({
+        bookId: scannedData.bookId || '',
+        title: scannedData.title || '',
+        author: scannedData.author || '',
+        category: scannedData.category || '',
+        photoUrl: scannedData.photoUrl || '',
+        amount: scannedData.amount || '',
+        rating: scannedData.rating || ''
+      });
+    }
+    if (this.modalRef) {
+      this.modalRef.close(); // Close the modal
+    }
   }
 }

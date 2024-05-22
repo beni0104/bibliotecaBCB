@@ -29,27 +29,36 @@
           <label for="amount" class="form-label">{{ 'amount' | translate }}</label>
           <input type="number" class="form-control" id="amount" name="amount" ngModel required min="1" (input)="validateNumberInput($event)">
         </div>
-        <!-- <div class="mb-3">
-          <label for="bookPhoto" class="form-label">{{ 'book-img' | translate }}</label>
-          <input type="file" class="form-control" id="bookPhoto" (change)="onFileSelected($event)">
-        </div> -->
-        <button type="submit" class="btn btn-primary">{{ 'submit' | translate }}</button>
+        <div class="mb-3">
+          <label for="photoUrl" class="form-label">{{ 'book-img' | translate }}</label>
+          <input type="text" class="form-control" id="photoUrl" name="photoUrl" ngModel required>
+        </div>
+        <div class="button-container">
+          <button type="button" class="btn btn-primary" (click)="openIsbnScanner()">{{ 'scan-isbn' | translate }}</button>
+          <button type="submit" class="btn btn-primary">{{ 'submit' | translate }}</button>
+        </div>
       </form>
+      
     </div>
 
 </div>
 <hr>
+
+<ng-template #isbnscanner let-modal>
+  <app-isbn-scanner (dataEmitter)="completeFormFromScannedISBN($event)"></app-isbn-scanner>
+  <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">{{ 'close' | translate }}</button>
+</ng-template>
   
 
-  <ng-template #content let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title">{{modalTitle | translate}}</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
-    </div>
-    <div class="modal-body">
-      <p>{{modalMessage | translate}}</p>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">{{ 'close' | translate }}</button>
-    </div>
-  </ng-template>
+<ng-template #content let-modal class="modal-dialog">
+  <div class="modal-header">
+    <h4 class="modal-title">{{modalTitle | translate}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>{{modalMessage | translate}}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">{{ 'close' | translate }}</button>
+  </div>
+</ng-template>

@@ -21,6 +21,7 @@ export class EditBookComponent {
     "title": "",
     "author": "",
     "category": "",
+    "photoUrl": "",
     "amount": 0,
     "isFavorite": false,
     "rating": 0
@@ -63,6 +64,7 @@ export class EditBookComponent {
           title: this.book.title,
           author: this.book.author,
           category: this.book.category,
+          photoUrl: this.book.photoUrl,
           amount: this.book.amount,
         });
       });

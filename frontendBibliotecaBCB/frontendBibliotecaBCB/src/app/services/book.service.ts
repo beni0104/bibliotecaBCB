@@ -25,7 +25,7 @@ export class BookService {
   async getPagedBooks(page: number) {
     const offset = (page - 1) * 25;
     try {
-      const response = await fetch(`http://localhost:8080/api/book/getpagedbooks?offset=${offset}`, {
+      const response = await fetch(`https://localhost:8080/api/book/getpagedbooks?offset=${offset}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -47,7 +47,7 @@ export class BookService {
   async getAllBooks() {
     this.attributeJwtToken();
     try {
-      const response = await fetch('http://' + environment.host + ':8080/api/book/all', {
+      const response = await fetch('https://' + environment.host + ':8080/api/book/all', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -66,7 +66,7 @@ export class BookService {
   async getRelatedBooks(category: string) {
     this.attributeJwtToken();
     try {
-      const response = await fetch('http://' + environment.host + ':8080/api/book/get-random-by-category?category=' + category, {
+      const response = await fetch('https://' + environment.host + ':8080/api/book/get-random-by-category?category=' + category, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ export class BookService {
   async getFavoriteBooks() {
     this.attributeJwtToken();
     try {
-      const response = await fetch('http://' + environment.host + ':8080/api/favorite/getall', {
+      const response = await fetch('https://' + environment.host + ':8080/api/favorite/getall', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ export class BookService {
 
   async getBookById(id: number) {
     try {
-      const response = await fetch('http://' + environment.host + ':8080/api/book/getbyid?id=' + id, {
+      const response = await fetch('https://' + environment.host + ':8080/api/book/getbyid?id=' + id, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -121,7 +121,7 @@ export class BookService {
   async createBook(book: BookDTO) {
     this.attributeJwtToken();
     try {
-      const response = await fetch('http://' + environment.host + ':8080/api/book/create', {
+      const response = await fetch('https://' + environment.host + ':8080/api/book/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -144,7 +144,7 @@ export class BookService {
   async addBookToFavorites(bookId: number) {
     this.attributeJwtToken();
     try {
-      const url = `http://${environment.host}:8080/api/favorite/add?bookId=${bookId}`;
+      const url = `https://${environment.host}:8080/api/favorite/add?bookId=${bookId}`;
       const response = await fetch(url, {
         method: 'PATCH',
         headers: {
@@ -167,7 +167,7 @@ export class BookService {
   async removeBookFromFavorites(bookId: number) {
     this.attributeJwtToken();
     try {
-      const url = `http://${environment.host}:8080/api/favorite/delete?bookId=${bookId}`;
+      const url = `https://${environment.host}:8080/api/favorite/delete?bookId=${bookId}`;
 
       const response = await fetch(url, {
         method: 'DELETE',
@@ -191,7 +191,7 @@ export class BookService {
   async updateBook(book: BookDTO) {
     this.attributeJwtToken();
     try {
-      const response = await fetch('http://' + environment.host + ':8080/api/book/update', {
+      const response = await fetch('https://' + environment.host + ':8080/api/book/update', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -214,7 +214,7 @@ export class BookService {
   async deleteBooks(bookIds: number[]) {
     this.attributeJwtToken();
     try {
-      const response = await fetch('http://' + environment.host + ':8080/api/book/delete', {
+      const response = await fetch('https://' + environment.host + ':8080/api/book/delete', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

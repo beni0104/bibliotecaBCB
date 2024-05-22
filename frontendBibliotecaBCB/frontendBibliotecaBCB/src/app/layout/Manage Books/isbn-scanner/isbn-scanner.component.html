@@ -1,5 +1,15 @@
-<div>
-    <h2>Scan ISBN</h2>
-    <video #video id="video" width="640" height="480"></video>
+<div class="container">
+  <h2>Scan ISBN</h2>
+  <div class="row">
+      <div class="col-12 col-md-8 offset-md-2">
+          <video [hidden]="stoppedScanning" #video id="video" class="w-100"></video>
+          <div [hidden]="!stoppedScanning" class="text-center mt-3">
+              <div>
+                  <p>Scanned ISBN is: {{ scannedIsbn }}</p>
+              </div>
+              <button class="btn btn-secondary mr-2" (click)="restartScanner()">Scan Again</button>
+              <button class="btn btn-primary" (click)="submit()">Submit</button>
+          </div>
+      </div>
   </div>
-  
+</div>

@@ -1,72 +1,71 @@
 <div class="container mt-4">
-    <div class="row">
+  <div class="row">
       <div class="col-md-6">
-        <!-- Book Cover -->
-        <img src="assets\images\bibliotecaBCBLogo.jpg" alt="{{ book.title }}" class="img-fluid" style="border-radius: 6px;">
-      </div>
-      <div class="col-md-6">
-        <h2 class="book-title">{{ book.title }}</h2>
-          <div class="star-rating">
-            <div class="star-rating-top" [style.width.%]="averageRating / 5 * 100">
-              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-            </div>
-            <div class="star-rating-bottom">
-              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
-            </div>
-          </div>  
-          <span style="padding-left: 7px;">{{averageRating}}</span>
-        <br>
-        <p>{{ 'author' | translate }}: {{ book.author }}</p>
-        <p>{{ 'category' | translate }}: {{ book.category }}</p>
-        <!-- etc. for other metadata -->
-  
-        <!-- Availability -->
-        <p>{{ 'status' | translate }}: <span [ngClass]="{'text-success': isAvailable, 'text-danger': !isAvailable}">
-          {{ isAvailable ? 'Available' : 'Not Available' }}
-        </span></p>
-  
-        
-  
-        <!-- Rent Button -->
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rentModal" [disabled]="!isAvailable">{{ 'rent-book' | translate }}</button>
-  
-        <div class="modal fade" id="rentModal" tabindex="-1" aria-labelledby="rentModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="rentModalLabel">{{ 'rent-book' | translate }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <form>
-                  <div class="mb-3">
-                    <label for="pickupDate" class="form-label">{{ 'pickup-date' | translate }}</label>
-                    <input type="date" class="form-control" id="pickupDate" [(ngModel)]="pickupDate" name="pickup-date" (ngModelChange)="checkDate()">
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'cancel' | translate }}</button>
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="!isDateValid" (click)="confirmRental()">{{ 'confirm' | translate }}</button>
-              </div>
-            </div>
+          <!-- Book Cover -->
+          <div class="card-img-container">
+              <img class="card-img" [src]="book.photoUrl ? book.photoUrl : 'assets\\images\\no-img-found.jpg'" alt="Something went wrong while loading the image =(">
           </div>
-        </div>
       </div>
-    </div>
-  
-    <!-- User Reviews -->
-    <div *ngIf="book.id != -1">
+      <div class="col-md-6">
+          <h2 class="book-title">{{ book.title }}</h2>
+          <div class="star-rating">
+              <div class="star-rating-top" [style.width.%]="averageRating / 5 * 100">
+                  <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+              <div class="star-rating-bottom">
+                  <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+              </div>
+          </div>
+          <span style="padding-left: 7px;">{{averageRating}}</span>
+          <br>
+          <p>{{ 'author' | translate }}: {{ book.author }}</p>
+          <p>{{ 'category' | translate }}: {{ book.category }}</p>
+          <!-- etc. for other metadata -->
+
+          <!-- Availability -->
+          <p>{{ 'status' | translate }}: <span [ngClass]="{'text-success': isAvailable, 'text-danger': !isAvailable}">
+              {{ isAvailable ? 'Available' : 'Not Available' }}
+          </span></p>
+
+          <!-- Rent Button -->
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#rentModal" [disabled]="!isAvailable">{{ 'rent-book' | translate }}</button>
+
+          <div class="modal fade" id="rentModal" tabindex="-1" aria-labelledby="rentModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title" id="rentModalLabel">{{ 'rent-book' | translate }}</h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                          <form>
+                              <div class="mb-3">
+                                  <label for="pickupDate" class="form-label">{{ 'pickup-date' | translate }}</label>
+                                  <input type="date" class="form-control" id="pickupDate" [(ngModel)]="pickupDate" name="pickup-date" (ngModelChange)="checkDate()">
+                              </div>
+                          </form>
+                      </div>
+                      <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'cancel' | translate }}</button>
+                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" [disabled]="!isDateValid" (click)="confirmRental()">{{ 'confirm' | translate }}</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- User Reviews -->
+  <div *ngIf="book.id != -1">
       <app-review-dropdown [bookId]="book.id" (averageRatingChange)="updateAverageRating($event)"></app-review-dropdown>
-    </div>
-  
-    <!-- Related Books -->
-    <hr>
-    <h4>{{ 'other-books-from-same-category' | translate }}</h4>
-    <div class="related-books-container">
-      <div class="related-book" *ngFor="let relatedBook of relatedBooks" >
-        <app-related-book-card [book]="relatedBook"></app-related-book-card>
+  </div>
+
+  <!-- Related Books -->
+  <hr>
+  <h4>{{ 'other-books-from-same-category' | translate }}</h4>
+  <div class="related-books-container">
+      <div class="related-book" *ngFor="let relatedBook of relatedBooks">
+          <app-related-book-card [book]="relatedBook"></app-related-book-card>
       </div>
-    </div>
+  </div>
 </div>
-  

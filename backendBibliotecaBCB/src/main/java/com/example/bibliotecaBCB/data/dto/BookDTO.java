@@ -11,6 +11,7 @@ public class BookDTO {
     private String title;
     private String author;
     private String category;
+    private String photoUrl;
     private int amount;
     @JsonProperty("isFavorite")
     private boolean isFavorite;
@@ -22,6 +23,7 @@ public class BookDTO {
         this.title = book.getTitle();
         this.author = book.getAuthor();
         this.category = book.getCategory();
+        this.photoUrl = book.getPhotoUrl();
         this.amount = book.getAmount();
         this.rating = book.getAverageRating();
     }

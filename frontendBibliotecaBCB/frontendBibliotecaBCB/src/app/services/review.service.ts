@@ -24,7 +24,7 @@ export class ReviewService {
   async getReviewsByBookId(bookId: number) {
     this.attributeJwtToken();
     try {
-      const response = await fetch(`http://${environment.host}:8080/api/review/getbybookid?id=${bookId}`, {
+      const response = await fetch(`https://${environment.host}:8080/api/review/getbybookid?id=${bookId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -44,7 +44,7 @@ export class ReviewService {
     console.log(UserReview);
     console.log(bookId);
     try {
-      const response = await fetch(`http://${environment.host}:8080/api/review/create?bookId=${bookId}`, {
+      const response = await fetch(`https://${environment.host}:8080/api/review/create?bookId=${bookId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

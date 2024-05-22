@@ -4,6 +4,7 @@ export interface Book {
     title: string,
     author: string,
     category: string,
+    photoUrl: string,
     amount: number,
     isFavorite: boolean,
     rating: number
@@ -14,5 +15,6 @@ export interface BookDTO {
     title: string,
     author: string,
     category: string,
+    photoUrl: string,
     amount: number
 }

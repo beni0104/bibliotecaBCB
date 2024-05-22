@@ -27,7 +27,7 @@ export class LoanService {
 
   async getUsernamesAndIds() {
     try {
-      const response = await fetch('http://' + environment.host + ':8080/api/loan/userDetails', {
+      const response = await fetch('https://' + environment.host + ':8080/api/loan/userDetails', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ export class LoanService {
   async getLoans(userId?: number, userName?: string) {
     if(userId) {
       try {
-        const response = await fetch('http://' + environment.host + ':8080/api/loan/user?userId=' + userId, {
+        const response = await fetch('https://' + environment.host + ':8080/api/loan/user?userId=' + userId, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
@@ -59,7 +59,7 @@ export class LoanService {
       }
     } else if(userName) {
       try {
-        const response = await fetch('http://' + environment.host + ':8080/api/loan/user?userName=' + userName, {
+        const response = await fetch('https://' + environment.host + ':8080/api/loan/user?userName=' + userName, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
@@ -73,7 +73,7 @@ export class LoanService {
       }
     } else {
       try {
-        const response = await fetch('http://' + environment.host + ':8080/api/loan/all', {
+        const response = await fetch('https://' + environment.host + ':8080/api/loan/all', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
@@ -92,7 +92,7 @@ export class LoanService {
   async createLoan(loan: Loan) {
     this.attributeJwtToken();
     try {
-      const response = await fetch('http://' + environment.host + ':8080/api/loan/create', {
+      const response = await fetch('https://' + environment.host + ':8080/api/loan/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -115,7 +115,7 @@ export class LoanService {
   async updateLoan(loan: Loan) {
     this.attributeJwtToken();
     try {
-      const response = await fetch('http://' + environment.host + ':8080/api/loan/update', {
+      const response = await fetch('https://' + environment.host + ':8080/api/loan/update', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -139,7 +139,7 @@ export class LoanService {
 
   async getLoanRequests() {
     try {
-      const response = await fetch('http://' + environment.host + ':8080/api/loanRequest/getall', {
+      const response = await fetch('https://' + environment.host + ':8080/api/loanRequest/getall', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -157,7 +157,7 @@ export class LoanService {
     this.attributeJwtToken();
     console.log(this.jwtToken);
     try {
-      const response = await fetch('http://' + environment.host + ':8080/api/loanRequest/getforauthuser', {
+      const response = await fetch('https://' + environment.host + ':8080/api/loanRequest/getforauthuser', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -176,7 +176,7 @@ export class LoanService {
     this.attributeJwtToken();
     loanRequest.status = status;
     try {
-      const response = await fetch('http://' + environment.host + ':8080/api/loanRequest/update', {
+      const response = await fetch('https://' + environment.host + ':8080/api/loanRequest/update', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -202,7 +202,7 @@ export class LoanService {
     this.jwtToken = currentUser ? currentUser.accessToken : null;
     loanRequest.userId = currentUser.id;
     try {
-      const response = await fetch('http://' + environment.host + ':8080/api/loanRequest/create', {
+      const response = await fetch('https://' + environment.host + ':8080/api/loanRequest/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -21,6 +21,7 @@ export class BookDetailsComponent implements OnInit {
     "title": "",
     "author": "",
     "category": "",
+    "photoUrl": "",
     "amount": 0,
     "isFavorite": false,
     "rating": 0

@@ -1,13 +1,13 @@
 .book-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 9.3rem; /* Adjust as needed */
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    cursor: pointer;
-    position: relative;
-    padding: 10px;
-    border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  cursor: pointer;
+  position: relative;
+  padding: 10px;
+  border-radius: 10px;
+  overflow: hidden; /* Ensure no content overflows the card */
 }
 
 .book-card:hover {
@@ -19,30 +19,44 @@
   position: absolute;
   top: 10px;
   left: 10px;
+  z-index: 2; /* Ensure the button is above the image */
 }
 
 .favorite-btn {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 2; /* Ensure the button is above the image */
+}
+
+.card-img-container {
+  width: 100%;
+  height: 0;
+  padding-bottom: 47.17%; /* Maintain 2.12:1 aspect ratio */
+  position: relative;
+  overflow: hidden;
 }
 
 .book-image {
-    /* width: 100%;
-    height: 100%; */
-    object-fit: cover; /* Adjust fit as needed */
-    border-radius: 7px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  object-fit: contain; /* Ensures the image scales down and maintains aspect ratio */
+  border-radius: 7px;
+  z-index: 1; /* Ensure the image is below the button */
 }
 
 .title-container {
   display: flex;
-  align-items: top; 
-  height: 100%; 
+  align-items: top;
+  height: 100%;
 }
-
 
 .book-title {
   font-size: 0.9rem;
@@ -56,4 +70,3 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-  

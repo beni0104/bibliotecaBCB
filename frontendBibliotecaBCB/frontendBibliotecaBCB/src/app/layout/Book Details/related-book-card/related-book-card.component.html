@@ -1,11 +1,13 @@
 <div class="book-card" (click)="openBookDetails(this.book)">
-    <div class="card-top-left">
+  <div class="card-top-left">
       <button (click)="toggleFavorite($event, book)" class="favorite-btn">
-        <span [class]="this.book.isFavorite ? 'fas fa-heart text-danger' : 'far fa-heart'"></span>
+          <span [class]="this.book.isFavorite ? 'fas fa-heart text-danger' : 'far fa-heart'"></span>
       </button>
-    </div>
-    <img src="assets\images\bibliotecaBCBLogo.jpg" alt="{{book.title}}" class="book-image">
-    <div class="title-container">
-      <div class="book-title">{{book.title}}</div>
-    </div>
   </div>
+  <div class="card-img-container">
+      <img class="book-image" [src]="book.photoUrl ? book.photoUrl : 'assets\\images\\no-img-found.jpg'" alt="Something went wrong while loading the image =(">
+  </div>
+  <div class="title-container">
+      <div class="book-title">{{book.title}}</div>
+  </div>
+</div>

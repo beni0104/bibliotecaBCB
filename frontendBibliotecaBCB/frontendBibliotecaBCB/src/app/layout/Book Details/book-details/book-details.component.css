@@ -6,9 +6,9 @@
     width: 80px;
     position: relative;
     display: inline-block;
-  }
-  
-  .star-rating-top {
+}
+
+.star-rating-top {
     color: #ffc107;
     padding: 0;
     position: absolute;
@@ -17,32 +17,51 @@
     top: 0;
     left: 0;
     overflow: hidden;
-  }
-  
-  .star-rating-bottom {
+}
+
+.star-rating-bottom {
     padding: 0;
     display: block;
     z-index: 0;
-  }
-  
-  .star-rating span {
-    margin-right: -0.06em; /* Adjust spacing based on font and size */
-  }
+}
 
-  .related-books-container {
+.star-rating span {
+    margin-right: -0.06em; /* Adjust spacing based on font and size */
+}
+
+.related-books-container {
     display: flex;
     overflow-x: auto;
     padding: 15px 0;
-  }
-  
-  .related-book {
+}
+
+.related-book {
     flex: 0 0 auto; /* Prevents cards from shrinking and ensures they stay the same width */
     width: 200px; /* Adjust based on your desired card width */
     margin-right: 15px;
-  }
+}
 
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
     .book-title {
-      padding-top: 10px;
+        padding-top: 10px;
     }
-  }
+}
+
+.card-img-container {
+    width: 100%;
+    height: 0;
+    padding-bottom: 47.17%; /* Maintain 2.12:1 aspect ratio */
+    position: relative;
+    overflow: hidden;
+}
+
+.card-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    object-fit: contain; /* Ensures the image scales down and maintains aspect ratio */
+    border-radius: 6px;
+}

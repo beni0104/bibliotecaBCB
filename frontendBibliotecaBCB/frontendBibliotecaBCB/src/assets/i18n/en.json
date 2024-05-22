@@ -96,5 +96,7 @@
     "confirm-adding-return-date": "Are you sure you want to add this return date? This action can't be undone!",
 
     "book-added-to-favorites": "Book added to favorites!",
-    "book-deleted-from-favorites": "Book deleted from favorites!"
+    "book-deleted-from-favorites": "Book deleted from favorites!",
+
+    "scan-isbn": "Scan ISBN"
 }

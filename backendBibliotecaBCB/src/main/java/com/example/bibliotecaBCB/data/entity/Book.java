@@ -25,6 +25,7 @@ public class Book {
     private String title;
     private String author;
     private String category;
+    private String photoUrl;
     private int amount;
     private Float averageRating;
 
@@ -40,11 +41,12 @@ public class Book {
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Loan> loans;
 
-    public Book(Long bookId, String title, String author, String category, int amount, Float averageRating) {
+    public Book(Long bookId, String title, String author, String category, int amount, Float averageRating, String photoUrl) {
         this.bookId = bookId;
         this.title = title;
         this.author = author;
         this.category = category;
+        this.photoUrl = photoUrl;
         this.amount = amount;
         this.averageRating = averageRating;
     }

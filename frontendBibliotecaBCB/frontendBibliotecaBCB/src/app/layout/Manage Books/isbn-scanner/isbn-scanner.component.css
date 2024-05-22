@@ -1,0 +1,15 @@
+/* Ensure the video element scales properly */
+#video {
+    width: 100%;
+    height: auto;
+}
+
+/* Button margin adjustments for responsiveness */
+button {
+    margin: 5px;
+}
+
+/* Optional: Add more styling for better appearance */
+.text-center {
+    text-align: center;
+}
