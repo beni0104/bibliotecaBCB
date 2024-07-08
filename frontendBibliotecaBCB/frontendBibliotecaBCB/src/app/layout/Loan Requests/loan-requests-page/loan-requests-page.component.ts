@@ -42,7 +42,7 @@ export class LoanRequestsPageComponent {
         const dateB = new Date(b.pickupDate);
         return dateA.getTime() - dateB.getTime();
       });
-    } else if (type === 'requested-date') {
+    } else if (type === 'request-date') {
       this.displayedLoanRequests.sort((a, b) => {
         const dateA = new Date(a.requestedDate);
         const dateB = new Date(b.requestedDate);

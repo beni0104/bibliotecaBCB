@@ -12,6 +12,7 @@
     "language": "Limbă",
     "ro": "Română",
     "en": "Engleză",
+    "hu": "Maghiară",
     "theme": "Temă",
     "light": "Luminos",
     "dark": "Întunecat",
@@ -80,6 +81,7 @@
     "delete-selected-books": "Șterge cărțile selectate",
     "are-you-sure-you-want-to-delete-selected-books": "Sunteți sigur că vreți să ștergeți cărțile selectate?",
     "books-selected": "cărți selectate",
+    "book-update-success": "Cartea a fost actualizată cu succes",
 
     "add-loan-file": "Adaugă fișă împrumut",
     "date-loaned": "Data împrumutului",

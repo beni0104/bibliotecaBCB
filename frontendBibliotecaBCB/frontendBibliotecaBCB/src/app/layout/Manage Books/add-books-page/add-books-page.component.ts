@@ -90,23 +90,31 @@ export class AddBooksPageComponent {
   }
 
   openIsbnScanner(): void {
+    console.log('Opening ISBN scanner');
     this.modalRef = this.modalService.open(this.IsbnScannerComponent);
+    if(this.modalRef){
+      console.log("Modal reference created");
+    }
+  }
+
+  closeIsbnScanner(): void {
+    console.log('Closing ISBN scanner');
+    if (this.modalRef) {
+      this.modalRef.close();
+    }
   }
 
   completeFormFromScannedISBN(scannedData: Book): void {
     if (this.bookForm) {
       this.bookForm.setValue({
-        bookId: scannedData.bookId || '',
+        bookId: scannedData.bookId || 0,
         title: scannedData.title || '',
         author: scannedData.author || '',
         category: scannedData.category || '',
         photoUrl: scannedData.photoUrl || '',
-        amount: scannedData.amount || '',
-        rating: scannedData.rating || ''
+        amount: scannedData.amount || ''
       });
     }
-    if (this.modalRef) {
-      this.modalRef.close(); // Close the modal
-    }
+    this.closeIsbnScanner();
   }
 }

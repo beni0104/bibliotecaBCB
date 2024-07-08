@@ -1,7 +1,7 @@
 import { Component, ViewChild, Inject, PLATFORM_ID, ElementRef, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, of } from 'rxjs';
+import { catchError, map, of, switchMap } from 'rxjs';
 import Quagga from 'quagga';
 import { Book } from '../../../interfaces/book';
 
@@ -51,7 +51,7 @@ export class IsbnScannerComponent implements OnInit, OnDestroy {
                 facingMode: 'environment'
               },
             },
-            frequency: 10, // Increase scanning frequency
+            frequency: 5, // Increase scanning frequency
             decoder: {
               readers: ['ean_reader'], // ISBN-13 uses EAN-13 barcode
               multiple: false
@@ -83,20 +83,51 @@ export class IsbnScannerComponent implements OnInit, OnDestroy {
       console.error('getUserMedia is not supported in this browser.');
     }
   }
+  
+  
 
   fetchBookData(isbn: string): void {
-    const apiUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
-    this.http.get(apiUrl).pipe(
-      map((response: any) => response.items ? response.items[0].volumeInfo : null),
+    const googleApiUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
+    const openLibraryApiUrl = `https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&format=json&jscmd=data`;
+
+    this.http.get(openLibraryApiUrl).pipe(
+      map((response: any) => {
+        const data = response[`ISBN:${isbn}`];
+        if (data) {
+          return {
+            title: data.title,
+            authors: data.authors ? data.authors.map((author: any) => author.name) : ['Unknown'],
+            categories: data.subjects ? data.subjects.map((subject: any) => subject.name) : [],
+            imageLinks: data.cover ? { thumbnail: data.cover.medium } : null,
+            averageRating: data.rating || 0
+          };
+        } else {
+          return null;
+        }
+      }),
       catchError(error => {
-        console.error('Error fetching book data:', error);
+        console.error('Error fetching book data from Open Library:', error);
         return of(null);
+      }),
+      switchMap(bookData => {
+        if (bookData) {
+          return of(bookData);
+        } else {
+          // Fetch from Google Books if Open Library fetch fails or returns no data
+          return this.http.get(googleApiUrl).pipe(
+            map((response: any) => response.items ? response.items[0].volumeInfo : null),
+            catchError(error => {
+              console.error('Error fetching book data from Google Books:', error);
+              return of(null);
+            })
+          );
+        }
       })
     ).subscribe(bookData => {
       if (bookData) {
         const title = bookData.title;
         const author = bookData.authors ? bookData.authors.join(', ') : 'Unknown';
-        const imageUrl = bookData.imageLinks ? bookData.imageLinks.thumbnail : 'No image available';
+        const imageUrl = bookData.imageLinks ? bookData.imageLinks.thumbnail : null;
 
         this.fetchedBookData = {
           "id": -1,
@@ -105,7 +136,7 @@ export class IsbnScannerComponent implements OnInit, OnDestroy {
           "author": author,
           "category": bookData.categories ? bookData.categories.join(', ') : '',
           "photoUrl": imageUrl,
-          "amount": 0,
+          "amount": 1,
           "isFavorite": false,
           "rating": bookData.averageRating || 0
         };
@@ -116,6 +147,9 @@ export class IsbnScannerComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+  
+
 
   stopScanner(): void {
     console.log(this.fetchedBookData);
@@ -138,7 +172,6 @@ export class IsbnScannerComponent implements OnInit, OnDestroy {
   }
 
   submit(){
-    console.log('Book data from submit:', this.fetchedBookData);
     this.dataEmitter.emit(this.fetchedBookData);
   }
 }

@@ -2,7 +2,7 @@
     <div class="card-body">
       <div class="row align-items-center">
         <!-- Book Info -->
-        <div class="col-md-3">
+        <div class="col-md-2">
           <h5 class="card-title">{{this.loanRequest.bookTitle}}</h5>
           <p class="card-text text-muted">{{ 'by' | translate }} {{this.loanRequest.bookAuthor}}</p>
         </div>
@@ -30,7 +30,7 @@
         </div>
   
         <!-- Action Buttons -->
-        <div class="col-md-1" *ngIf="this.loanRequest.status === 'PROCESSING' && this.isAdmin">
+        <div class="col-md-2" *ngIf="this.loanRequest.status === 'PROCESSING' && this.isAdmin">
           <button type="button" class="btn btn-success" (click)="changeStatus('ACCEPTED')">{{ 'accept' | translate }}</button>
           <button type="button" class="btn btn-danger" (click)="changeStatus('DENIED')">{{ 'reject' | translate }}</button>
         </div>

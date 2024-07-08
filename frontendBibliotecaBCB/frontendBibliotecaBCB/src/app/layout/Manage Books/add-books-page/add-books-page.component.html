@@ -23,7 +23,7 @@
         </div>
         <div class="mb-3">
           <label for="category" class="form-label">{{ 'category' | translate }}</label>
-          <input type="text" class="form-control" id="category" name="category" ngModel required>
+          <input type="text" class="form-control" id="category" name="category" ngModel>
         </div>
         <div class="mb-3">
           <label for="amount" class="form-label">{{ 'amount' | translate }}</label>
@@ -31,7 +31,7 @@
         </div>
         <div class="mb-3">
           <label for="photoUrl" class="form-label">{{ 'book-img' | translate }}</label>
-          <input type="text" class="form-control" id="photoUrl" name="photoUrl" ngModel required>
+          <input type="text" class="form-control" id="photoUrl" name="photoUrl" ngModel>
         </div>
         <div class="button-container">
           <button type="button" class="btn btn-primary" (click)="openIsbnScanner()">{{ 'scan-isbn' | translate }}</button>
@@ -46,7 +46,7 @@
 
 <ng-template #isbnscanner let-modal>
   <app-isbn-scanner (dataEmitter)="completeFormFromScannedISBN($event)"></app-isbn-scanner>
-  <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">{{ 'close' | translate }}</button>
+  <button type="button" class="btn btn-secondary" (click)="closeIsbnScanner()">{{ 'close' | translate }}</button>
 </ng-template>
   
 

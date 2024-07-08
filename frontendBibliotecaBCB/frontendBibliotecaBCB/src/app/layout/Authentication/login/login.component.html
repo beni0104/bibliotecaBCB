@@ -13,9 +13,9 @@
                 <label for="passwordInput" class="form-label">{{ 'password' | translate }}</label>
                 <input type="password" class="form-control" id="passwordInput" [(ngModel)]="password" name="password">
               </div>
-              <div class="mb-3">
+              <!-- <div class="mb-3">
                 <button type="button" class="btn btn-link">{{ 'forgot-password' | translate }}</button>
-              </div>
+              </div> -->
               <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary" (click)="login()">{{ 'login' | translate }}</button>
                 <button type="button" class="btn btn-outline-primary" (click)="signup()">{{ 'signup' | translate }}</button>

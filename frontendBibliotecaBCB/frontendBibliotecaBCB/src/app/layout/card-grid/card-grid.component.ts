@@ -20,42 +20,9 @@ export class CardGridComponent {
 
   // Fields for the Filter logic
   categories = [
-    { name: 'CONSILIERE', selected: false },
-    { name: 'MĂRTURII', selected: false },
-    { name: 'MEDITAȚII', selected: false },
-    { name: 'FAMILIE', selected: false },
-    { name: 'PARENTING', selected: false },
-    { name: 'MEMORII', selected: false },
-    { name: 'FEMEI', selected: false },
-    { name: 'SEXUALITATE', selected: false },
-    { name: 'VINDEVARE', selected: false },
-    { name: 'ÎNVĂȚĂTORI', selected: false },
-    { name: 'STUDIU BIBLIC', selected: false },
-    { name: 'CREȘTERE SPIRITUALĂ', selected: false },
-    { name: 'BISERICĂ', selected: false },
-    { name: 'HERMENEUTICĂ', selected: false },
-    { name: 'PARENTING/RUGĂCIUNE', selected: false },
-    { name: 'RUGĂCIUNE', selected: false },
-    { name: 'APOLOGETICĂ', selected: false },
-    { name: 'BĂRBAȚI', selected: false },
-    { name: 'BIOGRAFII', selected: false },
-    { name: 'AUTOBIOGRAFIE', selected: false },
-    { name: 'DOGMATICĂ', selected: false },
-    { name: 'CONDUCERE', selected: false },
-    { name: 'EVANGHELIZARE/MISIUNE', selected: false },
-    { name: 'CREȘTEREA COPIILOR', selected: false },
-    { name: 'POEZIE', selected: false },
-    { name: 'ISTORIE', selected: false },
-    { name: 'BELETRISTICĂ', selected: false },
-    { name: 'CARTE COPII', selected: false },
-    { name: 'ENGLEZĂ', selected: false },
-    { name: 'CĂSĂTORIE', selected: false },
-    { name: 'SCHIȚE DE PREDICI', selected: false },
-    { name: 'EDUCAȚIE SEXUALĂ', selected: false },
-    { name: 'RELAȚII', selected: false },
-    { name: 'BIOGRAFIE', selected: false },
-    { name: 'SUFERINȚĂ', selected: false },
-    { name: 'ADOLESCENȚI', selected: false }
+    { name: 'Engleză', selected: false },
+    { name: 'Religie', selected: false },
+    { name: 'Beletristică', selected: false }
   ];
   isAvailable = false;
 
@@ -88,7 +55,7 @@ export class CardGridComponent {
   async getAllBooks() {
     this.bookservice.getAllBooks().then((data: any) => {
       this.allBooks = data;
-      for (let i = 0; i < 25; i++) {
+      for (let i = 0; i < Math.min(25, this.allBooks.length); i++) {
         this.displayedBooks.push(this.allBooks[i]);
       }
       this.collectionSize = this.allBooks.length;

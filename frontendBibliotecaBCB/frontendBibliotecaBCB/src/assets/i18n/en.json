@@ -12,6 +12,7 @@
     "language": "Language",
     "ro": "Romanian",
     "en": "English",
+    "hu": "Hungarian",
     "theme": "Theme",
     "light": "Light",
     "dark": "Dark",
@@ -80,6 +81,7 @@
     "delete-selected-books": "Delete selected books",
     "are-you-sure-you-want-to-delete-selected-books": "Are you sure you want to delete the selected books?",
     "books-selected": "books selected",
+    "book-update-success": "Book updated successfully",
 
     "add-loan-file": "Add loan file",
     "date-loaned": "Date loaned",
