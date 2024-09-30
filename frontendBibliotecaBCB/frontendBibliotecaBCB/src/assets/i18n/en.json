@@ -1,6 +1,8 @@
 {
     "login": "Log In",
     "signup": "Sign Up",
+    "sign-out": "Sign Out",
+    "sign-out-successful": "Sign out successful",
     "forgot-password": "Forgot your password?",
     "password": "Password",
     "confirm-password": "Confirm Password",

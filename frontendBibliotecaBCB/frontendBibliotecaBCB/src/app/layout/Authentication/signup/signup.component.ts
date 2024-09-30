@@ -45,8 +45,21 @@ export class SignupComponent {
       this.openVerticallyCentered(this.contentTemplate);
       return;
     }
-    this.authenticationService.signup(this.name, this.email, this.password).then(data => {
-      console.log(data["message"]);
+    this.authenticationService.signup(this.name, this.email, this.password).then(response => {
+      if (response.status == 200) {
+        this.authenticationService.login(this.email, this.password).then(data => {
+          if (data){
+            this.modalTitle = "success";
+            this.modalMessage = "signup-successful";
+            this.openVerticallyCentered(this.contentTemplate);
+            this.router.navigate(['/home']);
+          }else{
+            this.modalTitle = 'error';
+            this.modalMessage = 'invalid-email/password';
+            this.openVerticallyCentered(this.contentTemplate);
+          }
+        });
+      }
     });
   }
 

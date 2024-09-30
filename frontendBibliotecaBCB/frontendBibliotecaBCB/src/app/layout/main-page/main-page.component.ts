@@ -1,8 +1,9 @@
-import { Component, PLATFORM_ID, Inject  } from '@angular/core';
+import { Component, PLATFORM_ID, Inject, inject, TemplateRef, ViewChild  } from '@angular/core';
 import { Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { jwtDecode } from 'jwt-decode';
 import { TranslateService } from '@ngx-translate/core';
+import { NgbModal  } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -11,6 +12,11 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './main-page.component.css'
 })
 export class MainPageComponent {
+  //Modal message setup
+  @ViewChild('content') contentTemplate!: TemplateRef<any>;
+  private modalService = inject(NgbModal);
+  modalTitle = '';
+  modalMessage = '';
 
   isLoggedIn = false;
   user = null;
@@ -60,6 +66,10 @@ export class MainPageComponent {
       this.isLoggedIn = false;
       console.log(localStorage.getItem('currentUser'));
       this.router.navigate(['/home']);
+
+      this.modalTitle = 'success';
+      this.modalMessage = 'sign-out-successful';
+      this.modalService.open(this.contentTemplate);
     }
   }
   login() {

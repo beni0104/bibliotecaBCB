@@ -1,6 +1,8 @@
 {
     "login": "Loghează-te",
     "signup": "Înregistrează-te",
+    "sign-out": "Deconectare",
+    "sign-out-successful": "Deconectare reușită",
     "forgot-password": "Ai uitat parola?",
     "password": "Parolă",
     "confirm-password": "Confirmă parola",

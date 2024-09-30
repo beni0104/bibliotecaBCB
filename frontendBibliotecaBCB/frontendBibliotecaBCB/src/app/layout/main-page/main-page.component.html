@@ -70,10 +70,10 @@
         <svg class="person-icon"><use xlink:href="#person"/></svg>
       </a>
       <ul class="dropdown-menu text-small"  style="left: auto; right: 0;">
-        <li><a class="dropdown-item" href="#">Settings</a></li>
+        <!-- <li><a class="dropdown-item" href="#">Settings</a></li>
         <li><a class="dropdown-item" href="#">Profile</a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" (click)="signOut()">Sign out</a></li>
+        <li><hr class="dropdown-divider"></li> -->
+        <li><a class="dropdown-item" (click)="signOut()">{{ 'sign-out' | translate }}</a></li>
       </ul>
     </div>
     <div class="dropdown text-end" style="margin-right: 10px;" *ngIf="!isLoggedIn">
@@ -239,6 +239,20 @@
     </div>
   </footer>
 </div>
+
+
+<ng-template #content let-modal class="modal-dialog">
+  <div class="modal-header">
+    <h4 class="modal-title">{{modalTitle | translate}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <p>{{modalMessage | translate}}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">{{ 'close' | translate }}</button>
+  </div>
+</ng-template>
 
   
   <script src="../assets/bootstrap/assets/dist/js/bootstrap.bundle.min.js"></script>
