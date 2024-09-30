@@ -30,7 +30,6 @@ export class MainPageComponent {
       const browserLang = translate.getBrowserLang();
       const userLang = localStorage.getItem('userLang') ?? browserLang;
       translate.use(userLang || '');
-      console.log(localStorage.getItem('currentUser'));
       const storedUser = localStorage.getItem('currentUser');
       this.user = storedUser ? JSON.parse(storedUser) : null;
       this.checkUserRole();
@@ -64,7 +63,6 @@ export class MainPageComponent {
       this.user = null;
       this.isAdmin = false;
       this.isLoggedIn = false;
-      console.log(localStorage.getItem('currentUser'));
       this.router.navigate(['/home']);
 
       this.modalTitle = 'success';

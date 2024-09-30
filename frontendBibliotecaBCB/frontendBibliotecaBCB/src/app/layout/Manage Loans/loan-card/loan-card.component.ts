@@ -65,7 +65,6 @@ export class LoanCardComponent {
 
   setTemporaryDate(loanId: number, date: string): void {
     this.temporaryReturnDates[loanId] = date;
-    console.log("Temporary date set for loan with id: " + loanId + " and date: " + date);
   }
 
   openAddReturnedDateModal(loan: any): void {

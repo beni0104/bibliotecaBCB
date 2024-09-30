@@ -183,7 +183,6 @@ export class ManagementCardGridComponent {
     this.bookservice.deleteBooks(this.selectedBookIds).then(() => {
       this.displayedBooks = this.displayedBooks.filter(book => !this.selectedBookIds.includes(book.id));
       this.selectedBookIds = [];
-      console.log(this.displayedBooks)
     })
     .catch(error => {
       console.error(error);

@@ -41,8 +41,6 @@ export class ReviewService {
 
   async addReviewToBook(bookId: number, UserReview: UserReview) {
     this.attributeJwtToken();
-    console.log(UserReview);
-    console.log(bookId);
     try {
       const response = await fetch(`https://${environment.host}:8080/api/review/create?bookId=${bookId}`, {
         method: 'POST',

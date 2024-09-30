@@ -155,7 +155,6 @@ export class LoanService {
 
   async getLoanRequestsForUser() {
     this.attributeJwtToken();
-    console.log(this.jwtToken);
     try {
       const response = await fetch('https://' + environment.host + ':8080/api/loanRequest/getforauthuser', {
         method: 'GET',

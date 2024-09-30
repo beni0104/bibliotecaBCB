@@ -27,7 +27,6 @@ export class AuthenticationService {
   // }
 
   async signup(username: string, email: string, password: string) {
-    console.log(JSON.stringify({ username, email, password, role: ['user'] }));
     try {
       const response = await fetch('https://' + environment.host + ':8080/api/auth/signup', {
         method: 'POST',

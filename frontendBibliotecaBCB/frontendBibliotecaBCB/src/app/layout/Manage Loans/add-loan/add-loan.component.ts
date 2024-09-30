@@ -65,9 +65,6 @@ export class AddLoanComponent {
       console.error(error);
     });
     
-    this.loanService.getLoans(undefined ,"Alexandru Ionescu").then((data: any) => {
-      console.log(data);
-    });
   }
 
   toggleMainDropdown() {
@@ -171,7 +168,6 @@ export class AddLoanComponent {
   }
 
   onSubmit(form: any){
-    console.log(form.value);
     if(!this.validateDates()) {
       this.modalTitle = 'error';
       this.modalMessage = 'select-valid-dates';
