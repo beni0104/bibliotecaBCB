@@ -28,7 +28,7 @@ export class AuthenticationService {
 
   async signup(username: string, email: string, password: string) {
     try {
-      const response = await fetch('https://' + environment.host + ':8080/api/auth/signup', {
+      const response = await fetch('https://' + environment.apiUrl + '/api/auth/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -45,7 +45,7 @@ export class AuthenticationService {
 
   async login(email: string, password: string) {
     try {
-      const response = await fetch('https://' + environment.host + ':8080/api/auth/login', {
+      const response = await fetch('https://' + environment.apiUrl + '/api/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
