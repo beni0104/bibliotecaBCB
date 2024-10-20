@@ -74,6 +74,7 @@
     "book-id": "Könyv ID",
     "amount": "Mennyiség",
     "book-img": "Könyv borító",
+    "book-img-uploaded": "Könyv borító feltöltve",
     "submit": "Beküldés",
     "book-added-successfully": "A könyvet sikeresen hozzáadták",
     "error-adding-book": "Hiba a könyv hozzáadása során",

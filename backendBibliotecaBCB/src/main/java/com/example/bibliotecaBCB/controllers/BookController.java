@@ -5,6 +5,7 @@ import com.example.bibliotecaBCB.data.dto.BookDTO;
 import com.example.bibliotecaBCB.data.entity.Book;
 import com.example.bibliotecaBCB.data.service.BookService;
 import com.example.bibliotecaBCB.data.service.FavoriteService;
+import com.example.bibliotecaBCB.data.service.S3Service;
 import com.example.bibliotecaBCB.security.jwt.JwtUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.*;
@@ -25,12 +27,14 @@ public class BookController {
     private final ExcelHelper excelHelper;
     private final JwtUtils jwtUtils;
     private final FavoriteService favoriteService;
+    private final S3Service s3Service;
 
-    public BookController(BookService bookService, JwtUtils jwtUtils, FavoriteService favoriteService) {
+    public BookController(BookService bookService, JwtUtils jwtUtils, FavoriteService favoriteService, S3Service s3Service) {
         this.bookService = bookService;
         excelHelper = new ExcelHelper(bookService);
         this.jwtUtils = jwtUtils;
         this.favoriteService = favoriteService;
+        this.s3Service = s3Service;
     }
 
     @GetMapping("/all")
@@ -107,21 +111,41 @@ public class BookController {
             return null;
     }
 
-    @PostMapping("/createbooks")
-    @PreAuthorize("hasRole('ADMIN')")
-    //have to test if I can send one or more books with only this controller
-    public ResponseEntity<List<Book>> saveBooks (@RequestBody List<Book> books){
-        books.forEach(bookService::save);
-        return ResponseEntity.ok(books);
-    }
+//    @PostMapping("/createbooks")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    //have to test if I can send one or more books with only this controller
+//    public ResponseEntity<List<Book>> saveBooks (@RequestBody List<Book> books){
+//        books.forEach(bookService::save);
+//        return ResponseEntity.ok(books);
+//    }
+//
+//    @PostMapping("/create")
+//    @PreAuthorize("hasRole('ADMIN')")
+//    public ResponseEntity<Book> saveBook (@RequestBody Book book){
+//        bookService.save(book);
+//        return ResponseEntity.ok(book);
+//    }
 
     @PostMapping("/create")
     @PreAuthorize("hasRole('ADMIN')")
-    //have to test if I can send one or more books with only this controller
-    public ResponseEntity<Book> saveBook (@RequestBody Book book){
-        bookService.save(book);
-        return ResponseEntity.ok(book);
+    public ResponseEntity<Book> saveBook(@RequestPart("book") Book book,
+                                         @RequestPart(value = "file", required = false) MultipartFile file) {
+        try {
+            // If a file is provided, upload it to S3 and set the photoUrl
+            if (file != null && !file.isEmpty()) {
+                String photoUrl = s3Service.uploadFile(file);
+                book.setPhotoUrl(photoUrl);
+            }
+
+            // Save the book to the database
+            bookService.save(book);
+
+            return ResponseEntity.ok(book);
+        } catch (IOException e) {
+            return ResponseEntity.status(500).body(null);
+        }
     }
+
 
     @PutMapping("/update")
     @PreAuthorize("hasRole('ADMIN')")

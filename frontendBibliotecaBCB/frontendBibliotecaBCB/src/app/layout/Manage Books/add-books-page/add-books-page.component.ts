@@ -21,6 +21,8 @@ export class AddBooksPageComponent {
   modalTitle = '';
   modalMessage = '';
   showMainDropdown = false;
+  isFileUploadDisabled = false;
+  photoUrlFromISBNScanner = '';
 
   constructor(private bookService: BookService, 
     private translate: TranslateService,
@@ -32,11 +34,12 @@ export class AddBooksPageComponent {
       }
     }
 
+  onFileSelected(event: any): void {
+    this.selectedFile = event.target.files[0];
+    this.isFileUploadDisabled = true;
+  }
 
   async onSubmit(form: any) {
-    console.log(form.value);
-    // Here you would typically handle the form submission to your backend
-    // Don't forget to include the file upload part
     if(form.invalid) {
       this.modalTitle = 'error';
       this.modalMessage = 'all-fields-required';
@@ -48,13 +51,16 @@ export class AddBooksPageComponent {
         title: form.value.title,
         author: form.value.author,
         category: form.value.category,
-        photoUrl: form.value.photoUrl,
+        photoUrl: this.photoUrlFromISBNScanner,
         amount: form.value.amount
       }
-      if (await this.bookService.createBook(book)){
+      if (await this.bookService.createBook(book, this.selectedFile)) {
         this.modalTitle = 'success';
         this.modalMessage = 'book-added-successfully';
-        this.modalService.open(this.contentTemplate);  
+        this.modalService.open(this.contentTemplate);
+        // Reset the form and enable the file upload
+        this.bookForm.reset();
+        this.isFileUploadDisabled = false;  
       } else {  
         this.modalTitle = 'error';
         this.modalMessage = 'error-adding-book';
@@ -66,12 +72,6 @@ export class AddBooksPageComponent {
 
   toggleMainDropdown() {
     this.showMainDropdown = !this.showMainDropdown;
-  }
-
-  onFileSelected(event: any): void {
-    this.selectedFile = event.target.files[0];
-    console.log(this.selectedFile);
-    // Handle file upload here
   }
 
   validateNumberInput(event: any): void {
@@ -111,9 +111,13 @@ export class AddBooksPageComponent {
         title: scannedData.title || '',
         author: scannedData.author || '',
         category: scannedData.category || '',
-        photoUrl: scannedData.photoUrl || '',
         amount: scannedData.amount || ''
       });
+
+      if(scannedData.photoUrl){
+        this.isFileUploadDisabled = true;
+        this.photoUrlFromISBNScanner = scannedData.photoUrl;
+      }
     }
     this.closeIsbnScanner();
   }

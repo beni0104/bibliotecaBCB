@@ -76,6 +76,7 @@
     "book-id": "ID Carte",
     "amount": "Cantitate",
     "book-img": "Copertă carte",
+    "book-img-uploaded": "Imagine carte încărcată",
     "submit": "Trimite",
     "book-added-successfully": "Cartea a fost adăugată cu succes",
     "error-adding-book": "Eroare la adăugarea cărții",

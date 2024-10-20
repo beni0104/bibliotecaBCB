@@ -20,8 +20,6 @@ export class RelatedBookCardComponent {
   ) { }
 
   openBookDetails(book : Book) {
-    // Implement navigation to book details page
-    console.log('Navigating to book details page: ' + this.book.title);
     const encryptedId = this.encryptionService.encrypt(this.book.id.toString());
     this.router.navigate(['/home/bookdetails'], { queryParams: { id: encryptedId }, state: { book } });
   }

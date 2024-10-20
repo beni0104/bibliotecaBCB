@@ -58,11 +58,9 @@ export class BookDetailsComponent implements OnInit {
       const decryptedId = this.encryptionService.decrypt(params['id']);
       this.book = await this.bookService.getBookById(Number(decryptedId));
     }
-    console.log('Category: ', this.book.category);
 
     this.bookService.getRelatedBooks(this.book.category).then((data: any) => {
           this.relatedBooks = data;
-          console.log('Related books: ', this.relatedBooks);
     });
 
     if (isPlatformBrowser(this.platformId)) {
@@ -102,7 +100,6 @@ export class BookDetailsComponent implements OnInit {
         bookId: this.book.id
       }
       this.loanService.createLoanRequest(loanRequest).then(() => {
-        console.log('Loan request created');
       });
     }
   }

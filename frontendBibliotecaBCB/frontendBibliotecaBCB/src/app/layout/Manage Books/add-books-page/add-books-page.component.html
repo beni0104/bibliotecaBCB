@@ -30,9 +30,10 @@
           <input type="number" class="form-control" id="amount" name="amount" ngModel required min="1" (input)="validateNumberInput($event)">
         </div>
         <div class="mb-3">
-          <label for="photoUrl" class="form-label">{{ 'book-img' | translate }}</label>
-          <input type="text" class="form-control" id="photoUrl" name="photoUrl" ngModel>
-        </div>
+          <label for="photo" class="form-label" *ngIf="!isFileUploadDisabled">{{ 'book-img' | translate }}</label>
+          <label for="photo" class="form-label" style="color: darkgreen;" *ngIf="isFileUploadDisabled">{{ 'book-img-uploaded' | translate }}</label>
+          <input type="file" class="form-control" id="photo" (change)="onFileSelected($event)" [disabled]="isFileUploadDisabled">
+        </div>        
         <div class="button-container">
           <button type="button" class="btn btn-primary" (click)="openIsbnScanner()">{{ 'scan-isbn' | translate }}</button>
           <button type="submit" class="btn btn-primary">{{ 'submit' | translate }}</button>

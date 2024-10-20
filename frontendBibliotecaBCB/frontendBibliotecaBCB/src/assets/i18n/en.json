@@ -76,6 +76,7 @@
     "book-id": "Book ID",
     "amount": "Amount",
     "book-img": "Book image",
+    "book-img-uploaded": "Book image uploaded",
     "submit": "Submit",
     "book-added-successfully": "Book added successfully",
     "error-adding-book": "Error adding book",
