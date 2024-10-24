@@ -69,4 +69,24 @@ export class AuthenticationService {
     localStorage.removeItem('currentUser');
     // this.currentUserSubject.next(null);
   }
+
+  isLoggedIn(): boolean {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    if (currentUser && currentUser.roles && currentUser.roles.includes('ROLE_USER')) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  isAdmin(): boolean {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    if (currentUser && currentUser.roles && currentUser.roles.includes('ROLE_ADMIN')) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
 }

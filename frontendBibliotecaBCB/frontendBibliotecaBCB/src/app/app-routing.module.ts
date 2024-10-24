@@ -11,6 +11,8 @@ import { EditBookComponent } from './layout/Manage Books/edit-book/edit-book.com
 import { LoanPageComponent } from './layout/Manage Loans/loan-page/loan-page.component';
 import { ManageLoanRequestsPageComponent } from './layout/Loan Requests/manage-loan-requests-page/manage-loan-requests-page.component';
 import { LoanRequestsPageComponent } from './layout/Loan Requests/loan-requests-page/loan-requests-page.component';
+import { authGuard } from './guard/auth.guard';
+import { adminGuard } from './guard/admin.guard';
 
 const routes: Routes = [
   {
@@ -20,12 +22,12 @@ const routes: Routes = [
       { path: "", component: CardGridComponent},
       { path: 'bookdetails', component: BookDetailsComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'favoriteBooks', component: FavoritesPageComponent},
-      { path: 'managebooks', component: ManagementCardGridComponent},
-      { path: 'editbook', component: EditBookComponent},
-      { path: 'manageLoans', component: LoanPageComponent},
-      { path: 'manageLoanRequests', component: ManageLoanRequestsPageComponent},
-      { path: 'loanRequests', component: LoanRequestsPageComponent}
+      { path: 'favoriteBooks', component: FavoritesPageComponent, canActivate: [authGuard]},
+      { path: 'loanRequests', component: LoanRequestsPageComponent, canActivate: [authGuard]},
+      { path: 'managebooks', component: ManagementCardGridComponent, canActivate: [adminGuard]},
+      { path: 'editbook', component: EditBookComponent, canActivate: [adminGuard]},
+      { path: 'manageLoans', component: LoanPageComponent, canActivate: [adminGuard]},
+      { path: 'manageLoanRequests', component: ManageLoanRequestsPageComponent, canActivate: [adminGuard]}
     ]
   },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
