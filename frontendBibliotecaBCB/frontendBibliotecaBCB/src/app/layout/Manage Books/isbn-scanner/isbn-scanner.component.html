@@ -6,6 +6,8 @@
           <div [hidden]="!stoppedScanning" class="text-center mt-3">
               <div>
                   <p>Scanned ISBN is: {{ scannedIsbn }}</p>
+                  <p [hidden]="foundData">Looking for data...</p>
+                  <p [hidden]="!foundData">Data found!</p>
               </div>
               <button class="btn btn-secondary mr-2" (click)="restartScanner()">Scan Again</button>
               <button class="btn btn-primary" (click)="submit()">Submit</button>

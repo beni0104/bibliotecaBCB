@@ -15,6 +15,7 @@ export class IsbnScannerComponent implements OnInit, OnDestroy {
   @Output() dataEmitter: EventEmitter<Book> = new EventEmitter<Book>();
   private isScanning: boolean = true;
   stoppedScanning: boolean = false;
+  foundData: boolean = false;
   scannedIsbn: string = '';
   fetchedBookData: Book | undefined;
 
@@ -73,6 +74,7 @@ export class IsbnScannerComponent implements OnInit, OnDestroy {
               console.log('ISBN detected:', isbn);
               this.scannedIsbn = isbn;
               this.fetchBookData(isbn);
+              this.stopScanner();
             }
           });
         })
@@ -141,7 +143,7 @@ export class IsbnScannerComponent implements OnInit, OnDestroy {
           "rating": bookData.averageRating || 0
         };
         // Stop scanning after successful detection and fetching of book data
-        this.stopScanner();
+        this.foundData = true;
       } else {
         console.error('No data found for this ISBN.');
       }
