@@ -133,7 +133,7 @@ public class BookController {
         try {
             // If a file is provided, upload it to S3 and set the photoUrl
             if (file != null && !file.isEmpty()) {
-                String photoUrl = s3Service.uploadFile(file);
+                String photoUrl = s3Service.uploadFile(file, book.getTitle(), book.getAuthor());
                 book.setPhotoUrl(photoUrl);
             }
 

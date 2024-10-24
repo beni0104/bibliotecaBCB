@@ -22,8 +22,8 @@ public class S3Service {
         this.amazonS3 = amazonS3;
     }
 
-    public String uploadFile(MultipartFile file) throws IOException {
-        String uniqueFileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+    public String uploadFile(MultipartFile file, String bookTitle, String bookAuthor) throws IOException {
+        String uniqueFileName = UUID.randomUUID() + "_" + bookTitle + "_" + bookAuthor;
 
         amazonS3.putObject(new PutObjectRequest(bucketName, uniqueFileName, file.getInputStream(), null)
                 .withCannedAcl(CannedAccessControlList.PublicRead));
