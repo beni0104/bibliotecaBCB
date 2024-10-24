@@ -70,11 +70,18 @@
     "contact-us": "Kapcsolat",
     "follow-us": "Kövessen minket",
 
+    "capture-and-scan": "Fényképezés és szkennelés",
+    "scanned-isbn": "Szkennelt ISBN",
+
     "add-book": "Könyv hozzáadása",
     "book-id": "Könyv ID",
     "amount": "Mennyiség",
     "book-img": "Könyv borító",
     "book-img-uploaded": "Könyv borító feltöltve",
+    "fetching-book-data": "Könyv adatok lekérése...",
+    "error-fetching-book-data": "Hiba történt a könyv adatainak lekérése során",
+    "book-data-found": "Könyv adatai megtalálva.",
+    "no-data-found-for-isbn": "Nincs adat ezen ISBN-hez.",
     "submit": "Beküldés",
     "book-added-successfully": "A könyvet sikeresen hozzáadták",
     "error-adding-book": "Hiba a könyv hozzáadása során",

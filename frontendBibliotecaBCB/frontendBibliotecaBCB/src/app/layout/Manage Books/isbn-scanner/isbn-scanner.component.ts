@@ -1,82 +1,41 @@
-import { Component, ViewChild, Inject, PLATFORM_ID, ElementRef, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, ViewChild, ElementRef, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, of, switchMap } from 'rxjs';
-import Quagga from 'quagga';
+import { of, switchMap, catchError } from 'rxjs';
 import { Book } from '../../../interfaces/book';
+import { BrowserMultiFormatReader } from '@zxing/library';
 
 @Component({
   selector: 'app-isbn-scanner',
   templateUrl: './isbn-scanner.component.html',
   styleUrls: ['./isbn-scanner.component.css']
 })
-export class IsbnScannerComponent implements OnInit, OnDestroy {
+export class IsbnScannerComponent implements OnInit {
   @ViewChild('video', { static: true }) video!: ElementRef<HTMLVideoElement>;
+  @ViewChild('canvas', { static: true }) canvas!: ElementRef<HTMLCanvasElement>;
   @Output() dataEmitter: EventEmitter<Book> = new EventEmitter<Book>();
-  private isScanning: boolean = true;
-  stoppedScanning: boolean = false;
-  foundData: boolean = false;
   scannedIsbn: string = '';
+  foundData: boolean = false;
   fetchedBookData: Book | undefined;
+  fetchStatusMessage: string = 'fetching-book-data';
+  private reader = new BrowserMultiFormatReader();
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object, private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.startScanner();
-      window.scrollTo(0, 0);
-    }
+    this.startCamera();
   }
 
   ngOnDestroy(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      Quagga.stop();
-    }
+    this.video.nativeElement.pause();
+    this.video.nativeElement.srcObject = null;
   }
 
-  startScanner(): void {
+  startCamera(): void {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } })
         .then(stream => {
           this.video.nativeElement.srcObject = stream;
           this.video.nativeElement.play();
-
-          Quagga.init({
-            inputStream: {
-              name: 'Live',
-              type: 'LiveStream',
-              target: this.video.nativeElement, // Or '#video' if you prefer
-              constraints: {
-                width: 640,
-                height: 480,
-                facingMode: 'environment'
-              },
-            },
-            frequency: 5, // Increase scanning frequency
-            decoder: {
-              readers: ['ean_reader'], // ISBN-13 uses EAN-13 barcode
-              multiple: false
-            },
-            locate: true, // Enable locating the barcode in the image
-            numOfWorkers: 4 // Use multiple workers for better performance
-          }, err => {
-            if (err) {
-              console.error('Quagga init error:', err);
-              return;
-            }
-            Quagga.start();
-            console.log('Quagga started successfully');
-          });
-
-          Quagga.onDetected(result => {
-            if (this.isScanning) {
-              const isbn = result.codeResult.code;
-              console.log('ISBN detected:', isbn);
-              this.scannedIsbn = isbn;
-              this.fetchBookData(isbn);
-              this.stopScanner();
-            }
-          });
         })
         .catch(err => {
           console.error('Error accessing the camera:', err);
@@ -85,48 +44,57 @@ export class IsbnScannerComponent implements OnInit, OnDestroy {
       console.error('getUserMedia is not supported in this browser.');
     }
   }
-  
-  
+
+  capturePhotoAndScan(): void {
+    const canvas = this.canvas.nativeElement;
+    const context = canvas.getContext('2d');
+    canvas.width = this.video.nativeElement.videoWidth;
+    canvas.height = this.video.nativeElement.videoHeight;
+
+    context?.drawImage(this.video.nativeElement, 0, 0, canvas.width, canvas.height);
+
+    const imageDataUrl = canvas.toDataURL('image/png');
+    this.reader.decodeFromImageUrl(imageDataUrl)
+      .then(result => {
+        this.scannedIsbn = result.getText();
+        this.fetchBookData(this.scannedIsbn);
+      })
+      .catch(err => {
+        console.error('Error scanning the photo:', err);
+      });
+  }
 
   fetchBookData(isbn: string): void {
+    this.fetchStatusMessage = 'fetching-book-data';
     const googleApiUrl = `https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`;
     const openLibraryApiUrl = `https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&format=json&jscmd=data`;
 
     this.http.get(openLibraryApiUrl).pipe(
-      map((response: any) => {
+      switchMap((response: any) => {
         const data = response[`ISBN:${isbn}`];
         if (data) {
-          return {
+          return of({
             title: data.title,
             authors: data.authors ? data.authors.map((author: any) => author.name) : ['Unknown'],
             categories: data.subjects ? data.subjects.map((subject: any) => subject.name) : [],
             imageLinks: data.cover ? { thumbnail: data.cover.medium } : null,
             averageRating: data.rating || 0
-          };
+          });
         } else {
-          return null;
-        }
-      }),
-      catchError(error => {
-        console.error('Error fetching book data from Open Library:', error);
-        return of(null);
-      }),
-      switchMap(bookData => {
-        if (bookData) {
-          return of(bookData);
-        } else {
-          // Fetch from Google Books if Open Library fetch fails or returns no data
           return this.http.get(googleApiUrl).pipe(
-            map((response: any) => response.items ? response.items[0].volumeInfo : null),
-            catchError(error => {
-              console.error('Error fetching book data from Google Books:', error);
-              return of(null);
+            switchMap((googleData: any) => {
+              return of(googleData.items ? googleData.items[0].volumeInfo : null);
             })
           );
         }
+      }),
+      catchError(error => {
+        this.fetchStatusMessage = 'error-fetching-book-data';
+        return of(null);
       })
     ).subscribe(bookData => {
       if (bookData) {
+        this.fetchStatusMessage = 'book-data-found';
         const title = bookData.title;
         const author = bookData.authors ? bookData.authors.join(', ') : 'Unknown';
         const imageUrl = bookData.imageLinks ? bookData.imageLinks.thumbnail : null;
@@ -142,38 +110,17 @@ export class IsbnScannerComponent implements OnInit, OnDestroy {
           "isFavorite": false,
           "rating": bookData.averageRating || 0
         };
-        // Stop scanning after successful detection and fetching of book data
         this.foundData = true;
+
       } else {
-        console.error('No data found for this ISBN.');
+        this.fetchStatusMessage = 'no-data-found-for-isbn';
       }
     });
   }
 
-  
-
-
-  stopScanner(): void {
-    console.log(this.fetchedBookData);
-    this.isScanning = false;
-    this.stoppedScanning = true;
-    Quagga.stop();
-    if (this.video.nativeElement.srcObject) {
-      const stream = this.video.nativeElement.srcObject as MediaStream;
-      const tracks = stream.getTracks();
-      tracks.forEach(track => track.stop());
-      this.video.nativeElement.srcObject = null;
+  submit(): void {
+    if (this.fetchedBookData) {
+      this.dataEmitter.emit(this.fetchedBookData);
     }
-    console.log('Scanner stopped');
-  }
-
-  restartScanner(): void {
-    this.isScanning = true;
-    this.stoppedScanning = false;
-    this.startScanner();
-  }
-
-  submit(){
-    this.dataEmitter.emit(this.fetchedBookData);
   }
 }

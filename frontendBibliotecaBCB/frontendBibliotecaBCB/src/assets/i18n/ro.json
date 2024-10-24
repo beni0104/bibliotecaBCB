@@ -72,11 +72,18 @@
     "contact-us": "Contactează-ne",
     "follow-us": "Urmărește-ne",
 
+    "capture-and-scan": "Capturează imaginea și scaneaz-o",
+    "scanned-isbn": "ISBN scanat",
+
     "add-book": "Adaugă carte",
     "book-id": "ID Carte",
     "amount": "Cantitate",
     "book-img": "Copertă carte",
     "book-img-uploaded": "Imagine carte încărcată",
+    "fetching-book-data": "Se preiau datele cărții...",
+    "error-fetching-book-data": "Eroare la preluarea datelor cărții.",
+    "book-data-found": "Datele cărții au fost găsite.",
+    "no-data-found-for-isbn": "Nu s-au găsit date pentru acest ISBN.",
     "submit": "Trimite",
     "book-added-successfully": "Cartea a fost adăugată cu succes",
     "error-adding-book": "Eroare la adăugarea cărții",

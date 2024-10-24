@@ -1,17 +1,16 @@
 <div class="container">
-  <h2>Scan ISBN</h2>
+  <h2>{{"scan-isbn" | translate}}</h2>
   <div class="row">
       <div class="col-12 col-md-8 offset-md-2">
-        <video [hidden]="stoppedScanning" #video id="video" class="w-100" autoplay playsinline></video>
-          <div [hidden]="!stoppedScanning" class="text-center mt-3">
-              <div>
-                  <p>Scanned ISBN is: {{ scannedIsbn }}</p>
-                  <p [hidden]="foundData">Looking for data...</p>
-                  <p [hidden]="!foundData">Data found!</p>
-              </div>
-              <button class="btn btn-secondary mr-2" (click)="restartScanner()">Scan Again</button>
-              <button class="btn btn-primary" (click)="submit()">Submit</button>
-          </div>
+        <video #video id="video" class="w-100" autoplay playsinline></video>
+        <canvas #canvas hidden></canvas>
+        <button class="btn btn-primary mt-3 w-100" (click)="capturePhotoAndScan()">{{"capture-and-scan" | translate}}</button>
+
+        <div *ngIf="scannedIsbn">
+          <p>{{"scanned-isbn" | translate}} {{ scannedIsbn }}</p>
+          <p>{{ fetchStatusMessage | translate}}</p>
+        </div>
+        <button class="btn btn-success" *ngIf="foundData" (click)="submit()">{{"submit" | translate}}</button>
       </div>
   </div>
 </div>

@@ -72,11 +72,18 @@
     "contact-us": "Contact us",
     "follow-us": "Follow us",
 
+    "capture-and-scan": "Capture & Scan.",
+    "scanned-isbn": "Scanned ISBN", 
+
     "add-book": "Add Book",
     "book-id": "Book ID",
     "amount": "Amount",
     "book-img": "Book image",
     "book-img-uploaded": "Book image uploaded",
+    "fetching-book-data": "Fetching book data...",
+    "error-fetching-book-data": "Error fetching book data.",
+    "book-data-found": "Book data found.",
+    "no-data-found-for-isbn": "No data found for this ISBN.",
     "submit": "Submit",
     "book-added-successfully": "Book added successfully",
     "error-adding-book": "Error adding book",
