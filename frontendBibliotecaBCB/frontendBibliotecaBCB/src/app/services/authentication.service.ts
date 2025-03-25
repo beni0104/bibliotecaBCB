@@ -11,6 +11,8 @@ export class AuthenticationService {
   // private currentUserSubject: BehaviorSubject<any>;
   // public currentUser: Observable<any>;
 
+  domain = environment.apiUrl || "bibliotecabcbm.com";
+
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
     let currentUser = null;
     if (isPlatformBrowser(this.platformId)) {
@@ -28,7 +30,7 @@ export class AuthenticationService {
 
   async signup(username: string, email: string, password: string) {
     try {
-      const response = await fetch('https://bibliotecabcbm.com/api/auth/signup', {
+      const response = await fetch(`https://${this.domain}/api/auth/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -45,7 +47,7 @@ export class AuthenticationService {
 
   async login(email: string, password: string) {
     try {
-      const response = await fetch('https://bibliotecabcbm.com/api/auth/login', {
+      const response = await fetch(`https://${this.domain}/api/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

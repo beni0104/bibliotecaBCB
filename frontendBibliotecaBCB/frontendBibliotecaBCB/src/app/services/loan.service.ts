@@ -11,6 +11,7 @@ import { LoanRequest } from '../interfaces/loan';
 })
 export class LoanService {
   jwtToken: string = "";
+  domain = environment.apiUrl || "bibliotecabcbm.com";
 
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {
     this.attributeJwtToken();
@@ -27,7 +28,7 @@ export class LoanService {
 
   async getUsernamesAndIds() {
     try {
-      const response = await fetch('https://bibliotecabcbm.com/api/loan/userDetails', {
+      const response = await fetch(`https://${this.domain}/api/loan/userDetails`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -45,7 +46,7 @@ export class LoanService {
   async getLoans(userId?: number, userName?: string) {
     if(userId) {
       try {
-        const response = await fetch('https://bibliotecabcbm.com/api/loan/user?userId=' + userId, {
+        const response = await fetch(`https://${this.domain}/api/loan/user?userId=` + userId, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
@@ -59,7 +60,7 @@ export class LoanService {
       }
     } else if(userName) {
       try {
-        const response = await fetch('https://bibliotecabcbm.com/api/loan/user?userName=' + userName, {
+        const response = await fetch(`https://${this.domain}/api/loan/user?userName=` + userName, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
@@ -73,7 +74,7 @@ export class LoanService {
       }
     } else {
       try {
-        const response = await fetch('https://bibliotecabcbm.com/api/loan/all', {
+        const response = await fetch(`https://${this.domain}/api/loan/all`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'
@@ -92,7 +93,7 @@ export class LoanService {
   async createLoan(loan: Loan) {
     this.attributeJwtToken();
     try {
-      const response = await fetch('https://bibliotecabcbm.com/api/loan/create', {
+      const response = await fetch(`https://${this.domain}/api/loan/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -115,7 +116,7 @@ export class LoanService {
   async updateLoan(loan: Loan) {
     this.attributeJwtToken();
     try {
-      const response = await fetch('https://bibliotecabcbm.com/api/loan/update', {
+      const response = await fetch(`https://${this.domain}/api/loan/update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -139,7 +140,7 @@ export class LoanService {
 
   async getLoanRequests() {
     try {
-      const response = await fetch('https://bibliotecabcbm.com/api/loanRequest/getall', {
+      const response = await fetch(`https://${this.domain}/api/loanRequest/getall`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -156,7 +157,7 @@ export class LoanService {
   async getLoanRequestsForUser() {
     this.attributeJwtToken();
     try {
-      const response = await fetch('https://bibliotecabcbm.com/api/loanRequest/getforauthuser', {
+      const response = await fetch(`https://${this.domain}/api/loanRequest/getforauthuser`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -175,7 +176,7 @@ export class LoanService {
     this.attributeJwtToken();
     loanRequest.status = status;
     try {
-      const response = await fetch('https://bibliotecabcbm.com/api/loanRequest/update', {
+      const response = await fetch(`https://${this.domain}/api/loanRequest/update`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -201,7 +202,7 @@ export class LoanService {
     this.jwtToken = currentUser ? currentUser.accessToken : null;
     loanRequest.userId = currentUser.id;
     try {
-      const response = await fetch('https://bibliotecabcbm.com/api/loanRequest/create', {
+      const response = await fetch(`https://${this.domain}/api/loanRequest/create`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

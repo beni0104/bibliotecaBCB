@@ -10,6 +10,7 @@ import { environment } from '../../environments/environment';
 export class ReviewService {
 
   jwtToken: string = "";
+  domain = environment.apiUrl || "bibliotecabcbm.com";
 
   constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: Object) {}
 
@@ -24,7 +25,7 @@ export class ReviewService {
   async getReviewsByBookId(bookId: number) {
     this.attributeJwtToken();
     try {
-      const response = await fetch(`https://bibliotecabcbm.com/api/review/getbybookid?id=${bookId}`, {
+      const response = await fetch(`https://${this.domain}/api/review/getbybookid?id=${bookId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json'
@@ -42,7 +43,7 @@ export class ReviewService {
   async addReviewToBook(bookId: number, UserReview: UserReview) {
     this.attributeJwtToken();
     try {
-      const response = await fetch(`https://bibliotecabcbm.com/api/review/create?bookId=${bookId}`, {
+      const response = await fetch(`https://${this.domain}/api/review/create?bookId=${bookId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

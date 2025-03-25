@@ -3,6 +3,8 @@
 # Environment variables
 src/environments/environment.ts
 src/environments/environment.prod.ts
+src/environments/cert.pem
+src/environments/key.pem
 
 # Compiled output
 /dist

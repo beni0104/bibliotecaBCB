@@ -98,9 +98,8 @@
             "host": "0.0.0.0",
             "disableHostCheck": true,
             "ssl": true,
-            "sslKey": "D:\\Facultate\\Licenta\\bibliotecaBCB\\frontendBibliotecaBCB\\frontendBibliotecaBCB\\192.168.43.68-key.pem",
-            "sslCert": "D:\\Facultate\\Licenta\\bibliotecaBCB\\frontendBibliotecaBCB\\frontendBibliotecaBCB\\192.168.43.68.pem",
-            "proxyConfig": "proxy.conf.json"
+            "sslKey": "src\\environments\\key.pem",
+            "sslCert": "src\\environments\\cert.pem"
           }
         },
         "extract-i18n": {
