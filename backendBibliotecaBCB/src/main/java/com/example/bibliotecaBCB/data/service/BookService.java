@@ -62,4 +62,8 @@ public class BookService {
         return bookRepository.findRandomBooksByCategory(category);
     }
 
+    public List<Book> searchBooks(String searchTerm) {
+        return bookRepository.searchBooks(searchTerm);
+    }
+
 }

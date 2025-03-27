@@ -3,6 +3,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { BookService } from '../../services/book.service';
 import { Book } from '../../interfaces/book';
+import { get } from 'node:http';
 
 @Component({
   selector: 'app-card-grid',
@@ -65,20 +66,16 @@ export class CardGridComponent {
     });
   }
 
-  searchBooks(): void {
+  async searchBooks() {
     if (!this.searchTerm || this.searchTerm === '') {
-      this.displayedBooks = this.allBooks.slice(0, 25);
-      this.collectionSize = this.allBooks.length;
-      this.filterApplied = false;
+      this.getAllBooks();
     } else {
-      this.filteredBooks = this.allBooks.filter(book =>
-        book.title.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        book.author.toLowerCase().includes(this.searchTerm.toLowerCase())
-        // Add other fields you want to search by
-      );
-      this.collectionSize = this.filteredBooks.length;
-      this.displayedBooks = this.filteredBooks.slice(0, Math.min(25, this.collectionSize));
-      this.filterApplied = true;
+      this.bookservice.searchBooks(this.searchTerm).then((data: any) => {
+        this.collectionSize = data.length;
+        this.filteredBooks = data;
+        this.displayedBooks = this.filteredBooks.slice(0, Math.min(25, this.filteredBooks.length));
+        this.filterApplied = true;
+      });
     }
   }
 

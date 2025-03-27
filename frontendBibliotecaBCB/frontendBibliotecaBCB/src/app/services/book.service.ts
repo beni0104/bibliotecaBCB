@@ -119,6 +119,25 @@ export class BookService {
     }
   }
 
+  async searchBooks(searchTerm: string) {
+    this.attributeJwtToken();
+    try {
+      const response = await fetch(`https://${this.domain}/api/book/search?searchTerm=` + searchTerm, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + this.jwtToken
+        }
+      });
+      const data: Book = await response.json();
+      return data;
+    }
+    catch (error) {
+      console.error(error);
+      throw error;
+    }
+  }
+
   async createBook(book: BookDTO, file: File | null) {
     this.attributeJwtToken();
     const formData = new FormData();

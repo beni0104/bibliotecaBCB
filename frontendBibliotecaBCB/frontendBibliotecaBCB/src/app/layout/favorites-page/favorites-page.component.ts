@@ -69,20 +69,16 @@ export class FavoritesPageComponent {
     });
   }
 
-  searchBooks(): void {
+  async searchBooks() {
     if (!this.searchTerm || this.searchTerm === '') {
-      this.displayedBooks = this.allFavorites.slice(0, 25);
-      this.collectionSize = this.allFavorites.length;
-      this.filterApplied = false;
+      this.getFavoriteBooks();
     } else {
-      this.filteredBooks = this.allFavorites.filter(book =>
-        book.title.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-        book.author.toLowerCase().includes(this.searchTerm.toLowerCase())
-        // Add other fields you want to search by
-      );
-      this.collectionSize = this.filteredBooks.length;
-      this.displayedBooks = this.filteredBooks.slice(0, Math.min(25, this.collectionSize));
-      this.filterApplied = true;
+      this.bookservice.searchBooks(this.searchTerm).then((data: any) => {
+        this.filteredBooks = data.filter((book: any) => book.isFavorite);
+        this.collectionSize = this.filteredBooks.length;
+        this.displayedBooks = this.filteredBooks.slice(0, Math.min(25, this.filteredBooks.length));
+        this.filterApplied = true;
+      });
     }
   }
 

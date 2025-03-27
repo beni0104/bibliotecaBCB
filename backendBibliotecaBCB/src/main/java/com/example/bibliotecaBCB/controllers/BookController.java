@@ -111,20 +111,31 @@ public class BookController {
             return null;
     }
 
-//    @PostMapping("/createbooks")
-//    @PreAuthorize("hasRole('ADMIN')")
-//    //have to test if I can send one or more books with only this controller
-//    public ResponseEntity<List<Book>> saveBooks (@RequestBody List<Book> books){
-//        books.forEach(bookService::save);
-//        return ResponseEntity.ok(books);
-//    }
-//
-//    @PostMapping("/create")
-//    @PreAuthorize("hasRole('ADMIN')")
-//    public ResponseEntity<Book> saveBook (@RequestBody Book book){
-//        bookService.save(book);
-//        return ResponseEntity.ok(book);
-//    }
+    @GetMapping("/search")
+    public ResponseEntity<List<BookDTO>> searchBooks(@RequestParam String searchTerm,
+                                                     @RequestHeader(value="Authorization", required=false) String token) {
+        List<Book> books = bookService.searchBooks(searchTerm);
+        List<BookDTO> bookDTOS = new ArrayList<>();
+
+        Set<Long> favoriteBookIds = new HashSet<>();
+        if (token != null && token.startsWith("Bearer ") && token.split("\\.").length == 3) {
+            Long userId = jwtUtils.extractUserIdFromJWT(token);
+            if (userId != null) {
+                favoriteBookIds = favoriteService.getUserFavoritesBookIDs(userId);
+            }
+        }
+
+        for (Book book : books) {
+            BookDTO bookDTO = new BookDTO(book);
+            if (favoriteBookIds.contains(bookDTO.getBookId())) {
+                bookDTO.setFavorite(true);
+            }
+            bookDTOS.add(bookDTO);
+        }
+
+        return ResponseEntity.ok(bookDTOS);
+    }
+
 
     @PostMapping("/create")
     @PreAuthorize("hasRole('ADMIN')")
